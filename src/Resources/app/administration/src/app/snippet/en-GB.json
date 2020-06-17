@@ -1,0 +1,100 @@
+{
+    "postdirekt-addressfactory": {
+        "title": "Deutsche Post Direkt ADDRESSFACTORY",
+        "infobox": {
+            "bodyHtml": "Lorem Ipsum"
+        },
+        "apiTest": {
+            "buttonLabel": "Test API Access",
+            "successTitle": "API Test Successful",
+            "successMessage": "Credentials are valid",
+            "errorTitle": "API Test Failed",
+            "errorMessage": "Please check your credentials"
+        },
+        "orderList": {
+            "columnAnalysisStatus": "Deliverability Status",
+            "actionCheck" : "Check ADDRESSFACTORY deliverability",
+            "actionApply": "Apply ADDRESSFACTORY address correction"
+        },
+        "suggestBox": {
+            "suggestedShippingAddressLabel": "Suggested Shipping Address",
+            "buttonAutocorrectLabel": "Auto-Correct Address"
+        },
+        "infoBox": {
+            "analysisLabel": "Deliverability Analysis",
+            "addressInformation": "Address Information",
+            "otherActions": "Other Actions",
+            "performButtonLabel": "Perform Deliverability Analysis",
+            "cancelButtonLabel": "Cancel Order"
+        },
+        "analysisStatus": {
+            "possibleDeliverable": "Possibly Deliverable",
+            "deliverable": "Deliverable",
+            "undeliverable": "Undeliverable",
+            "correctionRecommended": "Correction Recommended",
+            "addressCorrected": "Address Corrected",
+            "notAnalysed": "Not Analysed",
+            "pending": "Pending"
+        },
+        "deliverabilityCodes": {
+            "possibleDeliverable": "Possibly Deliverable",
+            "deliverable": "Deliverable",
+            "undeliverable": "Undeliverable",
+            "correctionRecommended": "Correction Recommended",
+            "fieldCodes": {
+                "country": "Country",
+                "houseAddress": "House address",
+                "bulkRecipientAddress": "Bulk recipient address",
+                "street": "Street",
+                "building": "Building",
+                "household": "Household",
+                "person": "Person",
+                "postalCode": "Postal code",
+                "city": "City",
+                "cityAddition": "City addition",
+                "bulkReceiverName": "Bulk receiver name"
+            },
+            "statusCodes": {
+                "significantlyCorrected": "significantly corrected",
+                "marginallyCorrected": "marginally corrected",
+                "undeliverable": "undeliverable",
+                "incorporatedOrRenamed": "incorporated or renamed",
+                "different": "different",
+                "moved": "moved",
+                "addressTypeChanged": "address type changed",
+                "receiverDeceased": "receiver deceased",
+                "reportedlyDeceased": "reportedly deceased",
+                "matchedInRobinsonList": "matched in Robinson list",
+                "matchedInFakenameList": "matched in fake-name list",
+                "notMatched": "not matched",
+                "notFilled": "not filled",
+                "ambigouus": "ambigouus",
+                "isForeignAddress": "is foreign address",
+                "incorporated": "incorporated",
+                "isCompanyAddress": "is company address"
+            },
+            "mappedCodes": {
+                "addressNotCorrectable": "Address not correctable",
+                "receiverNotFoundInPostReferenceData": "Receiver not found in Post reference data"
+            }
+        },
+        "performAnalysis": {
+            "title": "Post Direkt ADDRESSFACTORY Analysis",
+            "errorTitle": "Post Direkt ADDRESSFACTORY Analysis Failed",
+            "updateSuccess": "Order {orderNumber} address updated with ADDRESSFACTORY DIRECT suggestion",
+            "cancelled": "Undeliverable Order {orderNumber} canceled.",
+            "error": "Could not perform ADDRESSFACTORY DIRECT analysis for {orderNumber}.",
+            "genericError": "Something went wrong."
+        },
+        "updateAddress": {
+            "title": "Post Direkt ADDRESSFACTORY",
+            "errorTitle": "Address Update Failed",
+            "notAnalysed": "Order was not yet analysed",
+            "noDeliveries": "Order has no deliveries",
+            "noDeliveryAddress": "Order has no delivery address",
+            "error": "Delivery address  update failed",
+            "success": "Delivery address successfully updated",
+            "idMismatch": "Could not update delivery address: Address ID mismatch"
+        }
+    }
+}

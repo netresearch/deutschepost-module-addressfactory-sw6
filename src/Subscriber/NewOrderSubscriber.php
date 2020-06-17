@@ -1,0 +1,115 @@
+<?php
+
+/**
+ * See LICENSE.md for license details.
+ */
+
+declare(strict_types=1);
+
+namespace PostDirekt\Addressfactory\Subscriber;
+
+use PostDirekt\Addressfactory\Service\AnalysisStatusUpdater;
+use PostDirekt\Addressfactory\Service\ModuleConfig;
+use PostDirekt\Addressfactory\Service\OrderAnalysis;
+use PostDirekt\Addressfactory\Service\OrderUpdater;
+use Psr\Log\LoggerInterface;
+use Shopware\Core\Checkout\Cart\Event\CheckoutOrderPlacedEvent;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+
+class NewOrderSubscriber implements EventSubscriberInterface
+{
+    /**
+     * @var ModuleConfig
+     */
+    private $config;
+
+    /**
+     * @var AnalysisStatusUpdater
+     */
+    private $analysisStatus;
+
+    /**
+     * @var OrderAnalysis
+     */
+    private $analyseService;
+
+    /**
+     * @var OrderUpdater
+     */
+    private $orderUpdater;
+
+    /**
+     * @var LoggerInterface
+     */
+    private $logger;
+
+    public function __construct(
+        ModuleConfig $config,
+        AnalysisStatusUpdater $analysisStatus,
+        OrderAnalysis $analyseService,
+        OrderUpdater $orderUpdater,
+        LoggerInterface $logger
+    ) {
+        $this->config = $config;
+        $this->analysisStatus = $analysisStatus;
+        $this->analyseService = $analyseService;
+        $this->orderUpdater = $orderUpdater;
+        $this->logger = $logger;
+    }
+
+    public static function getSubscribedEvents(): array
+    {
+        return [
+            CheckoutOrderPlacedEvent::class => 'onOrderPlace',
+        ];
+    }
+
+    public function onOrderPlace(CheckoutOrderPlacedEvent $event): void
+    {
+        $order = $event->getOrder();
+
+        if ($order->getDeliveries() === null) {
+            // Order is virtual or broken
+            return;
+        }
+
+        $shippingAddress = $order->getDeliveries()->getShippingAddress()->first();
+
+        if (!$shippingAddress || !$shippingAddress->getCountry() || $shippingAddress->getCountry()->getIso() !== 'DE') {
+            // Only process german shipping addresses
+            return;
+        }
+
+        $channelId = $event->getSalesChannelId();
+
+        $orderId = $order->getId();
+        $status = $this->analysisStatus->getStatus($orderId, $event->getContext());
+        if ($status !== AnalysisStatusUpdater::NOT_ANALYSED) {
+            // The order already has been analysed
+            return;
+        }
+
+        if ($this->config->isCronAnalysis($channelId)) {
+            // Pending status means the cron will pick up the order
+            $this->analysisStatus->setStatusPending($orderId, $event->getContext());
+        }
+
+        if ($this->config->isSynchronousAnalysis($channelId)) {
+            $analysisResults = $this->analyseService->analyse([$order], $event->getContext());
+            $analysisResult = $analysisResults[$orderId];
+            if (!$analysisResult) {
+                $this->logger->error(
+                    sprintf('ADDRESSFACTORY DIRECT: Order %s could not be analysed', $order->getOrderNumber())
+                );
+
+                return;
+            }
+            if ($this->config->isAutoCancelNonDeliverableOrders($channelId)) {
+                $this->orderUpdater->cancelIfUndeliverable($order, $analysisResult, $event->getContext());
+            }
+            if ($this->config->isAutoUpdateShippingAddress($channelId)) {
+                $this->analyseService->updateShippingAddress($orderId, $analysisResult, $event->getContext());
+            }
+        }
+    }
+}

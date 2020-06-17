@@ -1,0 +1,100 @@
+{
+    "postdirekt-addressfactory": {
+        "title": "Deutsche Post Direkt Addressfactory",
+        "infobox": {
+            "bodyHtml": "Lorem ipsum"
+        },
+        "apiTest": {
+            "buttonLabel": "API-Zugriff testen",
+            "successTitle": "API-Test erfolgreich",
+            "successMessage": "Zugangsdaten sind gültig",
+            "errorTitle": "API-Test gescheitert",
+            "errorMessage": "Bitte überprüfen Sie Ihre Zugangsdaten"
+        },
+        "orderList": {
+            "columnAnalysisStatus": "Zustellbarkeits-Status",
+            "actionCheck": "ADDRESSFACTORY Zustellbarkeit überprüfen",
+            "actionApply": "ADDRESSFACTORY Adresskorrektur anwenden"
+        },
+        "suggestBox": {
+            "suggestedShippingAddressLabel": "Vorgeschlagene Versandadresse",
+            "buttonAutocorrectLabel": "Automatisch korrigieren"
+        },
+        "infoBox": {
+            "analysisLabel": "Zustellbarkeits-Analyse",
+            "addressInformation": "Adress-Informationen",
+            "otherActions": "Weitere Aktionen",
+            "performButtonLabel": "Zustellbarkeits-Analyse durchführen",
+            "cancelButtonLabel": "Bestellung stornieren"
+        },
+        "analysisStatus": {
+            "possibleDeliverable": "Möglicherweise zustellbar",
+            "deliverable": "Zustellbar",
+            "undeliverable": "Unzustellbar",
+            "correctionRecommended": "Korrektur empfohlen",
+            "addressCorrected": "Adresse korrigiert",
+            "notAnalysed": "Nicht analysiert",
+            "pending": "Ausstehend"
+        },
+        "deliverabilityCodes": {
+            "possibleDeliverable": "Möglicherweise zustellbar",
+            "deliverable": "Zustellbar",
+            "undeliverable": "Unzustellbar",
+            "correctionRecommended": "Korrektur empfohlen",
+            "fieldCodes": {
+                "country": "Land",
+                "houseAddress": "Hausanschrift",
+                "bulkRecipientAddress": "Großempfänder-Adresse",
+                "street": "Straße",
+                "building": "Gebäude",
+                "household": "Haushalt",
+                "person": "Person",
+                "postalCode": "PLZ",
+                "city": "Ort",
+                "cityAddition": "Ortszusatz",
+                "bulkReceiverName": "Großempfängername"
+            },
+            "statusCodes": {
+                "significantlyCorrected": "signifikant korrigiert",
+                "marginallyCorrected": "geringfügig korrigiert",
+                "undeliverable": "unzustellbar",
+                "incorporatedOrRenamed": "eingemeindet oder umbenannt",
+                "different": "abweichend",
+                "moved": "umgezogen",
+                "addressTypeChanged": "Anschriftentyp geändert",
+                "receiverDeceased": "Empfänger verstorben",
+                "reportedlyDeceased": "Empfänger soll verstorben sein",
+                "matchedInRobinsonList": "getroffen in Robinsonliste",
+                "matchedInFakenameList": "getroffen in Fake-Namensliste",
+                "notMatched": "nicht getroffen",
+                "notFilled": "nicht befüllt",
+                "ambigouus": "mehrdeutig",
+                "isForeignAddress": "ist Auslandsadresse",
+                "incorporated": "eingemeindet",
+                "isCompanyAddress": "ist Firmenadresse"
+            },
+            "mappedCodes": {
+                "addressNotCorrectable": "Adresse nicht korrigierbar",
+                "receiverNotFoundInPostReferenceData": "Nicht in Post Referenzdaten gefunden"
+            }
+        },
+        "performAnalysis": {
+            "title": "Post Direkt ADDRESSFACTORY Analyse",
+            "errorTitle": "Post Direkt ADDRESSFACTORY Analyse fehlgeschlagen",
+            "updateSuccess": "Bestellung {orderNumber} Adresse mit ADDRESSFACTORY DIRECT-Vorschlag aktualisiert",
+            "cancelled": "Unzustellbare Bestellung {orderNumber} storniert.",
+            "error": "Konnte keine ADDRESSFACTORY DIRECT-Analyse für Bestellung {orderNumber} durchführen.",
+            "genericError": "Etwas ist schief gegangen."
+        },
+        "updateAddress": {
+            "title": "Post Direkt ADDRESSFACTORY",
+            "errorTitle": "Adressaktualisierung fehlgeschlagen",
+            "notAnalysed": "Bestellung wurde noch nicht geprüft",
+            "noDeliveries": "Bestellung hat keine Lieferungen",
+            "noDeliveryAddress": "Bestellung hat keine Lieferadresse",
+            "error": "Adressen-Update gescheitert",
+            "success": "Adresse erfolgreich aktualisiert",
+            "idMismatch": "Versandadresse konnte nicht aktualisiert werden: Adress-ID passt nicht"
+        }
+    }
+}

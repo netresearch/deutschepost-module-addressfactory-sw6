@@ -1,0 +1,11 @@
+src/Resources/app/storefront/dist
+src/Resources/app/storefront/package-lock.json
+src/Resources/app/storefront/coverage
+src/Resources/app/administration/dist
+src/Resources/app/administration/coverage
+**/node_modules
+src/Resources/public
+vendor
+.phpunit.result.cache
+phpstan.neon
+composer.lock
