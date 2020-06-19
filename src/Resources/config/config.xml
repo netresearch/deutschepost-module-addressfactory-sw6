@@ -32,7 +32,7 @@
         <input-field>
             <name>clientId</name>
             <label>ADDRESSFACTORY DIRECT Client ID</label>
-            <label lang="de-DE">ADDRESSFACTORY DIRECT Mandant-ID</label>
+            <label lang="de-DE">ADDRESSFACTORY DIRECT Mandanten-Name</label>
         </input-field>
         <component name="postdirekt.addressfactory.api-test-button">
             <name>postdirektAddressfactoryApiTestButton</name>
@@ -59,7 +59,7 @@
                 </option>
                 <option>
                     <id>synchrounous</id>
-                    <name>Analysis on Order place</name>
+                    <name>Analysis on Order placement</name>
                     <name lang="de-DE">Analyse bei Bestellungsabschluß</name>
                 </option>
             </options>
@@ -71,8 +71,8 @@
         </input-field>
         <input-field type="bool">
             <name>autoUpdateOrder</name>
-            <label>Auto-Correct Shipping Addresses</label>
-            <label lang="de-DE">Lieferaddressen automatisch korrigieren</label>
+            <label>Automatically Update Shipping Address</label>
+            <label lang="de-DE">Versandadresse automatisch aktualisieren</label>
         </input-field>
     </card>
 </config>

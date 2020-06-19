@@ -13,18 +13,18 @@
         },
         "orderList": {
             "columnAnalysisStatus": "Deliverability Status",
-            "actionCheck" : "Check ADDRESSFACTORY deliverability",
-            "actionApply": "Apply ADDRESSFACTORY address correction"
+            "actionCheck" : "Check shipping address (ADDRESSFACTORY)",
+            "actionApply": "Autocorrect shipping address (ADDRESSFACTORY)"
         },
         "suggestBox": {
             "suggestedShippingAddressLabel": "Suggested Shipping Address",
-            "buttonAutocorrectLabel": "Auto-Correct Address"
+            "buttonAutocorrectLabel": "Autocorrect Address"
         },
         "infoBox": {
-            "analysisLabel": "Deliverability Analysis",
+            "analysisLabel": "Shipping Address Check",
             "addressInformation": "Address Information",
             "otherActions": "Other Actions",
-            "performButtonLabel": "Perform Deliverability Analysis",
+            "performButtonLabel": "Check Shipping Address",
             "cancelButtonLabel": "Cancel Order"
         },
         "analysisStatus": {
@@ -33,7 +33,7 @@
             "undeliverable": "Undeliverable",
             "correctionRecommended": "Correction Recommended",
             "addressCorrected": "Address Corrected",
-            "notAnalysed": "Not Analysed",
+            "notAnalysed": "Not Checked",
             "pending": "Pending"
         },
         "deliverabilityCodes": {
@@ -89,7 +89,7 @@
         "updateAddress": {
             "title": "Post Direkt ADDRESSFACTORY",
             "errorTitle": "Address Update Failed",
-            "notAnalysed": "Order was not yet analysed",
+            "notAnalysed": "Order was not yet checked",
             "noDeliveries": "Order has no deliveries",
             "noDeliveryAddress": "Order has no delivery address",
             "error": "Delivery address  update failed",

@@ -13,31 +13,31 @@
         },
         "orderList": {
             "columnAnalysisStatus": "Zustellbarkeits-Status",
-            "actionCheck": "ADDRESSFACTORY Zustellbarkeit überprüfen",
-            "actionApply": "ADDRESSFACTORY Adresskorrektur anwenden"
+            "actionCheck": "Versandadresse prüfen (ADDRESSFACTORY)",
+            "actionApply": "Versandadresse automatisch korrigieren (ADDRESSFACTORY)"
         },
         "suggestBox": {
             "suggestedShippingAddressLabel": "Vorgeschlagene Versandadresse",
             "buttonAutocorrectLabel": "Automatisch korrigieren"
         },
         "infoBox": {
-            "analysisLabel": "Zustellbarkeits-Analyse",
+            "analysisLabel": "Versandadressen-Prüfung",
             "addressInformation": "Adress-Informationen",
             "otherActions": "Weitere Aktionen",
-            "performButtonLabel": "Zustellbarkeits-Analyse durchführen",
+            "performButtonLabel": "Versandadressen-Prüfung durchführen",
             "cancelButtonLabel": "Bestellung stornieren"
         },
         "analysisStatus": {
-            "possibleDeliverable": "Möglicherweise zustellbar",
+            "possibleDeliverable": "Eventuell zustellbar",
             "deliverable": "Zustellbar",
             "undeliverable": "Unzustellbar",
             "correctionRecommended": "Korrektur empfohlen",
             "addressCorrected": "Adresse korrigiert",
-            "notAnalysed": "Nicht analysiert",
+            "notAnalysed": "Nicht geprüft",
             "pending": "Ausstehend"
         },
         "deliverabilityCodes": {
-            "possibleDeliverable": "Möglicherweise zustellbar",
+            "possibleDeliverable": "Eventuell zustellbar",
             "deliverable": "Zustellbar",
             "undeliverable": "Unzustellbar",
             "correctionRecommended": "Korrektur empfohlen",
@@ -74,7 +74,7 @@
                 "isCompanyAddress": "ist Firmenadresse"
             },
             "mappedCodes": {
-                "addressNotCorrectable": "Adresse nicht korrigierbar",
+                "addressNotCorrectable": "Adresse nicht valide",
                 "receiverNotFoundInPostReferenceData": "Nicht in Post Referenzdaten gefunden"
             }
         },
