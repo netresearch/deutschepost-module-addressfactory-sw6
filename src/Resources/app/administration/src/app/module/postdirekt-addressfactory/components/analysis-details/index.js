@@ -1,6 +1,7 @@
 import template from './analysis-details.html.twig';
 import './analysis-details.scss';
 import deliverabilityCodes from './../../deliverability-codes';
+import analysisStatus from './../../analysis-status';
 
 const {Context, Mixin} = Shopware;
 const {Criteria} = Shopware.Data;
@@ -19,6 +20,7 @@ Shopware.Component.register('postdirekt.addressfactory.analysis-details', {
     data() {
         return {
             analysisResult: null,
+            analysisStatus: null,
             isLoading: false,
         };
     },
@@ -31,6 +33,9 @@ Shopware.Component.register('postdirekt.addressfactory.analysis-details', {
     computed: {
         analysisResultRepository() {
             return this.repositoryFactory.create('postdirekt_addressfactory_analysis_result');
+        },
+        analysisStatusRepository() {
+            return this.repositoryFactory.create('postdirekt_addressfactory_analysis_status');
         },
         deliveryAddress() {
             if (!this.order.deliveries[0]) {
@@ -50,19 +55,27 @@ Shopware.Component.register('postdirekt.addressfactory.analysis-details', {
             return "nrlejpostdirektaddressfactory/static/assets/images/addressfactory-logo.png"
         },
         getExistingAnalysis() {
+            const resultCriteria = new Criteria();
+            const statusCriteria = new Criteria();
+
             this.isLoading = true;
-            const criteria = new Criteria();
-            criteria.addFilter(
-                Criteria.equals('orderAddressId', this.deliveryAddress.id)
-            );
-            this.analysisResultRepository.search(criteria, Context.api)
-            .then((result) => {
+
+            resultCriteria.addFilter(Criteria.equals('orderAddressId', this.deliveryAddress.id));
+            statusCriteria.addFilter(Criteria.equals('orderId', this.order.id));
+
+            Promise.all([
+                this.analysisResultRepository.search(resultCriteria, Context.api),
+                this.analysisStatusRepository.search(statusCriteria, Context.api)
+            ]).then(([result, status]) => {
                 if (result.first()) {
                     this.analysisResult = result.first();
                 }
+                if (status.first()) {
+                    this.analysisStatus = status.first().status;
+                }
             }).finally(() => {
                 this.isLoading = false;
-            });
+            })
         },
         getHumanReadableScore() {
             const scores = {
@@ -80,8 +93,12 @@ Shopware.Component.register('postdirekt.addressfactory.analysis-details', {
                 return deliverabilityCodes.POSSIBLY_DELIVERABLE;
             }
 
-            /** @TODO: Derive value from the analysis status */
-            const wasAlreadyUpdated = false;
+            const wasAlreadyUpdated = (() => {
+                if (!this.analysisStatus) {
+                    return false;
+                }
+                return this.analysisStatus === analysisStatus.ADDRESS_CORRECTED
+            })();
 
             return deliverabilityCodes.computeScore(
                 this.analysisResult.statusCodes.split(','),
