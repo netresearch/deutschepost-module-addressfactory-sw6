@@ -163,6 +163,7 @@ class DeliverabilityCodes
         ];
 
         $mappedStatusCodes = [
+            '000' => '',
             '103' => 'significantly corrected',
             '104' => 'marginally corrected',
             '106' => 'undeliverable',

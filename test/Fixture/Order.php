@@ -59,7 +59,7 @@ class Order
         $this->container = $container;
     }
 
-    public function create(?string $id = null)
+    public function create(?string $id = null): string
     {
         $orderId = $id ?? Uuid::randomHex();
         $orderData = $this->getOrderData($orderId);

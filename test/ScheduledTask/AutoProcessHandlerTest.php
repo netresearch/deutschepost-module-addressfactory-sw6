@@ -6,7 +6,7 @@
 
 declare(strict_types=1);
 
-namespace PostDirekt\Addressfactory\Test;
+namespace PostDirekt\Addressfactory\Test\ScheduledTask;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;

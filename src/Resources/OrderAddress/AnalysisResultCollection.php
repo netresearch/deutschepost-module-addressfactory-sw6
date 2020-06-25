@@ -13,7 +13,7 @@ use Shopware\Core\Framework\DataAbstractionLayer\EntityCollection;
 /**
  * @method void                add(AnalysisResult $entity)
  * @method void                set(string $key, AnalysisResult $entity)
- * @method AnalysisResult[]    getIterator()
+ * @method \Generator          getIterator()
  * @method AnalysisResult[]    getElements()
  * @method AnalysisResult|null get(string $key)
  * @method AnalysisResult|null first()

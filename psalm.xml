@@ -22,10 +22,21 @@
                 <referencedProperty name="Symfony\Component\DependencyInjection\ContainerAwareTrait::$container"/>
                 <!-- PHPUnit test case property will not be explicitly set by our test classes (no constructor overwrite) -->
                 <referencedProperty name="PHPUnit\Framework\TestCase::$backupGlobals"/>
+                <referencedProperty name="PostDirekt\Addressfactory\ScheduledTask\AutoProcess::$taskId"/>
                 <!-- Property set in setup method -->
                 <directory name="test"/>
+                <!-- Controllers have di-container through ContainerAwareTrait in AbstractController -->
+                <directory name="src/Controller"/>
+                <directory name="src/Resources/OrderAddress"/>
+                <file name="src/ScheduledTask/AutoProcess.php"/>
             </errorLevel>
         </PropertyNotSetInConstructor>
+        <MoreSpecificImplementedParamType>
+            <errorLevel type="info">
+                <!-- Entity definitions specify types by design -->
+                <directory name="src/Resources/OrderAddress"/>
+            </errorLevel>
+        </MoreSpecificImplementedParamType>
         <InternalMethod>
             <errorLevel type="info">
                 <!-- For some reason psalm thinks some PHPUnit mock manipulation methods are internal -->
@@ -34,17 +45,49 @@
         </InternalMethod>
         <PossiblyUndefinedMethod>
             <errorLevel type="info">
-<!-- Mock object methods are not properly recognized due to compound type -->
+                <!-- Mock object methods are not properly recognized due to compound type -->
                 <directory name="test"/>
             </errorLevel>
         </PossiblyUndefinedMethod>
+        <InvalidArgument>
+            <errorLevel type="info">
+                <directory name="test"/>
+            </errorLevel>
+        </InvalidArgument>
         <PossiblyInvalidArgument>
             <errorLevel type="info">
-<!-- Mock objects do not satisfy type requirements of constructors due to compound type -->
+                <!-- Mock objects do not satisfy type requirements of constructors due to compound type -->
                 <directory name="test"/>
             </errorLevel>
         </PossiblyInvalidArgument>
-<!-- test/TestBootstrap dynamically includes things, which psalm can not resolve -->
+        <MissingConstructor>
+            <errorLevel type="info">
+                <!-- Contains entity defintions for SW DAL, therefore no constructors-->
+                <directory name="src/Resources/OrderAddress"/>
+            </errorLevel>
+        </MissingConstructor>
+        <!-- test/TestBootstrap dynamically includes things, which psalm can not resolve -->
         <UnresolvableInclude errorLevel="info"/>
+        <ArgumentTypeCoercion>
+            <errorLevel type="info">
+                <directory name="test"/>
+            </errorLevel>
+        </ArgumentTypeCoercion>
+        <PropertyTypeCoercion>
+            <errorLevel type="info">
+                <directory name="test"/>
+            </errorLevel>
+        </PropertyTypeCoercion>
+        <InternalMethod>
+            <errorLevel type="info">
+                <file name="src/ScheduledTask/AutoProcessHandler.php"/>
+                <directory name="test"/>
+            </errorLevel>
+        </InternalMethod>
+        <PossiblyNullReference>
+            <errorLevel type="info">
+                <directory name="test"/>
+            </errorLevel>
+        </PossiblyNullReference>
     </issueHandlers>
 </psalm>

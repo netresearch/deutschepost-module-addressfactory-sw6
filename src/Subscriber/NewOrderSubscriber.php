@@ -68,14 +68,17 @@ class NewOrderSubscriber implements EventSubscriberInterface
     {
         $order = $event->getOrder();
 
-        if ($order->getDeliveries() === null) {
+        $deliveries = $order->getDeliveries();
+        if ($deliveries === null) {
             // Order is virtual or broken
             return;
         }
 
-        $shippingAddress = $order->getDeliveries()->getShippingAddress()->first();
+        $shippingAddress = $deliveries->getShippingAddress()->first();
 
-        if (!$shippingAddress || !$shippingAddress->getCountry() || $shippingAddress->getCountry()->getIso() !== 'DE') {
+        if ($shippingAddress === null
+            || ($country = $shippingAddress->getCountry()) === null
+            || $country->getIso() !== 'DE') {
             // Only process german shipping addresses
             return;
         }

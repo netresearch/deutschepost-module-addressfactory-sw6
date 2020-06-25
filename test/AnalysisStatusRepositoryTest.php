@@ -52,7 +52,9 @@ class AnalysisStatusRepositoryTest extends TestCase
     {
         $this->context = Context::createDefaultContext();
         $this->orderRepository = $this->getContainer()->get('order.repository');
-        $this->subject = $this->getContainer()->get('analysis_status.repository');
+        /** @var EntityRepositoryInterface $subject */
+        $subject = $this->getContainer()->get('postdirekt_addressfactory_analysis_status.repository');
+        $this->subject = $subject;
         $this->statusId = Uuid::randomHex();
 
         $orderFixture = new Order(
@@ -72,16 +74,18 @@ class AnalysisStatusRepositoryTest extends TestCase
         static::assertNotNull($order);
 
         $result = $this->subject->create(
-            [[
-                'status' => self::TESTSTATUS,
-                'orderId' => $order->getId(),
-            ]],
+            [
+                [
+                    'status' => self::TESTSTATUS,
+                    'orderId' => $order->getId(),
+                ],
+            ],
             $this->context
         );
 
         static::assertEmpty($result->getErrors(), implode(', ', $result->getErrors()));
         $count = $this->getContainer()->get(Connection::class)->fetchAll(
-            'SELECT * FROM `analysis_status` WHERE status = :status',
+            'SELECT * FROM `postdirekt_addressfactory_analysis_status` WHERE status = :status',
             ['status' => self::TESTSTATUS]
         );
         static::assertCount(1, $count);
@@ -94,10 +98,12 @@ class AnalysisStatusRepositoryTest extends TestCase
         static::assertNotNull($order);
 
         $this->subject->create(
-            [[
-                'status' => self::TESTSTATUS,
-                'orderId' => $order->getId(),
-            ]],
+            [
+                [
+                    'status' => self::TESTSTATUS,
+                    'orderId' => $order->getId(),
+                ],
+            ],
             $this->context
         );
 
@@ -117,16 +123,18 @@ class AnalysisStatusRepositoryTest extends TestCase
 
     public function testOrderAssociation(): void
     {
-        /** @var OrderEntity $order */
+        /** @var OrderEntity|null $order */
         $order = $this->orderRepository->search(new Criteria(), $this->context)->first();
 
         static::assertNotNull($order);
 
         $this->subject->create(
-            [[
-                'status' => self::TESTSTATUS,
-                'orderId' => $order->getId(),
-            ]],
+            [
+                [
+                    'status' => self::TESTSTATUS,
+                    'orderId' => $order->getId(),
+                ],
+            ],
             $this->context
         );
 
@@ -140,7 +148,9 @@ class AnalysisStatusRepositoryTest extends TestCase
         static::assertCount(1, $result->getElements());
         /** @var AnalysisStatusInterface $entity */
         $entity = $result->first();
-        static::assertSame(OrderEntity::class, get_class($entity->getOrder()));
-        static::assertSame($order->getId(), $entity->getOrder()->getId());
+        $orderObject = $entity->getOrder();
+        static::assertNotNull($orderObject);
+        static::assertSame(OrderEntity::class, get_class($orderObject));
+        static::assertSame($order->getId(), $orderObject->getId());
     }
 }

@@ -9,6 +9,8 @@ declare(strict_types=1);
 namespace PostDirekt\Addressfactory\ScheduledTask;
 
 use PostDirekt\Addressfactory\Resources\OrderAddress\AnalysisResultInterface;
+use PostDirekt\Addressfactory\Resources\OrderAddress\AnalysisStatus;
+use PostDirekt\Addressfactory\Resources\OrderAddress\AnalysisStatusCollection;
 use PostDirekt\Addressfactory\Service\AnalysisStatusUpdater;
 use PostDirekt\Addressfactory\Service\ModuleConfig;
 use PostDirekt\Addressfactory\Service\OrderAnalysis;
@@ -71,7 +73,7 @@ class AutoProcessHandler extends ScheduledTaskHandler
     }
 
     /**
-     * Analyse and process all new Orders that have been put into analyisis status "pending"
+     * Analyse and process all new Orders that have been put into analysis status "pending"
      */
     public function run(): void
     {
@@ -143,10 +145,13 @@ class AutoProcessHandler extends ScheduledTaskHandler
         $criteria = (new Criteria())
             ->addFilter(new EqualsFilter('status', AnalysisStatusUpdater::PENDING))
             ->addAssociations(['order', 'order.deliveries']);
+        /** @var AnalysisStatusCollection $statuses */
         $statuses = $this->analysisStatusRepo->search($criteria, $context)->getEntities();
 
-        return $statuses->fmap(static function ($item) {
-            return $item->getOrder();
-        });
+        return $statuses->fmap(
+            static function (AnalysisStatus $item): ?OrderEntity {
+                return $item->getOrder();
+            }
+        );
     }
 }

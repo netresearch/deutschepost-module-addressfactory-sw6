@@ -70,7 +70,7 @@ class AddressUpdater
         OrderAddressEntity $orderAddress
     ): bool {
         $street = trim(implode(' ', [$analysisResult->getStreet(), $analysisResult->getStreetNumber()]));
-        $orderStreet = trim(implode('', $orderAddress->getStreet()));
+        $orderStreet = trim($orderAddress->getStreet());
 
         return $orderAddress->getFirstName() !== $analysisResult->getFirstName()
             || $orderAddress->getLastName() !== $analysisResult->getLastName()

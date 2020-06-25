@@ -57,7 +57,6 @@ class OrderAnalysis
      */
     public function analyse(array $orders, Context $context): array
     {
-        /** @var OrderAddressEntity[] $addresses */
         $addresses = [];
         foreach ($orders as $order) {
             $deliveries = $order->getDeliveries();
@@ -65,7 +64,8 @@ class OrderAnalysis
                 $addresses[] = $deliveries->getShippingAddress()->first();
             }
         }
-        array_filter($addresses);
+        /** @var OrderAddressEntity[] $addresses */
+        $addresses = array_filter($addresses);
 
         try {
             $analysisResults = $this->addressAnalysis->analyse($addresses, $context);

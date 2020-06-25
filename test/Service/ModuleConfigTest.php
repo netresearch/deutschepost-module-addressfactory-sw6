@@ -30,11 +30,6 @@ class ModuleConfigTest extends TestCase
         parent::setUp();
     }
 
-    public function testIsActive(): void
-    {
-        static::assertTrue($this->subject->isActive());
-    }
-
     public function testGetApiUser(): void
     {
         static::assertEquals('NRLEJPostDirektAddressfactory.config.apiUser', $this->subject->getApiUser());

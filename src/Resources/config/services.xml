@@ -8,7 +8,6 @@
             <argument id="Shopware\Core\System\SystemConfig\SystemConfigService" type="service"/>
         </service>
         <!-- Propagated Factory from the Addressfactory SDK -->
-        <service id="PostDirekt\Sdk\Addressfactory\Authentication\Service\ServiceFactory" public="true"/>
         <service id="PostDirekt\Sdk\AddressfactoryDirect\Service\ServiceFactory"/>
         <service id="PostDirekt\Sdk\AddressfactoryDirect\RequestBuilder\RequestBuilder"/>
         <service id="PostDirekt\Addressfactory\Subscriber\NewOrderSubscriber" public="true">

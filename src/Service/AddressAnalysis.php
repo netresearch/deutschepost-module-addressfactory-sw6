@@ -133,7 +133,7 @@ class AddressAnalysis
     /**
      * @param string[] $addressIds
      */
-    private function buildRequest(OrderAddressEntity $address, array $addressIds): InRecordWSType
+    private function buildRequest(OrderAddressEntity $address, array $addressIds): object
     {
         /* The record id is used in mapRecordsResponse to match webservice results to invidual addresses */
         $this->requestBuilder->setMetadata(array_flip($addressIds)[$address->getId()]);
@@ -165,15 +165,22 @@ class AddressAnalysis
             $result = new AnalysisResult();
             $result->setOrderAddressId($addressIds[$record->getRecordId()]);
             $result->setStatusCodes($record->getStatusCodes());
-            $result->setFirstName($record->getPerson() ? $record->getPerson()->getFirstName() : '');
-            $result->setLastName($record->getPerson() ? $record->getPerson()->getLastName() : '');
-            if ($record->getAddress()) {
-                $result->setPostalCode($record->getAddress()->getPostalCode());
-                $result->setCity($record->getAddress()->getCity());
-                $result->setStreet($record->getAddress()->getStreetName());
+            $person = $record->getPerson();
+            if ($person !== null) {
+                $result->setFirstName($person->getFirstName());
+                $result->setLastName($person->getLastName());
+            } else {
+                $result->setFirstName('');
+                $result->setLastName('');
+            }
+            $address = $record->getAddress();
+            if ($address !== null) {
+                $result->setPostalCode($address->getPostalCode());
+                $result->setCity($address->getCity());
+                $result->setStreet($address->getStreetName());
                 $result->setStreetNumber(trim(implode(' ', [
-                    $record->getAddress()->getStreetNumber(),
-                    $record->getAddress()->getStreetNumberAddition(),
+                    $address->getStreetNumber(),
+                    $address->getStreetNumberAddition(),
                 ])));
             }
             $newAnalysisResults[$result->getOrderAddressId()] = $result;
