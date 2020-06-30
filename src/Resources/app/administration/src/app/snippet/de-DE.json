@@ -2,7 +2,7 @@
     "postdirekt-addressfactory": {
         "title": "Deutsche Post Direkt Addressfactory",
         "infobox": {
-            "bodyHtml": "Lorem ipsum"
+            "bodyHtml": "<p>ADDRESSFACTORY DIRECT ist ein Service von Deutsche Post Direkt zur Validierung von Adressdaten.<br>Dieses Plugin integriert ADDRESSFACTORY DIRECT in Shopware, damit Sie die Versandadressen Ihrer Kunden prüfen können, bevor Sie die Bestellungen absenden. Nachdem Ihre Kunden eine Bestellung aufgegeben haben, können Sie die Versandadresse manuell oder automatisch prüfen. Die Adresse wird geprüft in Bezug auf das Adressformat (Postleitzahl, Straßenname und Stadt) und die Wahrscheinlichkeit einer erfolgreichen Zustellung an den Empfänger.<br>Grundlage dieser Prüfung ist die Postreferenz-Datenbank von Deutsche Post Direkt. Diese Datenbank ist in Deutschland einzigartig, mit etwa 210 Millionen aktuellen und ehemaligen Privatadressen für Validierungszwecke.</p> <h2>Einfach loslegen:</h2> <p>Sie benötigen einen gültigen Account der Deutsche Post Direkt. Wenn Sie noch keinen gültigen oder aktivierten Account haben, <a href=\"https://www.postdirekt.de/autocomplete\" rel=\"noopener\" target=\"_blank\">kontaktieren Sie bitte die Deutsche Post Direkt</a>, um von unseren Adresslösungen zu profitieren.</p>"
         },
         "apiTest": {
             "buttonLabel": "API-Zugriff testen",
