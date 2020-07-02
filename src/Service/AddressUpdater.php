@@ -12,6 +12,7 @@ use PostDirekt\Addressfactory\Resources\OrderAddress\AnalysisResultInterface;
 use Shopware\Core\Checkout\Order\Aggregate\OrderAddress\OrderAddressEntity;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
+use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 
 class AddressUpdater
 {
@@ -45,6 +46,14 @@ class AddressUpdater
         AnalysisResultInterface $analysisResult,
         Context $context
     ): bool {
+        $orderAddress = $this->orderAddressRepository->search(
+            new Criteria([$analysisResult->getOrderAddressId()]),
+            $context
+        )->first();
+        if (!$orderAddress || !$this->addressesAreDifferent($analysisResult, $orderAddress)) {
+            return false;
+        }
+
         $event = $this->orderAddressRepository->update(
             [
                 [
