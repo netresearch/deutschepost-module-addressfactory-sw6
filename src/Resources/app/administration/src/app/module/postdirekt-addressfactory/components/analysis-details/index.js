@@ -45,7 +45,43 @@ Shopware.Component.register('postdirekt.addressfactory.analysis-details', {
         },
         isCancellable() {
             return this.order.stateMachineState.technicalName !== 'cancelled';
-        }
+        },
+        score() {
+            if (!this.analysisResult) {
+                return deliverabilityCodes.POSSIBLY_DELIVERABLE;
+            }
+
+            const wasAlreadyUpdated = (() => {
+                if (!this.analysisStatus) {
+                    return false;
+                }
+                return this.analysisStatus === analysisStatus.ADDRESS_CORRECTED
+            })();
+
+            return deliverabilityCodes.computeScore(
+                this.analysisResult.statusCodes.split(','),
+                wasAlreadyUpdated
+            );
+        },
+        scoreColor() {
+            if (this.score === deliverabilityCodes.DELIVERABLE) {
+                return '#50be03';
+            } else if (this.score === deliverabilityCodes.POSSIBLY_DELIVERABLE) {
+                return '#ffcc01';
+            } else {
+                return '#ff0000';
+            }
+        },
+        humanReadableScore() {
+            const scores = {
+                [deliverabilityCodes.POSSIBLY_DELIVERABLE]: this.$t('postdirekt-addressfactory.deliverabilityCodes.possibleDeliverable'),
+                [deliverabilityCodes.DELIVERABLE]: this.$t('postdirekt-addressfactory.deliverabilityCodes.deliverable'),
+                [deliverabilityCodes.UNDELIVERABLE]: this.$t('postdirekt-addressfactory.deliverabilityCodes.undeliverable'),
+                [deliverabilityCodes.CORRECTION_REQUIRED]: this.$t('postdirekt-addressfactory.deliverabilityCodes.correctionRecommended'),
+            };
+
+            return scores[this.score];
+        },
     },
     methods: {
         isEnabled() {
@@ -67,54 +103,15 @@ Shopware.Component.register('postdirekt.addressfactory.analysis-details', {
                 this.analysisResultRepository.search(resultCriteria, Context.api),
                 this.analysisStatusRepository.search(statusCriteria, Context.api)
             ]).then(([result, status]) => {
-                if (result.first()) {
-                    this.analysisResult = result.first();
+                if (result[0]) {
+                    this.analysisResult = result[0];
                 }
-                if (status.first()) {
-                    this.analysisStatus = status.first().status;
+                if (status[0]) {
+                    this.analysisStatus = status[0].status;
                 }
             }).finally(() => {
                 this.isLoading = false;
             })
-        },
-        getHumanReadableScore() {
-            const scores = {
-                [deliverabilityCodes.POSSIBLY_DELIVERABLE]: this.$t('postdirekt-addressfactory.deliverabilityCodes.possibleDeliverable'),
-                [deliverabilityCodes.DELIVERABLE]: this.$t('postdirekt-addressfactory.deliverabilityCodes.deliverable'),
-                [deliverabilityCodes.UNDELIVERABLE]: this.$t('postdirekt-addressfactory.deliverabilityCodes.undeliverable'),
-                [deliverabilityCodes.CORRECTION_REQUIRED]: this.$t('postdirekt-addressfactory.deliverabilityCodes.correctionRecommended'),
-            };
-
-
-            return scores[this.getScore()];
-        },
-        getScore() {
-            if (!this.analysisResult) {
-                return deliverabilityCodes.POSSIBLY_DELIVERABLE;
-            }
-
-            const wasAlreadyUpdated = (() => {
-                if (!this.analysisStatus) {
-                    return false;
-                }
-                return this.analysisStatus === analysisStatus.ADDRESS_CORRECTED
-            })();
-
-            return deliverabilityCodes.computeScore(
-                this.analysisResult.statusCodes.split(','),
-                wasAlreadyUpdated
-            );
-        },
-        getScoreColor() {
-            const score = this.getScore();
-
-            if (score === deliverabilityCodes.DELIVERABLE) {
-                return '#50be03';
-            } else if (score === deliverabilityCodes.POSSIBLY_DELIVERABLE) {
-                return '#ffcc01';
-            } else {
-                return '#ff0000';
-            }
         },
         getDetectedIssues() {
             return deliverabilityCodes.getLabels(

@@ -38,16 +38,16 @@ Mixin.register('postdirekt.addressfactory.analysis-status-loader', {
             const criteria = new Criteria();
             criteria.addFilter(Criteria.equalsAny('orderId', orders.map(order => order.id)));
             this.analysisStatusRepository.search(criteria, Context.api)
-            .then((result) => {
-                const newStatusList = result.reduce(
-                    (statusList, status) => {
-                        statusList[status.orderId] = status.status;
-                        return statusList;
-                    },
-                    {}
-                );
-                this.analysisStatusList = {...this.analysisStatusList, ...newStatusList};
-            });
+                .then((result) => {
+                    const newStatusList = result.reduce(
+                        (statusList, status) => {
+                            statusList[status.orderId] = status.status;
+                            return statusList;
+                        },
+                        {}
+                    );
+                    this.analysisStatusList = {...this.analysisStatusList, ...newStatusList};
+                });
         }
     },
 });

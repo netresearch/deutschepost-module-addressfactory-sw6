@@ -20,12 +20,12 @@ Shopware.Component.register('postdirekt.addressfactory.analysis-status', {
             ];
             const yellowStatus = [
                 analysisStatus.POSSIBLY_DELIVERABLE,
-            ]
+            ];
             const redStatus = [
                 analysisStatus.ANALYSIS_FAILED,
                 analysisStatus.UNDELIVERABLE,
                 analysisStatus.CORRECTION_REQUIRED,
-            ]
+            ];
 
             if (greenStatus.includes(this.status)) {
                 return '#50be03';

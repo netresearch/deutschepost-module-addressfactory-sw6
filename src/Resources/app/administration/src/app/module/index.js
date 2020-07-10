@@ -10,7 +10,7 @@ import './postdirekt-addressfactory/components/api-test-button';
 import deDe from '../snippet/de-DE';
 import enGB from '../snippet/en-GB';
 
-const { Module } = Shopware;
+const {Module} = Shopware;
 
 Module.register('postdirekt-addressfactory', {
     type: 'plugin',

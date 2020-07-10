@@ -4,9 +4,9 @@
             <strong>{{ $t('postdirekt-addressfactory.infoBox.analysisLabel') }}</strong>
         </p>
     <div v-if="analysisResult">
-        <div class="deliverability-score" :title="getScore()">
-            <sw-icon name="default-package-closed" decorative="true" :color="getScoreColor()"/>
-            <span class="score">{{ getHumanReadableScore() }}</span>
+        <div class="deliverability-score" :title="score">
+            <sw-icon name="default-package-closed" decorative="true" :color="scoreColor"/>
+            <span class="score">{{ humanReadableScore }}</span>
         </div>
         <div>
             <dl>

@@ -28,6 +28,7 @@
             <argument type="service" id="order.repository"/>
             <argument type="service" id="post_direkt.addressfactory.order_analysis"/>
             <argument type="service" id="post_direkt.addressfactory.order_updater"/>
+            <argument type="service" id="post_direkt.addressfactory.postdirekt_addressfactory_analysis_status_updater"/>
             <argument type="service" id="PostDirekt\Addressfactory\Service\ModuleConfig"/>
             <tag name="controller.service_arguments"/>
         </service>

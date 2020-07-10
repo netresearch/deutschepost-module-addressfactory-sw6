@@ -1,7 +1,7 @@
 import template from './sw-order-list.html.twig';
 import analysisStatus from '../../app/module/postdirekt-addressfactory/analysis-status';
 
-const { Mixin } = Shopware;
+const {Mixin} = Shopware;
 
 Shopware.Component.override('sw-order-list', {
     template,
@@ -49,15 +49,15 @@ Shopware.Component.override('sw-order-list', {
         },
         performAnalysisAction(order) {
             this.performAnalysis(order)
-            .then(() => {
-                this.reloadAnalysisStatusData([order])
-            });
+                .then(() => {
+                    this.reloadAnalysisStatusData([order])
+                });
         },
         updateAddressAction(order) {
             this.updateAddress(order.deliveries[0].shippingOrderAddress)
-            .then(() => {
-                this.reloadAnalysisStatusData([order])
-            });
+                .then(() => {
+                    this.reloadAnalysisStatusData([order])
+                });
         }
     }
 });

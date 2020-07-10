@@ -4,7 +4,9 @@ const {Mixin, Application} = Shopware;
 
 Shopware.Component.register('postdirekt.addressfactory.api-test-button', {
     template: template,
-
+    inject: [
+        'postdirektTestCredentialService'
+    ],
     mixins: [
         Mixin.getByName('notification'),
     ],
@@ -20,31 +22,27 @@ Shopware.Component.register('postdirekt.addressfactory.api-test-button', {
             const password = document.querySelector("[id='NRLEJPostDirektAddressfactory.config.apiPassword']").value;
             const configurationName = document.querySelector("[id='NRLEJPostDirektAddressfactory.config.configurationName']").value;
             const clientId = document.querySelector("[id='NRLEJPostDirektAddressfactory.config.clientId']").value;
-            const initContainer = Application.getContainer('init');
 
-            return initContainer.httpClient.post(
-                'postdirekt/addressfactory/test-api-access',
-                {username, password, configurationName, clientId}
-            )
-            .then((response) => {
-                if (response.status === 200) {
-                    this.createNotificationSuccess({
-                        title: this.$t('postdirekt-addressfactory.apiTest.successTitle'),
-                        message: this.$t('postdirekt-addressfactory.apiTest.successMessage'),
+            return this.postdirektTestCredentialService.testCredentials(username, password, configurationName, clientId)
+                .then((response) => {
+                    if (response.status === 200) {
+                        this.createNotificationSuccess({
+                            title: this.$t('postdirekt-addressfactory.apiTest.successTitle'),
+                            message: this.$t('postdirekt-addressfactory.apiTest.successMessage'),
+                        });
+                    } else {
+                        throw new Error();
+                    }
+                })
+                .catch(() => {
+                    this.createNotificationError({
+                        title: this.$t('postdirekt-addressfactory.apiTest.errorTitle'),
+                        message: this.$t("postdirekt-addressfactory.apiTest.errorMessage"),
                     });
-                } else {
-                    throw new Error();
-                }
-            })
-            .catch(() => {
-                this.createNotificationError({
-                    title: this.$t('postdirekt-addressfactory.apiTest.errorTitle'),
-                    message: this.$t("postdirekt-addressfactory.apiTest.errorMessage"),
+                })
+                .finally(() => {
+                    this.isLoading = false;
                 });
-            })
-            .finally(() => {
-                this.isLoading = false;
-            });
         }
     }
 });
