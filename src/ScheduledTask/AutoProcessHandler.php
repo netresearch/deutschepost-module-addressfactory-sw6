@@ -144,7 +144,7 @@ class AutoProcessHandler extends ScheduledTaskHandler
     {
         $criteria = (new Criteria())
             ->addFilter(new EqualsFilter('status', AnalysisStatusUpdater::PENDING))
-            ->addAssociations(['order', 'order.deliveries']);
+            ->addAssociations(['order', 'order.deliveries', 'order.deliveries.shippingOrderAddress.country']);
         /** @var AnalysisStatusCollection $statuses */
         $statuses = $this->analysisStatusRepo->search($criteria, $context)->getEntities();
 

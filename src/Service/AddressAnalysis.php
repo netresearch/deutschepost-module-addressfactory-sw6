@@ -22,6 +22,7 @@ use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsAnyFilter;
+use Shopware\Core\System\Country\CountryEntity;
 
 class AddressAnalysis
 {
@@ -135,10 +136,12 @@ class AddressAnalysis
      */
     private function buildRequest(OrderAddressEntity $address, array $addressIds): object
     {
-        /* The record id is used in mapRecordsResponse to match webservice results to invidual addresses */
+        /* The record id is used in mapRecordsResponse to match webservice results to individual addresses */
         $this->requestBuilder->setMetadata(array_flip($addressIds)[$address->getId()]);
+        /** @var CountryEntity $countryEntity */
+        $countryEntity = $address->getCountry();
         $this->requestBuilder->setAddress(
-            $address->getCountryId(),
+            $countryEntity->getIso(),
             $address->getZipcode(),
             $address->getCity(),
             $address->getStreet(),
@@ -178,10 +181,17 @@ class AddressAnalysis
                 $result->setPostalCode($address->getPostalCode());
                 $result->setCity($address->getCity());
                 $result->setStreet($address->getStreetName());
-                $result->setStreetNumber(trim(implode(' ', [
-                    $address->getStreetNumber(),
-                    $address->getStreetNumberAddition(),
-                ])));
+                $result->setStreetNumber(
+                    trim(
+                        implode(
+                            ' ',
+                            [
+                                $address->getStreetNumber(),
+                                $address->getStreetNumberAddition(),
+                            ]
+                        )
+                    )
+                );
             }
             $newAnalysisResults[$result->getOrderAddressId()] = $result;
         }

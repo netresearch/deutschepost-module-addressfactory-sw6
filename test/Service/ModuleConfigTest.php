@@ -25,7 +25,7 @@ class ModuleConfigTest extends TestCase
                                  ->getMock();
         $systemConfigMock->method('get')
                          ->willReturnArgument(0);
-        /** @var SystemConfigService $systemConfigMock */
+        /* @var SystemConfigService $systemConfigMock */
         $this->subject = new ModuleConfig($systemConfigMock);
         parent::setUp();
     }

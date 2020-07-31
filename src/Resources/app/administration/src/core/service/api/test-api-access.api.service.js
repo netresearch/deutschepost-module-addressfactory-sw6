@@ -26,7 +26,7 @@ class NRLEJPostDirektTestCredentialsService extends ApiService {
             'postdirekt/addressfactory/test-api-access',
             {username, password, configurationName, clientId},
             {headers},
-        ).then(ApiService.handleResponse);
+        );
     }
 }
 

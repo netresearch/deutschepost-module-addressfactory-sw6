@@ -136,7 +136,7 @@ class PerformAnalysis extends AbstractController
     private function loadOrder(string $orderId, Context $context): ?OrderEntity
     {
         return $this->orderRepository->search(
-            (new Criteria([$orderId]))->addAssociation('deliveries'),
+            (new Criteria([$orderId]))->addAssociations(['deliveries', 'deliveries.shippingOrderAddress.country']),
             $context
         )->first();
     }

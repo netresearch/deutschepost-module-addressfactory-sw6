@@ -56,9 +56,9 @@ class TestApiAccess extends AbstractController
             $session = $service->openSession($configurationName, $clientId);
             $service->closeSession($session);
 
-            return new Response(null, Response::HTTP_OK);
+            return Response::create();
         } catch (\Exception $e) {
-            return new Response(null, Response::HTTP_BAD_REQUEST);
+            return Response::create(null, Response::HTTP_BAD_REQUEST);
         }
     }
 }

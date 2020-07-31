@@ -24,6 +24,7 @@ class DeliverabilityCodes
     private const HOUSEHOLD_NOT_MATCHED = 'PDC040500';
     private const BUILDING_UNDELIVERABLE = 'PDC030106';
     private const NOT_CORRECTABLE = 'BAC000111';
+    private const HOUSE_NUMBER_NOT_FILLED = 'FNC030501';
 
     private const STATUS_CODES_SIGNIFICANTLY_CORRECTED = ['103', '108'];
 
@@ -41,6 +42,10 @@ class DeliverabilityCodes
                     return self::CORRECTION_REQUIRED;
                 }
             }
+        }
+
+        if (\in_array(self::HOUSE_NUMBER_NOT_FILLED, $codes, true)) {
+            return self::UNDELIVERABLE;
         }
 
         if (\in_array(self::NOT_CORRECTABLE, $codes, true)) {
@@ -82,6 +87,10 @@ class DeliverabilityCodes
         if (\in_array(self::PERSON_NOT_MATCHED, $codes, true)
             && \in_array(self::HOUSEHOLD_NOT_MATCHED, $codes, true)
             && \in_array(self::BUILDING_UNDELIVERABLE, $codes, true)) {
+            return self::UNDELIVERABLE;
+        }
+
+        if (\in_array(self::PERSON_NOT_DELIVERABLE, $codes, true)) {
             return self::UNDELIVERABLE;
         }
 
@@ -207,18 +216,20 @@ class DeliverabilityCodes
             $statusCode = mb_substr($code, -3, 3);
 
             if (
-                isset(
-                    $mappedModuleCodes[$moduleCode],
-                    $mappedFieldCodes[$fieldCode],
-                    $mappedStatusCodes[$statusCode]
-                )
+            isset(
+                $mappedModuleCodes[$moduleCode],
+                $mappedFieldCodes[$fieldCode],
+                $mappedStatusCodes[$statusCode]
+            )
             ) {
                 $iconCode = $this->mapToIcon($fieldCode);
-                $label = ucfirst(trim(
-                    $mappedModuleCodes[$moduleCode] . ' '
-                     . $mappedFieldCodes[$fieldCode] . ' '
-                     . $mappedStatusCodes[$statusCode]
-                ));
+                $label = ucfirst(
+                    trim(
+                        $mappedModuleCodes[$moduleCode] . ' '
+                        . $mappedFieldCodes[$fieldCode] . ' '
+                        . $mappedStatusCodes[$statusCode]
+                    )
+                );
                 $labels[] = [
                     'icon' => $iconCode,
                     'label' => $label,
@@ -244,7 +255,21 @@ class DeliverabilityCodes
          */
         $removals = ['BAC201110', 'BAC010103', 'BAC010104', 'FNC201103'];
 
-        return array_diff($codes, $removals);
+        $codes = array_diff($codes, $removals);
+
+        if (\in_array(self::NOT_CORRECTABLE, $codes, true)) {
+            /**
+             * If self::NOT_CORRECTABLE is in codes, all other codes from BAC module become irrelevant
+             */
+            $codes = array_filter(
+                $codes,
+                static function ($entry) {
+                    return mb_strpos($entry, 'BAC') !== false;
+                }
+            );
+        }
+
+        return $codes;
     }
 
     private function mapToIcon(string $fieldCode): string

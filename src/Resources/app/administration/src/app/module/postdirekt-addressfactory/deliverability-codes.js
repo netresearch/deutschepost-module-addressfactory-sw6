@@ -14,6 +14,7 @@ const PERSON_NOT_MATCHED = 'PDC050500';
 const HOUSEHOLD_NOT_MATCHED = 'PDC040500';
 const BUILDING_UNDELIVERABLE = 'PDC030106';
 const NOT_CORRECTABLE = 'BAC000111';
+const HOUSE_NUMBER_NOT_FILLED = 'FNC030501';
 
 const STATUS_CODES_SIGNIFICANTLY_CORRECTED = ['103', '108'];
 
@@ -29,7 +30,7 @@ const mapToIcon = (fieldCode) => {
     } else {
         return 'default-badge-info';
     }
-}
+};
 
 const filterInapplicable = (codes) => {
     /**
@@ -39,8 +40,15 @@ const filterInapplicable = (codes) => {
      */
     const removals = ['BAC201110', 'BAC010103', 'BAC010104', 'FNC201103'];
 
-    return codes.filter(code => !removals.includes(code));
-}
+    codes = codes.filter(code => !removals.includes(code));
+    if (codes.includes(NOT_CORRECTABLE)) {
+        /**
+         * if NOT_CORRECTABLE is part of the codes, all codes from the BAC module become irrelevant
+         */
+        codes = codes.filter(code => code.indexOf('BAC') !== -1)
+    }
+    return codes;
+};
 
 const $t = (string) => {
     return Application.view.root.$t(string);
@@ -56,6 +64,10 @@ const computeScore = (codes, wasAlreadyUpdated) => {
                 return CORRECTION_REQUIRED;
             }
         }
+    }
+
+    if (codes.includes(HOUSE_NUMBER_NOT_FILLED)) {
+        return UNDELIVERABLE;
     }
 
     if (codes.includes(NOT_CORRECTABLE)) {
@@ -97,6 +109,10 @@ const computeScore = (codes, wasAlreadyUpdated) => {
     if (codes.includes(PERSON_NOT_MATCHED) &&
         codes.includes(HOUSEHOLD_NOT_MATCHED) &&
         codes.includes(BUILDING_UNDELIVERABLE)) {
+        return UNDELIVERABLE;
+    }
+
+    if (codes.includes(PERSON_NOT_DELIVERABLE)) {
         return UNDELIVERABLE;
     }
 
