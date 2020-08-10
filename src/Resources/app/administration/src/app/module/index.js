@@ -1,6 +1,7 @@
 import './postdirekt-addressfactory/mixin/analysis-status-loader.mixin';
 import './postdirekt-addressfactory/mixin/perform-analysis.mixin';
 import './postdirekt-addressfactory/mixin/update-address.mixin';
+import './postdirekt-addressfactory/mixin/cancel-order.mixin';
 import './postdirekt-addressfactory/components/infobox';
 import './postdirekt-addressfactory/components/analysis-details';
 import './postdirekt-addressfactory/components/analysis-status';

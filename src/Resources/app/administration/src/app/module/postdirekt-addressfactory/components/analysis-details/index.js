@@ -13,6 +13,7 @@ Shopware.Component.register('postdirekt.addressfactory.analysis-details', {
     ],
     mixins: [
         Mixin.getByName('postdirekt.addressfactory.perform-analysis'),
+        Mixin.getByName('postdirekt.addressfactory.cancel-order'),
     ],
     created() {
         this.getExistingAnalysis();

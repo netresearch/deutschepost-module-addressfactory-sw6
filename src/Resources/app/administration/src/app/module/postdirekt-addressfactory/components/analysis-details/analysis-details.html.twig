@@ -1,11 +1,11 @@
 <div v-if="isEnabled()" class="postdirekt-addressfactory-infobox">
-        <img width="150px" alt="ADDRESSFACTORY Logo" class="logo" :src="getLogoPath() | asset"/>
-        <p>
-            <strong>{{ $t('postdirekt-addressfactory.infoBox.analysisLabel') }}</strong>
-        </p>
+    <img width="150px" alt="ADDRESSFACTORY Logo" class="logo" :src="getLogoPath() | asset"/>
+    <p>
+        <strong>{{ $t('postdirekt-addressfactory.infoBox.analysisLabel') }}</strong>
+    </p>
     <div v-if="analysisResult">
         <div class="deliverability-score" :title="score">
-            <sw-icon name="default-package-closed" decorative="true" :color="scoreColor"/>
+            <sw-icon name="default-package-closed" decorative=true :color="scoreColor"/>
             <span class="score">{{ humanReadableScore }}</span>
         </div>
         <div>
@@ -13,17 +13,20 @@
                 <dt>{{ $t('postdirekt-addressfactory.infoBox.addressInformation') }}</dt>
                 <div class="detected-issues">
                     <dd v-for="item in getDetectedIssues()" :title="item.code" class="issue">
-                        <sw-icon :name="item.icon" small="true" decorative="true" color="black"/>
+                        <sw-icon :name="item.icon" small=true decorative=true color="black"/>
                         <span class="label">{{ item.label }}</span>
                     </dd>
                 </div>
             </dl>
         </div>
-        <postdirekt.addressfactory.suggested-address :delivery-address="deliveryAddress" :analysis-result="analysisResult"/>
+        <postdirekt.addressfactory.suggested-address :delivery-address="deliveryAddress"
+                                                     :analysis-result="analysisResult"/>
         <dl v-if="isCancellable">
             <dt>{{ $t('postdirekt-addressfactory.infoBox.otherActions') }}</dt>
             <dd v-if="analysisResult">
-                <button class="sw-button">{{ $t('postdirekt-addressfactory.infoBox.cancelButtonLabel') }}</button>
+                <button v-on:click="cancelOrder(order)"
+                        class="sw-button">{{ $t('postdirekt-addressfactory.infoBox.cancelButtonLabel') }}
+                </button>
             </dd>
         </dl>
     </div>
