@@ -26,7 +26,7 @@ Mixin.register('postdirekt.addressfactory.perform-analysis', {
                     this.analysisResult = data.analysisResult;
 
                     if (data.order) {
-                        // Update order state (in case order was canceled)
+                        // Update order state (in case order was cancelled)
                         order.stateMachineState = data.order.stateMachineState;
                         if (deliveryAddress) {
                             // Update delivery address (in case address was updated)

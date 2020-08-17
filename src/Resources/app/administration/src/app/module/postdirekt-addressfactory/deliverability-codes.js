@@ -201,7 +201,7 @@ const getLabels = (codes) => {
         '141': $t('postdirekt-addressfactory.deliverabilityCodes.statusCodes.matchedInFakenameList'),
         '500': $t('postdirekt-addressfactory.deliverabilityCodes.statusCodes.notMatched'),
         '501': $t('postdirekt-addressfactory.deliverabilityCodes.statusCodes.notFilled'),
-        '503': $t('postdirekt-addressfactory.deliverabilityCodes.statusCodes.ambigouus'),
+        '503': $t('postdirekt-addressfactory.deliverabilityCodes.statusCodes.ambiguous'),
         '504': $t('postdirekt-addressfactory.deliverabilityCodes.statusCodes.isForeignAddress'),
         '505': $t('postdirekt-addressfactory.deliverabilityCodes.statusCodes.incorporated'),
         '506': $t('postdirekt-addressfactory.deliverabilityCodes.statusCodes.isCompanyAddress'),

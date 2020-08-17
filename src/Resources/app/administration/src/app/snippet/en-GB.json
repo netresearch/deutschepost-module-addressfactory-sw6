@@ -68,7 +68,7 @@
                 "matchedInFakenameList": "matched in fake-name list",
                 "notMatched": "not matched",
                 "notFilled": "not filled",
-                "ambigouus": "ambigouus",
+                "ambiguous": "ambiguous",
                 "isForeignAddress": "is foreign address",
                 "incorporated": "incorporated",
                 "isCompanyAddress": "is company address"
@@ -82,7 +82,7 @@
             "title": "Post Direkt ADDRESSFACTORY Analysis",
             "errorTitle": "Post Direkt ADDRESSFACTORY Analysis Failed",
             "updateSuccess": "Order {orderNumber} address updated with ADDRESSFACTORY DIRECT suggestion",
-            "cancelled": "Undeliverable Order {orderNumber} canceled.",
+            "cancelled": "Undeliverable Order {orderNumber} cancelled.",
             "error": "Could not perform ADDRESSFACTORY DIRECT analysis for {orderNumber}.",
             "genericError": "Something went wrong."
         },

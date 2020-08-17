@@ -68,7 +68,7 @@
                 "matchedInFakenameList": "getroffen in Fake-Namensliste",
                 "notMatched": "nicht getroffen",
                 "notFilled": "nicht befüllt",
-                "ambigouus": "mehrdeutig",
+                "ambiguous": "mehrdeutig",
                 "isForeignAddress": "ist Auslandsadresse",
                 "incorporated": "eingemeindet",
                 "isCompanyAddress": "ist Firmenadresse"
