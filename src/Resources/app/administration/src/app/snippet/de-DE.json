@@ -84,6 +84,7 @@
             "updateSuccess": "Bestellung {orderNumber} Adresse mit ADDRESSFACTORY DIRECT-Vorschlag aktualisiert",
             "cancelled": "Unzustellbare Bestellung {orderNumber} storniert.",
             "error": "Konnte keine ADDRESSFACTORY DIRECT-Analyse für Bestellung {orderNumber} durchführen.",
+            "countryError": "ADDRESSFACTORY DIRECT kann nur deutsche Addressen analysieren.",
             "genericError": "Etwas ist schief gegangen."
         },
         "updateAddress": {

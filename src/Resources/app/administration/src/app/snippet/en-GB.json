@@ -84,6 +84,7 @@
             "updateSuccess": "Order {orderNumber} address updated with ADDRESSFACTORY DIRECT suggestion",
             "cancelled": "Undeliverable Order {orderNumber} cancelled.",
             "error": "Could not perform ADDRESSFACTORY DIRECT analysis for {orderNumber}.",
+            "countryError": "ADDRESSFACTORY DIRECT can only analyse german addresses.",
             "genericError": "Something went wrong."
         },
         "updateAddress": {

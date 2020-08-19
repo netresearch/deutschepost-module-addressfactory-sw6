@@ -29,8 +29,14 @@ Shopware.Component.override('sw-order-list', {
     },
 
     methods: {
+        getDeliveryAddress(order) {
+            if (!order.deliveries[0]) {
+                return null;
+            }
+            return order.deliveries[0].shippingOrderAddress;
+        },
         showAnalyse(order) {
-            if (!order.deliveries.length) {
+            if (!this.getDeliveryAddress(order)) {
                 return false;
             }
 
@@ -41,11 +47,16 @@ Shopware.Component.override('sw-order-list', {
             ].includes(this.getAnalysisStatus(order));
         },
         showUpdateAddress(order) {
-            if (!order.deliveries.length) {
+            const deliveryAddress = this.getDeliveryAddress(order);
+
+            if (!deliveryAddress) {
                 return false;
             }
 
-            return this.getAnalysisStatus(order) === analysisStatus.CORRECTION_REQUIRED;
+            return [
+                analysisStatus.CORRECTION_REQUIRED,
+                analysisStatus.POSSIBLY_DELIVERABLE,
+            ].includes(this.getAnalysisStatus(order));
         },
         performAnalysisAction(order) {
             this.performAnalysis(order)
@@ -54,7 +65,13 @@ Shopware.Component.override('sw-order-list', {
                 });
         },
         updateAddressAction(order) {
-            this.updateAddress(order.deliveries[0].shippingOrderAddress)
+            const deliveryAddress = this.getDeliveryAddress(order);
+
+            if (!deliveryAddress) {
+                return;
+            }
+
+            this.updateAddress(deliveryAddress)
                 .then(() => {
                     this.reloadAnalysisStatusData([order])
                 });

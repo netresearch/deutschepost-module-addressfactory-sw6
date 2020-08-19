@@ -3,6 +3,7 @@
     <template slot="column-analysisStatus" slot-scope="{ item }">
         <postdirekt.addressfactory.analysis-status v-bind:status="getAnalysisStatus(item)"/>
     </template>
+    <sw-loader v-if="isLoading"/>
 {% endblock %}
 
 {% block sw_order_list_grid_columns_actions_view %}

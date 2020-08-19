@@ -11,6 +11,7 @@ Mixin.register('postdirekt.addressfactory.analysis-status-loader', {
         return {
             orders: [],
             analysisStatusList: {},
+            isLoading: false
         }
     },
     watch: {
@@ -35,6 +36,7 @@ Mixin.register('postdirekt.addressfactory.analysis-status-loader', {
             return analysisStatus.NOT_ANALYSED;
         },
         reloadAnalysisStatusData(orders) {
+            this.isLoading = true
             const criteria = new Criteria();
             criteria.addFilter(Criteria.equalsAny('orderId', orders.map(order => order.id)));
             this.analysisStatusRepository.search(criteria, Context.api)
@@ -47,6 +49,9 @@ Mixin.register('postdirekt.addressfactory.analysis-status-loader', {
                         {}
                     );
                     this.analysisStatusList = {...this.analysisStatusList, ...newStatusList};
+                })
+                .finally(() => {
+                    this.isLoading = false;
                 });
         }
     },

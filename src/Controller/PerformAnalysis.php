@@ -83,6 +83,17 @@ class PerformAnalysis extends AbstractController
             );
         }
 
+        if ($this->getCountryIso($order) !== 'DE') {
+            return new JsonResponse(
+                [
+                    'analysisStatus' => '',
+                    'analysisResult' => null,
+                    'order' => null,
+                    'message' => 'postdirekt-addressfactory.performAnalysis.countryError',
+                ]
+            );
+        }
+
         $analysisResult = $this->orderAnalysis->analyse([$order], $context)[$orderId] ?? null;
 
         $responseData = [
@@ -139,5 +150,21 @@ class PerformAnalysis extends AbstractController
             (new Criteria([$orderId]))->addAssociations(['deliveries', 'deliveries.shippingOrderAddress.country']),
             $context
         )->first();
+    }
+
+    private function getCountryIso(OrderEntity $order): ?string
+    {
+        $deliveries = $order->getDeliveries();
+        if ($deliveries) {
+            $address = $deliveries->getShippingAddress()->first();
+            if ($address) {
+                $country = $address->getCountry();
+                if ($country) {
+                    return $country->getIso();
+                }
+            }
+        }
+
+        return null;
     }
 }

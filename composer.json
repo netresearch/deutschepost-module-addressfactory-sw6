@@ -19,8 +19,8 @@
     },
     "require": {
         "php": ">=7.2.0",
-        "shopware/storefront": "~6.1.0 || ~6.2.0",
-        "shopware/core": "~6.1.0 || ~6.2.0",
+        "shopware/storefront": "~6.1.0 || ~6.2.0 || ~6.3.0",
+        "shopware/core": "~6.1.0 || ~6.2.0 || ~6.3.0",
         "deutschepost/sdk-api-addressfactory": "^1.0",
         "php-http/guzzle6-adapter": "*",
         "nyholm/psr7": "^1.2.1"
