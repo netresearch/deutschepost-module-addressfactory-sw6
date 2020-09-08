@@ -1,6 +1,7 @@
 import deliverabilityCodes from '../src/app/module/postdirekt-addressfactory/deliverability-codes';
-import '@jest/globals';
-import {describe, expect} from '@jest/globals';
+
+// Mock global translation function
+Shopware.Application.view = {root: {$t: (string) => string}};
 
 describe('app/module/postdirekt-addressfactory/deliverability-codes', () => {
     it('should calculate DELIVERABLE score', () => {
@@ -43,6 +44,11 @@ describe('app/module/postdirekt-addressfactory/deliverability-codes', () => {
                 alreadyUpdated: false,
                 expectedScore: deliverabilityCodes.UNDELIVERABLE,
             },
+            {
+                codes: ['PDC050106', 'PDC040106', 'PDC030105'],
+                alreadyUpdated: false,
+                expectedScore: deliverabilityCodes.UNDELIVERABLE,
+            },
         ];
         testData.forEach((data) => {
             expect(deliverabilityCodes.computeScore(data.codes, data.alreadyUpdated))
@@ -53,11 +59,6 @@ describe('app/module/postdirekt-addressfactory/deliverability-codes', () => {
         let testData = [
             {
                 codes: ['PDC050500', 'PDC040106'],
-                alreadyUpdated: false,
-                expectedScore: deliverabilityCodes.POSSIBLY_DELIVERABLE,
-            },
-            {
-                codes: ['PDC050106', 'PDC040106', 'PDC030105'],
                 alreadyUpdated: false,
                 expectedScore: deliverabilityCodes.POSSIBLY_DELIVERABLE,
             },
@@ -94,7 +95,7 @@ describe('app/module/postdirekt-addressfactory/deliverability-codes', () => {
         let testData = [
             {
                 code: 'FNC000500',
-                expectedLabel: 'Receiver not found in Post reference data',
+                expectedLabel: 'postdirekt-addressfactory.deliverabilityCodes.mappedCodes.receiverNotFoundInPostReferenceData',
                 expectedIcon: 'default-badge-warning',
             },
         ];

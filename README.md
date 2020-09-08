@@ -60,10 +60,13 @@ bin/console theme:compile
 
 ### Administration Unit Tests
 
-Run the following command from the repository root:
+Run the following commands from the repository root, replacing `[Shopware Project]`
+with the absolute path to your Shopware installation:
 
 ```bash
-cd src/Resources/app/administration/ && npm install && npm run test
+cd src/Resources/app/administration/
+npm install
+ADMIN_PATH='[Shopware Project]vendor//platform/src/Administration/Resources/app/administration' npm test
 ```
 
 ## Author
