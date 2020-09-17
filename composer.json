@@ -18,7 +18,7 @@
         ]
     },
     "require": {
-        "php": ">=7.2.0",
+        "php": "^7.2",
         "shopware/storefront": "~6.1.0 || ~6.2.0 || ~6.3.0",
         "shopware/core": "~6.1.0 || ~6.2.0 || ~6.3.0",
         "deutschepost/sdk-api-addressfactory": "^1.0",
@@ -27,7 +27,10 @@
     },
     "authors": [
         {
-            "name": "Netresearch DTT GmbH"
+            "email": "plugins@netresearch.de",
+            "name": "Netresearch DTT GmbH",
+            "role": "Manufacturer",
+            "homepage": "https://www.netresearch.de/"
         }
     ],
     "extra": {
@@ -47,8 +50,8 @@
             "en-GB": "https://www.netresearch.de/en/"
         },
         "supportLink": {
-            "de-DE": "https://support.netresearch.de/support/home",
-            "en-GB": "https://support.netresearch.de/support/home"
+            "de-DE": "https://postdirekt.support.netresearch.de/support/home",
+            "en-GB": "https://postdirekt.support.netresearch.de/support/home"
         },
         "branch-alias": {
             "dev-master": "1.0.x-dev"
