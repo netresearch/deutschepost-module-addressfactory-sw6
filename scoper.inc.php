@@ -33,7 +33,6 @@ return [
             'LICENSE.md',
             'README.md',
             'CHANGELOG.md',
-            'autoload-dist/PluginIsManagedByComposer.php'
         ]),
     ],
 
@@ -41,6 +40,8 @@ return [
     // a file untouched.
     // Paths are relative to the configuration file unless if they are already absolute
     'files-whitelist' => [
+        'autoload-dist/PluginIsManagedByComposer.php',
+        'src/NRLEJPostDirektAddressfactory.php'
     ],
 
     // When scoping PHP files, there will be scenarios where some of the code being scoped indirectly references the
@@ -67,8 +68,7 @@ return [
     //
     // Fore more see https://github.com/humbug/php-scoper#whitelist
     'whitelist' => [
-        // 'PHPUnit\Framework\TestCase',   // A specific class
-        'PHPUnit\Framework\*',          // The whole namespace
+        'PHPUnit\Framework\*',
         'Shopware\*',
         'PostDirekt\Addressfactory\*',
         'Doctrine\*',
@@ -76,22 +76,20 @@ return [
         'Symfony\Component\Routing\*',
         'Symfony\Component\EventDispatcher\*',
         'Symfony\Bundle\FrameworkBundle\*',
-        'Psr\Log\*',
-        // '*',                            // Everything
     ],
 
     // If `true` then the user defined constants belonging to the global namespace will not be prefixed.
     //
     // For more see https://github.com/humbug/php-scoper#constants--constants--functions-from-the-global-namespace
-    'whitelist-global-constants' => false,
+    'whitelist-global-constants' => true,
 
     // If `true` then the user defined classes belonging to the global namespace will not be prefixed.
     //
     // For more see https://github.com/humbug/php-scoper#constants--constants--functions-from-the-global-namespace
-    'whitelist-global-classes' => false,
+    'whitelist-global-classes' => true,
 
     // If `true` then the user defined functions belonging to the global namespace will not be prefixed.
     //
     // For more see https://github.com/humbug/php-scoper#constants--constants--functions-from-the-global-namespace
-    'whitelist-global-functions' => false,
+    'whitelist-global-functions' => true,
 ];

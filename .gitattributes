@@ -1,6 +1,7 @@
 node_modules export-ignore
 /.gitlab-ci.yml export-ignore
-/src/Resources/app/administation/test export-ignore
+/src/Resources/app/administration/test export-ignore
+/autoload-dist export-ignore
 /bin export-ignore
 /test export-ignore
 /phpstan.neon export-ignore

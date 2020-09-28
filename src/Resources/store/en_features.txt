@@ -1,0 +1,7 @@
+Validation and correction of street names, zip codes, and city names
+Correction of receiver names
+Person-based, household-based, or building-based validation of shipping information
+Mark shipments as “deliverable” or “non-deliverable”
+Check single addresses manually, or use an automated process to check all incoming orders
+Simple API configuration with user credentials
+Optional logging to assist troubleshooting
