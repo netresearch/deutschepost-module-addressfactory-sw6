@@ -16,3 +16,5 @@ This database is unique in Germany and contains around 210 million current and f
 An additional account is required, and additional fees apply.
 The account is not created during extension installation.
 If you do not have an account yet or your account is not activated for ADDRESSFACTORY DIRECT, please contact Deutsche Post Direkt.
+
+Deutsche Post Direkt will also receive a message when you download the plugin.

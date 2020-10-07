@@ -15,3 +15,5 @@ Die Postreferenz-Datenbank umfasst rund 220 Millionen Privatadressen, davon mehr
 Ein zusätzlicher Account wird benötigt und zusätzliche Gebühren fallen an.
 Der benötigte Account wird nicht während der Installation des Plugins angelegt.
 Falls Sie bisher keinen Account besitzen oder Ihr Account nicht für ADDRESSFACTORY DIRECT aktiviert ist, kontaktieren Sie bitte Deutsche Post Direkt.
+
+Die Deutsche Post Direkt erhält zusätzlich eine Mitteilung, sobald Sie das Plugin herunterladen.

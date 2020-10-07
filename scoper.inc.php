@@ -76,20 +76,21 @@ return [
         'Symfony\Component\Routing\*',
         'Symfony\Component\EventDispatcher\*',
         'Symfony\Bundle\FrameworkBundle\*',
+        'Psr\Log\*'
     ],
 
     // If `true` then the user defined constants belonging to the global namespace will not be prefixed.
     //
     // For more see https://github.com/humbug/php-scoper#constants--constants--functions-from-the-global-namespace
-    'whitelist-global-constants' => true,
+    'whitelist-global-constants' => false,
 
     // If `true` then the user defined classes belonging to the global namespace will not be prefixed.
     //
     // For more see https://github.com/humbug/php-scoper#constants--constants--functions-from-the-global-namespace
-    'whitelist-global-classes' => true,
+    'whitelist-global-classes' => false,
 
     // If `true` then the user defined functions belonging to the global namespace will not be prefixed.
     //
     // For more see https://github.com/humbug/php-scoper#constants--constants--functions-from-the-global-namespace
-    'whitelist-global-functions' => true,
+    'whitelist-global-functions' => false,
 ];
