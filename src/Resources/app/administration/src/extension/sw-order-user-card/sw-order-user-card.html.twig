@@ -1,0 +1,4 @@
+{% block sw_order_detail_base_order_overview_shipping_address %}
+    {% parent %}
+    <postdirekt.addressfactory.analysis-details :order="currentOrder"/>
+{% endblock %}

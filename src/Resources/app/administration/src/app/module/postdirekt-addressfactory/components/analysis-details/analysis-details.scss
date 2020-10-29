@@ -1,0 +1,37 @@
+.postdirekt-addressfactory-infobox {
+    position: relative;
+    background-color: #FFF6DC;
+    padding: 10px 5px;
+    p, dd, dt, strong {
+        color: black;
+    }
+
+    .deliverability-score {
+        display: flex;
+        align-items: center;
+        font-size: 2em;
+        padding: 10px;
+        .score {
+            font-size: .8em;
+            margin-left: .3em;
+            color: black;
+        }
+    }
+
+    .detected-issues {
+        padding: 10px;
+        .issue {
+            display: flex;
+            align-items: center;
+            .label {
+                margin-left: .3em;
+            }
+        }
+    }
+
+    .suggested-address-box {
+        padding: 0 10px 10px;
+        margin: 5px;
+        background-color: white;
+    }
+}

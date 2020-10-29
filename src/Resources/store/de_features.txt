@@ -1,0 +1,7 @@
+Validierung und Korrektor von Straßenname, Postleitzahl und Stadtnamen
+Korrektur des Empfängernamens
+Personenbasierte, haushaltsbasierte oder gebäudebasierte Validierung von Versandinformationen
+Kennzeichne Bestellungen als "Zustellbar" oder "Nicht Zustellbar"
+Überprüfen Sie einzelne Adressen manuell oder nutzen Sie einen automatisierten Prozess, um alle eingehenden Bestellungen zu überprüfen
+Einfache Konfiguration der API mit Zugangsdaten
+Optionales Logging, um die Fehlersuche zu unterstützen
