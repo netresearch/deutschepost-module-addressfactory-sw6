@@ -16,16 +16,20 @@
         <title lang="de-DE">ADDRESSFACTORY Nutzerdaten</title>
         <input-field>
             <name>apiUser</name>
+            <required>true</required>
             <label>API User</label>
             <label lang="de-DE">API Nutzer</label>
         </input-field>
         <input-field type="password">
             <name>apiPassword</name>
+            <required>true</required>
             <label>API Password</label>
             <label lang="de-DE">API Password</label>
         </input-field>
         <input-field>
             <name>configurationName</name>
+            <required>true</required>
+            <defaultValue>Standard</defaultValue>
             <label>ADDRESSFACTORY DIRECT Configuration Name</label>
             <label lang="de-DE">ADDRESSFACTORY DIRECT Konfigurationsname</label>
         </input-field>
