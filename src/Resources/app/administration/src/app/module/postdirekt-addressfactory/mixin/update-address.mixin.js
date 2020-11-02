@@ -1,3 +1,5 @@
+import analysisStatus from "../analysis-status";
+
 const {Mixin} = Shopware;
 
 Mixin.register('postdirekt.addressfactory.update-address', {
@@ -28,6 +30,7 @@ Mixin.register('postdirekt.addressfactory.update-address', {
                         deliveryAddress.zipcode = data.orderAddress.zipcode;
                         deliveryAddress.city = data.orderAddress.city;
 
+                        this.$emit('update-analysis-status', analysisStatus.ADDRESS_CORRECTED);
                         this.createNotificationSuccess({
                             title: this.$t('postdirekt-addressfactory.updateAddress.title'),
                             message: this.$t(data.message)
