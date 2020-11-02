@@ -20,7 +20,8 @@
             </dl>
         </div>
         <postdirekt.addressfactory.suggested-address :delivery-address="deliveryAddress"
-                                                     :analysis-result="analysisResult"/>
+                                                     :analysis-result="analysisResult"
+                                                     v-on:update-analysis-status="updateAnalysisStatus($event)"/>
         <dl v-if="isCancellable">
             <dt>{{ $t('postdirekt-addressfactory.infoBox.otherActions') }}</dt>
             <dd v-if="analysisResult">

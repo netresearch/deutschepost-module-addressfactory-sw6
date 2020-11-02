@@ -118,6 +118,9 @@ Shopware.Component.register('postdirekt.addressfactory.analysis-details', {
             return deliverabilityCodes.getLabels(
                 this.analysisResult.statusCodes.split(',')
             )
+        },
+        updateAnalysisStatus(value) {
+            this.analysisStatus = value;
         }
     }
 });
