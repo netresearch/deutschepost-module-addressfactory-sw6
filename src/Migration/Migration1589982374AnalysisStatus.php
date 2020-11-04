@@ -17,7 +17,7 @@ class Migration1589982374AnalysisStatus extends MigrationStep
     public function update(Connection $connection): void
     {
         $sql = <<<SQL
-CREATE TABLE `postdirekt_addressfactory_analysis_status` (
+CREATE TABLE IF NOT EXISTS `postdirekt_addressfactory_analysis_status` (
     `order_id` BINARY(16) NOT NULL,
     `status` VARCHAR(255) NOT NULL,
     `created_at` DATETIME(3) NOT NULL,
