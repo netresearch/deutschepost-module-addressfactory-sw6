@@ -102,7 +102,7 @@ class NewOrderSubscriber implements EventSubscriberInterface
             $analysisResult = $analysisResults[$orderId];
             if (!$analysisResult) {
                 $this->logger->error(
-                    sprintf('ADDRESSFACTORY DIRECT: Order %s could not be analysed', $order->getOrderNumber())
+                    \sprintf('ADDRESSFACTORY DIRECT: Order %s could not be analysed', (string) $order->getOrderNumber())
                 );
 
                 return;

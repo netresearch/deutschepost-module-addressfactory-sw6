@@ -65,7 +65,7 @@ class OrderAnalysis
             }
         }
         /** @var OrderAddressEntity[] $addresses */
-        $addresses = array_filter($addresses);
+        $addresses = \array_filter($addresses);
 
         try {
             $analysisResults = $this->addressAnalysis->analyse($addresses, $context);

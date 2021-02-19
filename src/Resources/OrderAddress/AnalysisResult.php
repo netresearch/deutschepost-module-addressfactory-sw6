@@ -67,7 +67,7 @@ class AnalysisResult extends Entity implements AnalysisResultInterface
      */
     public function setStatusCodes(array $statusCodes): void
     {
-        $this->statusCodes = implode(',', $statusCodes);
+        $this->statusCodes = \implode(',', $statusCodes);
     }
 
     public function setFirstName(string $firstName): void
@@ -105,7 +105,7 @@ class AnalysisResult extends Entity implements AnalysisResultInterface
      */
     public function getStatusCodes(): array
     {
-        return explode(',', $this->statusCodes);
+        return \explode(',', $this->statusCodes);
     }
 
     public function getFirstName(): string

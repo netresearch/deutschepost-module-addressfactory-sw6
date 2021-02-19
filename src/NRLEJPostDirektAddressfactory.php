@@ -12,14 +12,14 @@ use Doctrine\DBAL\Connection;
 use Shopware\Core\Framework\Plugin;
 use Shopware\Core\Framework\Plugin\Context\UninstallContext;
 
-if (file_exists(__DIR__ . '/../vendor/autoload.php')) {
+if (\file_exists(__DIR__ . '/../vendor/autoload.php')) {
     $autoloadPath = __DIR__ . '/../vendor/autoload.php';
 }
-if (file_exists(__DIR__ . '/../vendor/scoper-autoload.php')) {
+if (\file_exists(__DIR__ . '/../vendor/scoper-autoload.php')) {
     $autoloadPath = __DIR__ . '/../vendor/scoper-autoload.php';
 }
 
-if (!defined('__NR_POSTDIREKT_ADDRESSFACTORY_MANAGED_BY_COMPOSER') && isset($autoloadPath)) {
+if (!\defined('__NR_POSTDIREKT_ADDRESSFACTORY_MANAGED_BY_COMPOSER') && isset($autoloadPath)) {
     require_once $autoloadPath;
 }
 
