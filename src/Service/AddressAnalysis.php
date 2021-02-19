@@ -84,10 +84,10 @@ class AddressAnalysis
         )->getElements();
 
         /** @var InRecordWSType[] $recordRequests */
-        $recordRequests = array_reduce(
+        $recordRequests = \array_reduce(
             $addresses,
             function (array $recordRequests, OrderAddressEntity $orderAddress) use ($analysisResults, $addressIds) {
-                if (!array_key_exists($orderAddress->getId(), $analysisResults)) {
+                if (!\array_key_exists($orderAddress->getId(), $analysisResults)) {
                     $recordRequests[] = $this->buildRequest($orderAddress, $addressIds);
                 }
 
@@ -137,7 +137,7 @@ class AddressAnalysis
     private function buildRequest(OrderAddressEntity $address, array $addressIds): object
     {
         /* The record id is used in mapRecordsResponse to match webservice results to individual addresses */
-        $this->requestBuilder->setMetadata(array_flip($addressIds)[$address->getId()]);
+        $this->requestBuilder->setMetadata(\array_flip($addressIds)[$address->getId()]);
         /** @var CountryEntity $countryEntity */
         $countryEntity = $address->getCountry();
         $this->requestBuilder->setAddress(
@@ -182,8 +182,8 @@ class AddressAnalysis
                 $result->setCity($address->getCity());
                 $result->setStreet($address->getStreetName());
                 $result->setStreetNumber(
-                    trim(
-                        implode(
+                    \trim(
+                        \implode(
                             ' ',
                             [
                                 $address->getStreetNumber(),

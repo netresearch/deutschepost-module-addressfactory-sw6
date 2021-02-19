@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
 composer dump-autoload
-./../../../vendor/bin/phpunit
+/app/vendor/bin/phpunit 
