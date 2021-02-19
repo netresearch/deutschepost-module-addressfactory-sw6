@@ -62,7 +62,7 @@
         </PossiblyInvalidArgument>
         <MissingConstructor>
             <errorLevel type="info">
-                <!-- Contains entity defintions for SW DAL, therefore no constructors-->
+                <!-- Contains entity definitions for SW DAL, therefore no constructors-->
                 <directory name="src/Resources/OrderAddress"/>
             </errorLevel>
         </MissingConstructor>
@@ -89,5 +89,15 @@
                 <directory name="test"/>
             </errorLevel>
         </PossiblyNullReference>
+        <PossiblyInvalidCast>
+            <errorLevel type="info">
+                <file name="src/Service/ModuleConfig.php"/>
+            </errorLevel>
+        </PossiblyInvalidCast>
+        <UnusedVariable>
+            <errorLevel type="info">
+                <file name="src/NRLEJPostDirektAddressfactory.php"/>
+            </errorLevel>
+        </UnusedVariable>
     </issueHandlers>
 </psalm>

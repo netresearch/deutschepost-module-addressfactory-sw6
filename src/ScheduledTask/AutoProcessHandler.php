@@ -91,7 +91,7 @@ class AutoProcessHandler extends ScheduledTaskHandler
                 $this->process($order, $analysisResult, $context);
             } else {
                 $this->logger->error(
-                    sprintf('ADDRESSFACTORY DIRECT: Order %s could not be analysed', $order->getOrderNumber())
+                    \sprintf('ADDRESSFACTORY DIRECT: Order %s could not be analysed', (string) $order->getOrderNumber())
                 );
             }
         }
@@ -108,16 +108,16 @@ class AutoProcessHandler extends ScheduledTaskHandler
     {
         $isCanceled = false;
         $this->logger->info(
-            sprintf('ADDRESSFACTORY DIRECT: Processing Order %s ...', $order->getOrderNumber())
+            \sprintf('ADDRESSFACTORY DIRECT: Processing Order %s ...', (string) $order->getOrderNumber())
         );
 
         if ($this->config->isAutoCancelNonDeliverableOrders($order->getSalesChannelId())) {
             $isCanceled = $this->orderUpdater->cancelIfUndeliverable($order, $analysisResult, $context);
             if ($isCanceled) {
                 $this->logger->info(
-                    sprintf(
+                    \sprintf(
                         'ADDRESSFACTORY DIRECT: Undeliverable Order "%s" cancelled',
-                        $order->getOrderNumber()
+                        (string) $order->getOrderNumber()
                     )
                 );
             }
@@ -126,9 +126,9 @@ class AutoProcessHandler extends ScheduledTaskHandler
             $isUpdated = $this->orderAnalysisService->updateShippingAddress($order->getId(), $analysisResult, $context);
             if ($isUpdated) {
                 $this->logger->info(
-                    sprintf(
+                    \sprintf(
                         'ADDRESSFACTORY DIRECT: Order "%s" address updated',
-                        $order->getOrderNumber()
+                        (string) $order->getOrderNumber()
                     )
                 );
             }
