@@ -117,6 +117,16 @@ class AnalysisStatusUpdater
      */
     private function updateStatus(array $data, Context $context): bool
     {
+        $statusesCollection = $this->repository->search(
+            (new Criteria())->addFilter(new EqualsFilter('orderId', $data['orderId'])),
+            $context
+        );
+
+        if ($statusesCollection->getTotal()) {
+            // add ID if a status for the order does already exists
+            $data['id'] = $statusesCollection->first()->getId();
+        }
+
         $event = $this->repository->upsert([$data], $context);
         if ($event->getErrors()) {
             foreach ($event->getErrors() as $error) {
