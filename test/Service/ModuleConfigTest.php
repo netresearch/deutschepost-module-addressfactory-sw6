@@ -14,7 +14,9 @@ use Shopware\Core\System\SystemConfig\SystemConfigService;
 
 class ModuleConfigTest extends TestCase
 {
-    /** @var ModuleConfig */
+    /**
+     * @var ModuleConfig
+     */
     private $subject;
 
     protected function setUp(): void

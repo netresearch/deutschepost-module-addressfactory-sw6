@@ -10,6 +10,8 @@ namespace PostDirekt\Addressfactory\Resources\OrderAddress;
 
 interface AnalysisResultInterface extends \JsonSerializable
 {
+    public function getId(): string;
+
     public function getOrderAddressId(): string;
 
     /**
