@@ -9,9 +9,12 @@ declare(strict_types=1);
 namespace PostDirekt\Addressfactory\Resources\OrderAddress;
 
 use Shopware\Core\Framework\DataAbstractionLayer\Entity;
+use Shopware\Core\Framework\DataAbstractionLayer\EntityIdTrait;
 
 class AnalysisResult extends Entity implements AnalysisResultInterface
 {
+    use EntityIdTrait;
+
     /**
      * @var string
      */

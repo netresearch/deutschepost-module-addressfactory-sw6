@@ -208,6 +208,7 @@ class DeliverabilityCodes
         foreach ($codes as $code) {
             if (isset($mappedCodes[$code])) {
                 $labels[] = $mappedCodes[$code];
+
                 continue;
             }
 
@@ -279,15 +280,19 @@ class DeliverabilityCodes
         switch ($fieldCode) {
             case '000':
                 $iconCode = 'icon-alert';
+
                 break;
             case \in_array($fieldCode, $inHouse, true):
                 $iconCode = 'icon-house';
+
                 break;
             case '050':
                 $iconCode = 'icon-user-account';
+
                 break;
             case '040':
                 $iconCode = 'icon-user-group';
+
                 break;
             default:
                 $iconCode = 'icon-info';

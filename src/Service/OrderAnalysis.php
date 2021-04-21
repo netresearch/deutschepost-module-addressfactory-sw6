@@ -114,12 +114,15 @@ class OrderAnalysis
         switch ($statusCode) {
             case DeliverabilityCodes::DELIVERABLE:
                 $this->deliverabilityStatus->setStatusDeliverable($orderId, $context);
+
                 break;
             case DeliverabilityCodes::POSSIBLY_DELIVERABLE:
                 $this->deliverabilityStatus->setStatusPossiblyDeliverable($orderId, $context);
+
                 break;
             case DeliverabilityCodes::UNDELIVERABLE:
                 $this->deliverabilityStatus->setStatusUndeliverable($orderId, $context);
+
                 break;
             case DeliverabilityCodes::CORRECTION_REQUIRED:
                 $this->deliverabilityStatus->setStatusCorrectionRequired($orderId, $context);

@@ -12,6 +12,8 @@ use Shopware\Core\Checkout\Order\OrderEntity;
 
 interface AnalysisStatusInterface extends \JsonSerializable
 {
+    public function getId(): string;
+
     public function getOrderId(): string;
 
     public function getStatus(): string;

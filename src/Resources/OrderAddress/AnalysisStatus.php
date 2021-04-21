@@ -10,9 +10,12 @@ namespace PostDirekt\Addressfactory\Resources\OrderAddress;
 
 use Shopware\Core\Checkout\Order\OrderEntity;
 use Shopware\Core\Framework\DataAbstractionLayer\Entity;
+use Shopware\Core\Framework\DataAbstractionLayer\EntityIdTrait;
 
 class AnalysisStatus extends Entity implements AnalysisStatusInterface
 {
+    use EntityIdTrait;
+
     /**
      * @var string
      */
@@ -40,11 +43,11 @@ class AnalysisStatus extends Entity implements AnalysisStatusInterface
 
     public function getOrder(): ?OrderEntity
     {
-        if ($this->has('order')) {
-            return $this->get('order')->first();
+        try {
+            return $this->get('order');
+        } catch (\InvalidArgumentException $exception) {
+            return null;
         }
-
-        return null;
     }
 
     public function setStatus(string $status): void
