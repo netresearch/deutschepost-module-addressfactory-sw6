@@ -14,10 +14,7 @@ class ModuleConfig
 {
     private const PREFIX = 'NRLEJPostDirektAddressfactory.config.';
 
-    /**
-     * @var SystemConfigService
-     */
-    private $systemConfig;
+    private SystemConfigService $systemConfig;
 
     public function __construct(SystemConfigService $systemConfig)
     {
@@ -29,7 +26,7 @@ class ModuleConfig
      */
     public function isLoggingEnabled(?string $salesChannelId = null): bool
     {
-        return (bool) $this->systemConfig->get(self::PREFIX . 'logging', $salesChannelId);
+        return $this->systemConfig->getBool(self::PREFIX . 'logging', $salesChannelId);
     }
 
     /**
@@ -37,7 +34,7 @@ class ModuleConfig
      */
     public function getApiUser(?string $salesChannelId = null): string
     {
-        return (string) $this->systemConfig->get(self::PREFIX . 'apiUser', $salesChannelId);
+        return $this->systemConfig->getString(self::PREFIX . 'apiUser', $salesChannelId);
     }
 
     /**
@@ -45,17 +42,17 @@ class ModuleConfig
      */
     public function getApiPassword(?string $salesChannelId = null): string
     {
-        return (string) $this->systemConfig->get(self::PREFIX . 'apiPassword', $salesChannelId);
+        return $this->systemConfig->getString(self::PREFIX . 'apiPassword', $salesChannelId);
     }
 
     public function getConfigurationName(?string $salesChannelId = null): string
     {
-        return (string) $this->systemConfig->get(self::PREFIX . 'configurationName', $salesChannelId);
+        return $this->systemConfig->getString(self::PREFIX . 'configurationName', $salesChannelId);
     }
 
     public function getClientId(?string $salesChannelId = null): string
     {
-        return (string) $this->systemConfig->get(self::PREFIX . 'clientId', $salesChannelId);
+        return $this->systemConfig->getString(self::PREFIX . 'clientId', $salesChannelId);
     }
 
     public function isCronAnalysis(?string $salesChannelId = null): bool
@@ -70,11 +67,11 @@ class ModuleConfig
 
     public function isAutoCancelNonDeliverableOrders(?string $salesChannelId = null): bool
     {
-        return (bool) $this->systemConfig->get(self::PREFIX . 'autoCancelOrder', $salesChannelId);
+        return $this->systemConfig->getBool(self::PREFIX . 'autoCancelOrder', $salesChannelId);
     }
 
     public function isAutoUpdateShippingAddress(?string $salesChannelId = null): bool
     {
-        return (bool) $this->systemConfig->get(self::PREFIX . 'autoUpdateOrder', $salesChannelId);
+        return $this->systemConfig->getBool(self::PREFIX . 'autoUpdateOrder', $salesChannelId);
     }
 }

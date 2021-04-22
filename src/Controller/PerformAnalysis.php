@@ -13,7 +13,6 @@ use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\Routing\Annotation\RouteScope;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -21,32 +20,17 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @RouteScope(scopes={"api"})
  */
-class PerformAnalysis extends AbstractController
+class PerformAnalysis
 {
-    /**
-     * @var EntityRepositoryInterface
-     */
-    private $orderRepository;
+    private EntityRepositoryInterface $orderRepository;
 
-    /**
-     * @var OrderAnalysis
-     */
-    private $orderAnalysis;
+    private OrderAnalysis $orderAnalysis;
 
-    /**
-     * @var OrderUpdater
-     */
-    private $orderUpdater;
+    private OrderUpdater $orderUpdater;
 
-    /**
-     * @var AnalysisStatusUpdater
-     */
-    private $analysisStatus;
+    private AnalysisStatusUpdater $analysisStatus;
 
-    /**
-     * @var ModuleConfig
-     */
-    private $config;
+    private ModuleConfig $config;
 
     public function __construct(
         EntityRepositoryInterface $orderRepository,
@@ -63,7 +47,7 @@ class PerformAnalysis extends AbstractController
     }
 
     /**
-     * @Route("/api/v{version}/postdirekt/addressfactory/perform-analysis",
+     * @Route("/api/postdirekt/addressfactory/perform-analysis",
      *     name="api.action.postdirekt.addressfactory.perform-analysis",
      *     methods={"POST"})
      */

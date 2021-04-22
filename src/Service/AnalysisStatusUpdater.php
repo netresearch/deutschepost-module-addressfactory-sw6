@@ -25,15 +25,9 @@ class AnalysisStatusUpdater
     public const ADDRESS_CORRECTED = 'address_corrected';
     public const ANALYSIS_FAILED = 'analysis_failed';
 
-    /**
-     * @var EntityRepositoryInterface
-     */
-    private $repository;
+    private EntityRepositoryInterface $repository;
 
-    /**
-     * @var LoggerInterface
-     */
-    private $logger;
+    private LoggerInterface $logger;
 
     public function __construct(
         EntityRepositoryInterface $repository,

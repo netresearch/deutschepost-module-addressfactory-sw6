@@ -6,9 +6,7 @@ namespace PostDirekt\Addressfactory\Controller;
 
 use PostDirekt\Sdk\AddressfactoryDirect\Service\ServiceFactory;
 use Psr\Log\LoggerInterface;
-use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\Routing\Annotation\RouteScope;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -16,17 +14,11 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @RouteScope(scopes={"api"})
  */
-class TestApiAccess extends AbstractController
+class TestApiAccess
 {
-    /**
-     * @var ServiceFactory
-     */
-    private $serviceFactory;
+    private ServiceFactory $serviceFactory;
 
-    /**
-     * @var LoggerInterface
-     */
-    private $logger;
+    private LoggerInterface $logger;
 
     public function __construct(ServiceFactory $serviceFactory, LoggerInterface $logger)
     {
@@ -35,11 +27,11 @@ class TestApiAccess extends AbstractController
     }
 
     /**
-     * @Route("/api/v{version}/postdirekt/addressfactory/test-api-access",
+     * @Route("/api/postdirekt/addressfactory/test-api-access",
      *     name="api.action.postdirekt.addressfactory.test-api-access",
      *     methods={"POST"})
      */
-    public function execute(Request $request, Context $context): Response
+    public function execute(Request $request): Response
     {
         try {
             $username = $request->get('username');
@@ -56,9 +48,9 @@ class TestApiAccess extends AbstractController
             $session = $service->openSession($configurationName, $clientId);
             $service->closeSession($session);
 
-            return Response::create();
+            return new Response();
         } catch (\Exception $e) {
-            return Response::create(null, Response::HTTP_BAD_REQUEST);
+            return new Response(null, Response::HTTP_BAD_REQUEST);
         }
     }
 }

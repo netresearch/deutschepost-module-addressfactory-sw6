@@ -15,45 +15,21 @@ class AnalysisResult extends Entity implements AnalysisResultInterface
 {
     use EntityIdTrait;
 
-    /**
-     * @var string
-     */
-    protected $orderAddressId;
+    protected string $orderAddressId;
 
-    /**
-     * @var string
-     */
-    protected $statusCodes;
+    protected string $statusCodes;
 
-    /**
-     * @var string
-     */
-    protected $firstName;
+    protected string $firstName;
 
-    /**
-     * @var string
-     */
-    protected $lastName;
+    protected string $lastName;
 
-    /**
-     * @var string
-     */
-    protected $city;
+    protected string $city;
 
-    /**
-     * @var string
-     */
-    protected $postalCode;
+    protected string $postalCode;
 
-    /**
-     * @var string
-     */
-    protected $street;
+    protected string $street;
 
-    /**
-     * @var string|null
-     */
-    protected $streetNumber;
+    protected ?string $streetNumber;
 
     public function getOrderAddressId(): string
     {
