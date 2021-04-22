@@ -27,25 +27,13 @@ class Order
 {
     use BasicTestDataBehaviour;
 
-    /**
-     * @var Context
-     */
-    private $context;
+    private Context $context;
 
-    /**
-     * @var EntityRepositoryInterface
-     */
-    private $orderRepository;
+    private EntityRepositoryInterface $orderRepository;
 
-    /**
-     * @var StateMachineRegistry
-     */
-    private $stateMachineRegistry;
+    private StateMachineRegistry $stateMachineRegistry;
 
-    /**
-     * @var ContainerInterface
-     */
-    private $container;
+    private ContainerInterface $container;
 
     public function __construct(
         Context $context,
@@ -80,7 +68,7 @@ class Order
         $countryStateId = Uuid::randomHex();
         $salutation = $this->getValidSalutationId();
 
-        $order = [
+        return [
             [
                 'id' => $orderId,
                 'orderDateTime' => (new \DateTimeImmutable())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
@@ -212,7 +200,5 @@ class Order
                 ],
             ],
         ];
-
-        return $order;
     }
 }

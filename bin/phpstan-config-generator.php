@@ -1,34 +1,36 @@
-<?php
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
-use PackageVersions\Versions;
+use Composer\InstalledVersions;
+use PostDirekt\Addressfactory\NRLEJPostDirektAddressfactory;
 use Shopware\Core\Framework\Plugin\KernelPluginLoader\StaticKernelPluginLoader;
 use Shopware\Development\Kernel;
 use Symfony\Component\Dotenv\Dotenv;
 
-$classLoader = require '/app/vendor/autoload.php';
-(new Dotenv(true))->load('/app/.env');
+$classLoader = require __DIR__ . '/../../../../vendor/autoload.php';
+(new Dotenv(true))->load(__DIR__ . '/../../../../.env');
 
-$shopwareVersion = Versions::getVersion('shopware/platform');
+$shopwareVersion = InstalledVersions::getVersion('shopware/platform');
 
 $pluginRootPath = \dirname(__DIR__);
 $composerJson = \json_decode((string) \file_get_contents($pluginRootPath . '/composer.json'), true);
 
-$nrlejAddressFactory = [
+$nrlejAddressfactory = [
     'autoload' => $composerJson['autoload'],
-    'baseClass' => \PostDirekt\Addressfactory\NRLEJPostDirektAddressfactory::class,
+    'baseClass' => NRLEJPostDirektAddressfactory::class,
     'managedByComposer' => false,
+    'name' => 'NRLEJPostDirektAddressfactory',
+    'version' => $composerJson['version'],
     'active' => true,
     'path' => $pluginRootPath,
 ];
-$pluginLoader = new StaticKernelPluginLoader($classLoader, null, [$nrlejAddressFactory]);
+$pluginLoader = new StaticKernelPluginLoader($classLoader, null, [$nrlejAddressfactory]);
 
 $kernel = new Kernel('dev', true, $pluginLoader, $shopwareVersion);
 $kernel->boot();
 $projectDir = $kernel->getProjectDir();
 $cacheDir = $kernel->getCacheDir();
 
-//$relativeCacheDir = str_replace($projectDir, '', $cacheDir);
+$relativeCacheDir = \str_replace($projectDir, '', $cacheDir);
 
 $phpStanConfigDist = \file_get_contents(__DIR__ . '/../phpstan.neon.dist');
 if ($phpStanConfigDist === false) {
