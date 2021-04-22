@@ -18,30 +18,15 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class NewOrderSubscriber implements EventSubscriberInterface
 {
-    /**
-     * @var ModuleConfig
-     */
-    private $config;
+    private ModuleConfig $config;
 
-    /**
-     * @var AnalysisStatusUpdater
-     */
-    private $analysisStatus;
+    private AnalysisStatusUpdater $analysisStatus;
 
-    /**
-     * @var OrderAnalysis
-     */
-    private $analyseService;
+    private OrderAnalysis $analyseService;
 
-    /**
-     * @var OrderUpdater
-     */
-    private $orderUpdater;
+    private OrderUpdater $orderUpdater;
 
-    /**
-     * @var LoggerInterface
-     */
-    private $logger;
+    private LoggerInterface $logger;
 
     public function __construct(
         ModuleConfig $config,

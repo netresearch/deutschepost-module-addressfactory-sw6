@@ -25,30 +25,15 @@ use Shopware\Core\Framework\MessageQueue\ScheduledTask\ScheduledTaskHandler;
 
 class AutoProcessHandler extends ScheduledTaskHandler
 {
-    /**
-     * @var ModuleConfig
-     */
-    private $config;
+    private ModuleConfig $config;
 
-    /**
-     * @var OrderAnalysis
-     */
-    private $orderAnalysisService;
+    private OrderAnalysis $orderAnalysisService;
 
-    /**
-     * @var EntityRepositoryInterface
-     */
-    private $analysisStatusRepo;
+    private EntityRepositoryInterface $analysisStatusRepo;
 
-    /**
-     * @var OrderUpdater
-     */
-    private $orderUpdater;
+    private OrderUpdater $orderUpdater;
 
-    /**
-     * @var LoggerInterface
-     */
-    private $logger;
+    private LoggerInterface $logger;
 
     public function __construct(
         EntityRepositoryInterface $scheduledTaskRepo,

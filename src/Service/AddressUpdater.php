@@ -16,10 +16,7 @@ use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 
 class AddressUpdater
 {
-    /**
-     * @var EntityRepositoryInterface
-     */
-    private $orderAddressRepository;
+    private EntityRepositoryInterface $orderAddressRepository;
 
     public function __construct(EntityRepositoryInterface $orderAddressRepository)
     {

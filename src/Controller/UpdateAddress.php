@@ -11,7 +11,6 @@ use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use Shopware\Core\Framework\Routing\Annotation\RouteScope;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -19,27 +18,15 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @RouteScope(scopes={"api"})
  */
-class UpdateAddress extends AbstractController
+class UpdateAddress
 {
-    /**
-     * @var EntityRepositoryInterface
-     */
-    private $analysisResultRepo;
+    private EntityRepositoryInterface $analysisResultRepo;
 
-    /**
-     * @var EntityRepositoryInterface
-     */
-    private $orderAddressRepo;
+    private EntityRepositoryInterface $orderAddressRepo;
 
-    /**
-     * @var EntityRepositoryInterface
-     */
-    private $orderRepository;
+    private EntityRepositoryInterface $orderRepository;
 
-    /**
-     * @var OrderAnalysis
-     */
-    private $orderAnalysis;
+    private OrderAnalysis $orderAnalysis;
 
     public function __construct(
         EntityRepositoryInterface $analysisResultRepo,
@@ -54,7 +41,7 @@ class UpdateAddress extends AbstractController
     }
 
     /**
-     * @Route("/api/v{version}/postdirekt/addressfactory/update-address",
+     * @Route("/api/postdirekt/addressfactory/update-address",
      *     name="api.action.postdirekt.addressfactory.update-address",
      *     methods={"POST"})
      */

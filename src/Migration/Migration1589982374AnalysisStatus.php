@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace PostDirekt\Addressfactory\Migration;
 
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Exception;
 use Shopware\Core\Framework\Migration\MigrationStep;
 
 class Migration1589982374AnalysisStatus extends MigrationStep
@@ -14,6 +15,9 @@ class Migration1589982374AnalysisStatus extends MigrationStep
         return 1589982374;
     }
 
+    /**
+     * @throws Exception
+     */
     public function update(Connection $connection): void
     {
         $sql = <<<SQL
@@ -29,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `postdirekt_addressfactory_analysis_status` (
     DEFAULT CHARSET=utf8mb4
     COLLATE=utf8mb4_unicode_ci;
 SQL;
-        $connection->executeUpdate($sql);
+        $connection->executeStatement($sql);
     }
 
     public function updateDestructive(Connection $connection): void

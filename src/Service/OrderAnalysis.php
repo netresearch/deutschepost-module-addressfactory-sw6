@@ -15,25 +15,13 @@ use Shopware\Core\Framework\Context;
 
 class OrderAnalysis
 {
-    /**
-     * @var AddressAnalysis
-     */
-    private $addressAnalysis;
+    private AddressAnalysis $addressAnalysis;
 
-    /**
-     * @var DeliverabilityCodes
-     */
-    private $deliverabilityScore;
+    private DeliverabilityCodes $deliverabilityScore;
 
-    /**
-     * @var AnalysisStatusUpdater
-     */
-    private $deliverabilityStatus;
+    private AnalysisStatusUpdater $deliverabilityStatus;
 
-    /**
-     * @var AddressUpdater
-     */
-    private $addressUpdater;
+    private AddressUpdater $addressUpdater;
 
     public function __construct(
         AddressAnalysis $addressAnalysis,

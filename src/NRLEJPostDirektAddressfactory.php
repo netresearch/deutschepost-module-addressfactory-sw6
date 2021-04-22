@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace PostDirekt\Addressfactory;
 
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Exception;
 use Shopware\Core\Framework\Plugin;
 use Shopware\Core\Framework\Plugin\Context\UninstallContext;
 
@@ -25,6 +26,9 @@ if (!\defined('__NR_POSTDIREKT_ADDRESSFACTORY_MANAGED_BY_COMPOSER') && isset($au
 
 class NRLEJPostDirektAddressfactory extends Plugin
 {
+    /**
+     * @throws Exception
+     */
     public function uninstall(UninstallContext $uninstallContext): void
     {
         if ($uninstallContext->keepUserData()) {
@@ -36,7 +40,7 @@ class NRLEJPostDirektAddressfactory extends Plugin
         /** @var Connection $connection */
         $connection = $this->container->get(Connection::class);
 
-        $connection->executeUpdate('DROP TABLE IF EXISTS `postdirekt_addressfactory_analysis_status`;');
-        $connection->executeUpdate('DROP TABLE IF EXISTS `postdirekt_addressfactory_analysis_result`;');
+        $connection->executeStatement('DROP TABLE IF EXISTS `postdirekt_addressfactory_analysis_status`;');
+        $connection->executeStatement('DROP TABLE IF EXISTS `postdirekt_addressfactory_analysis_result`;');
     }
 }

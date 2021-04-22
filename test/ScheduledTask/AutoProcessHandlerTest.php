@@ -12,6 +12,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use PostDirekt\Addressfactory\Resources\OrderAddress\AnalysisResult;
 use PostDirekt\Addressfactory\Resources\OrderAddress\AnalysisStatus;
+use PostDirekt\Addressfactory\Resources\OrderAddress\AnalysisStatusDefinition;
 use PostDirekt\Addressfactory\ScheduledTask\AutoProcessHandler;
 use PostDirekt\Addressfactory\Service\AnalysisStatusUpdater;
 use PostDirekt\Addressfactory\Service\ModuleConfig;
@@ -81,6 +82,7 @@ class AutoProcessHandlerTest extends TestCase
         $this->analysisStatusRepo
             ->method('search')
             ->willReturn(new EntitySearchResult(
+                AnalysisStatusDefinition::ENTITY_NAME,
                 1,
                 new EntityCollection([$analysisStatus]),
                 null,

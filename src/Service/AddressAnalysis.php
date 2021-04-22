@@ -26,30 +26,15 @@ use Shopware\Core\System\Country\CountryEntity;
 
 class AddressAnalysis
 {
-    /**
-     * @var EntityRepositoryInterface
-     */
-    private $analysisResultRepo;
+    private EntityRepositoryInterface $analysisResultRepo;
 
-    /**
-     * @var ModuleConfig
-     */
-    private $moduleConfig;
+    private ModuleConfig $moduleConfig;
 
-    /**
-     * @var ServiceFactory
-     */
-    private $serviceFactory;
+    private ServiceFactory $serviceFactory;
 
-    /**
-     * @var RequestBuilder
-     */
-    private $requestBuilder;
+    private RequestBuilder $requestBuilder;
 
-    /**
-     * @var LoggerInterface
-     */
-    private $logger;
+    private LoggerInterface $logger;
 
     public function __construct(
         EntityRepositoryInterface $analysisResultRepo,
@@ -126,9 +111,7 @@ class AddressAnalysis
         }
 
         // add new records to previously analysis results from db, do a union on purpose to keep keys
-        $analysisResults = $newAnalysisResults + $analysisResults;
-
-        return $analysisResults;
+        return $newAnalysisResults + $analysisResults;
     }
 
     /**
