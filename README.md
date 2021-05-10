@@ -5,8 +5,8 @@ in your shop system using the service of Deutsche Post Direkt.
 
 ## Requirements
 
-* Shopware 6.1.0 or newer
-* PHP >= 7.2
+* Shopware 6.4.0 or newer
+* PHP >= 7.4
 * Contract with Deutsche Post Direkt GmbH for using the ADDRESSFACTORY DIRECT API
 
 ## Installation

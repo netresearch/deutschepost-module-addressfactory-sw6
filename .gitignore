@@ -9,3 +9,4 @@ vendor
 .phpunit.result.cache
 phpstan.neon
 composer.lock
+.idea/
