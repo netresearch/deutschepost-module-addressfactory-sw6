@@ -1,4 +1,4 @@
-# Unreleased
+# 2.0.0
 
 Shopware 6.4 compatibility release
 
