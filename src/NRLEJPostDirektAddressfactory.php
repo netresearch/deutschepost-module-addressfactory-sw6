@@ -13,15 +13,8 @@ use Doctrine\DBAL\Exception;
 use Shopware\Core\Framework\Plugin;
 use Shopware\Core\Framework\Plugin\Context\UninstallContext;
 
-if (\file_exists(__DIR__ . '/../vendor/autoload.php')) {
-    $autoloadPath = __DIR__ . '/../vendor/autoload.php';
-}
 if (\file_exists(__DIR__ . '/../vendor/scoper-autoload.php')) {
-    $autoloadPath = __DIR__ . '/../vendor/scoper-autoload.php';
-}
-
-if (!\defined('__NR_POSTDIREKT_ADDRESSFACTORY_MANAGED_BY_COMPOSER') && isset($autoloadPath)) {
-    require_once $autoloadPath;
+    require_once __DIR__ . '/../vendor/scoper-autoload.php';
 }
 
 class NRLEJPostDirektAddressfactory extends Plugin
@@ -42,5 +35,10 @@ class NRLEJPostDirektAddressfactory extends Plugin
 
         $connection->executeStatement('DROP TABLE IF EXISTS `postdirekt_addressfactory_analysis_status`;');
         $connection->executeStatement('DROP TABLE IF EXISTS `postdirekt_addressfactory_analysis_result`;');
+    }
+
+    public function executeComposerCommands(): bool
+    {
+        return true;
     }
 }
