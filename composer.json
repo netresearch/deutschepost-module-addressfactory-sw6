@@ -12,10 +12,7 @@
     "autoload-dev": {
         "psr-4": {
             "PostDirekt\\Addressfactory\\Test\\": "test/"
-        },
-        "files": [
-            "autoload-dist/PluginIsManagedByComposer.php"
-        ]
+        }
     },
     "require": {
         "php": "^7.4",
