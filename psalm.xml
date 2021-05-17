@@ -99,5 +99,10 @@
                 <file name="src/NRLEJPostDirektAddressfactory.php"/>
             </errorLevel>
         </UnusedVariable>
+        <MissingFile>
+            <errorLevel type="info">
+                <file name="src/NRLEJPostDirektAddressfactory.php"/>
+            </errorLevel>
+        </MissingFile>
     </issueHandlers>
 </psalm>
