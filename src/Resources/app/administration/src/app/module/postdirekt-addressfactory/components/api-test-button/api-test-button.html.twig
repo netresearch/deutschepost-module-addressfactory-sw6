@@ -1,0 +1,10 @@
+<div>
+{% block nr_addressfactory_api_test_button %}
+    <sw-button :disabled="false"
+               variant="secondary"
+               @click="onButtonClick()">
+        {{ $t('postdirekt-addressfactory.apiTest.buttonLabel') }}
+    </sw-button>
+    <sw-loader v-if="isLoading"/>
+{% endblock %}
+</div>
