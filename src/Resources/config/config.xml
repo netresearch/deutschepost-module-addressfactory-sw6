@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/shopware/platform/master/src/Core/System/SystemConfig/Schema/config.xsd">
+    <card>
+        <title>Deutsche Post Direkt</title>
+        <component name="postdirekt.addressfactory.infobox">
+            <name>infobox</name>
+            <logo>nrlejpostdirektaddressfactory/static/assets/images/deutsche-post-logo.svg</logo>
+            <version>2.0.0</version>
+            <headerColor>#FFD633</headerColor>
+            <bodyColor>#FEFCEE</bodyColor>
+        </component>
+    </card>
+    <card>
+        <title>ADDRESSFACTORY Credentials</title>
+        <title lang="de-DE">ADDRESSFACTORY Nutzerdaten</title>
+        <input-field>
+            <name>apiUser</name>
+            <required>true</required>
+            <label>API User</label>
+            <label lang="de-DE">API Nutzer</label>
+        </input-field>
+        <input-field type="password">
+            <name>apiPassword</name>
+            <required>true</required>
+            <label>API Password</label>
+            <label lang="de-DE">API Password</label>
+        </input-field>
+        <input-field>
+            <name>configurationName</name>
+            <required>true</required>
+            <defaultValue>Standard</defaultValue>
+            <label>ADDRESSFACTORY DIRECT Configuration Name</label>
+            <label lang="de-DE">ADDRESSFACTORY DIRECT Konfigurationsname</label>
+        </input-field>
+        <input-field>
+            <name>clientId</name>
+            <label>ADDRESSFACTORY DIRECT Client ID</label>
+            <label lang="de-DE">ADDRESSFACTORY DIRECT Mandanten-Name</label>
+        </input-field>
+        <component name="postdirekt.addressfactory.api-test-button">
+            <name>postdirektAddressfactoryApiTestButton</name>
+        </component>
+    </card>
+    <card>
+        <title>Automatic Analysis Settings</title>
+        <title lang="de-DE">Automatische Analyse</title>
+        <input-field type="single-select">
+            <name>automaticAnalysis</name>
+            <label>New Orders</label>
+            <label lang="de-DE">Neue Bestellungen</label>
+            <defaultValue>none</defaultValue>
+            <options>
+                <option>
+                    <id>none</id>
+                    <name>No Automatic Analysis</name>
+                    <name lang="de-DE">Keine automatische Analyse</name>
+                </option>
+                <option>
+                    <id>cron</id>
+                    <name>Analysis via Scheduled Task</name>
+                    <name lang="de-DE">Analyse via Warteschleife</name>
+                </option>
+                <option>
+                    <id>synchrounous</id>
+                    <name>Analysis on Order placement</name>
+                    <name lang="de-DE">Analyse bei Bestellungsabschluß</name>
+                </option>
+            </options>
+        </input-field>
+        <input-field type="bool">
+            <name>autoCancelOrder</name>
+            <label>Auto-Cancel Undeliverable Orders</label>
+            <label lang="de-DE">Unzustellbare Bestellungen automatisch stornieren</label>
+        </input-field>
+        <input-field type="bool">
+            <name>autoUpdateOrder</name>
+            <label>Automatically Update Shipping Address</label>
+            <label lang="de-DE">Versandadresse automatisch aktualisieren</label>
+        </input-field>
+    </card>
+</config>
