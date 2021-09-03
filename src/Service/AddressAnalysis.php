@@ -8,9 +8,8 @@ declare(strict_types=1);
 
 namespace PostDirekt\Addressfactory\Service;
 
-use PostDirekt\Addressfactory\Resources\OrderAddress\AnalysisResult;
 use PostDirekt\Addressfactory\Resources\OrderAddress\AnalysisResultInterface;
-use PostDirekt\Sdk\AddressfactoryDirect\Api\Data\RecordInterface;
+use PostDirekt\Addressfactory\Service\Analysis\ResponseMapper;
 use PostDirekt\Sdk\AddressfactoryDirect\Exception\AuthenticationException;
 use PostDirekt\Sdk\AddressfactoryDirect\Exception\ServiceException;
 use PostDirekt\Sdk\AddressfactoryDirect\Model\RequestType\InRecordWSType;
@@ -26,6 +25,8 @@ use Shopware\Core\System\Country\CountryEntity;
 
 class AddressAnalysis
 {
+    private ResponseMapper  $responseMapper;
+
     private EntityRepositoryInterface $analysisResultRepo;
 
     private ModuleConfig $moduleConfig;
@@ -37,12 +38,14 @@ class AddressAnalysis
     private LoggerInterface $logger;
 
     public function __construct(
+        ResponseMapper $responseMapper,
         EntityRepositoryInterface $analysisResultRepo,
         ModuleConfig $moduleConfig,
         ServiceFactory $serviceFactory,
         RequestBuilder $requestBuilder,
         LoggerInterface $logger
     ) {
+        $this->responseMapper = $responseMapper;
         $this->analysisResultRepo = $analysisResultRepo;
         $this->moduleConfig = $moduleConfig;
         $this->serviceFactory = $serviceFactory;
@@ -98,7 +101,7 @@ class AddressAnalysis
                 $this->moduleConfig->getConfigurationName(),
                 $this->moduleConfig->getClientId()
             );
-            $newAnalysisResults = $this->mapRecordsResponse($records, $addressIds);
+            $newAnalysisResults = $this->responseMapper->mapRecordsResponse($records, $addressIds);
             $dalData = [];
             foreach ($newAnalysisResults as $result) {
                 $dalData[] = \json_decode((string) \json_encode($result), true);
@@ -136,49 +139,5 @@ class AddressAnalysis
         );
 
         return $this->requestBuilder->create();
-    }
-
-    /**
-     * @param RecordInterface[] $records
-     * @param string[]          $addressIds
-     *
-     * @return array<string, AnalysisResultInterface>
-     */
-    private function mapRecordsResponse(array $records, array $addressIds): array
-    {
-        $newAnalysisResults = [];
-        foreach ($records as $record) {
-            $result = new AnalysisResult();
-            $result->setOrderAddressId($addressIds[$record->getRecordId()]);
-            $result->setStatusCodes($record->getStatusCodes());
-            $person = $record->getPerson();
-            if ($person !== null) {
-                $result->setFirstName($person->getFirstName());
-                $result->setLastName($person->getLastName());
-            } else {
-                $result->setFirstName('');
-                $result->setLastName('');
-            }
-            $address = $record->getAddress();
-            if ($address !== null) {
-                $result->setPostalCode($address->getPostalCode());
-                $result->setCity($address->getCity());
-                $result->setStreet($address->getStreetName());
-                $result->setStreetNumber(
-                    \trim(
-                        \implode(
-                            ' ',
-                            [
-                                $address->getStreetNumber(),
-                                $address->getStreetNumberAddition(),
-                            ]
-                        )
-                    )
-                );
-            }
-            $newAnalysisResults[$result->getOrderAddressId()] = $result;
-        }
-
-        return $newAnalysisResults;
     }
 }

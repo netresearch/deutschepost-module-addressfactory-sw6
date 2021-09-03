@@ -19,9 +19,9 @@ class AnalysisResult extends Entity implements AnalysisResultInterface
 
     protected string $statusCodes;
 
-    protected string $firstName;
+    protected string $firstName = '';
 
-    protected string $lastName;
+    protected string $lastName = '';
 
     protected string $city;
 
