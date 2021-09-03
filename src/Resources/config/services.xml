@@ -14,6 +14,7 @@
         </service>
         <!-- Propagated Factory from the Addressfactory SDK -->
         <service id="PostDirekt\Sdk\AddressfactoryDirect\Service\ServiceFactory"/>
+        <service id="PostDirekt\Addressfactory\Service\Analysis\ResponseMapper" />
         <service id="PostDirekt\Sdk\AddressfactoryDirect\RequestBuilder\RequestBuilder"/>
         <service id="PostDirekt\Addressfactory\Subscriber\NewOrderSubscriber" public="true">
             <argument type="service" id="PostDirekt\Addressfactory\Service\ModuleConfig"/>
@@ -50,6 +51,7 @@
             <tag name="controller.service_arguments"/>
         </service>
         <service class="PostDirekt\Addressfactory\Service\AddressAnalysis" id="post_direkt.addressfactory.address_analysis">
+            <argument id="PostDirekt\Addressfactory\Service\Analysis\ResponseMapper" type="service"/>
             <argument id="postdirekt_addressfactory_analysis_result.repository" type="service"/>
             <argument id="PostDirekt\Addressfactory\Service\ModuleConfig" type="service"/>
             <argument id="PostDirekt\Sdk\AddressfactoryDirect\Service\ServiceFactory" type="service"/>
