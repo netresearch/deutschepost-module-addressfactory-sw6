@@ -100,8 +100,8 @@ class Order
                             new CalculatedTaxCollection(),
                             new TaxRuleCollection()
                         ),
-                        'shippingDateEarliest' => \date(\DATE_ISO8601),
-                        'shippingDateLatest' => \date(\DATE_ISO8601),
+                        'shippingDateEarliest' => date(\DATE_ISO8601),
+                        'shippingDateLatest' => date(\DATE_ISO8601),
                         'shippingOrderAddress' => [
                             'salutationId' => $salutation,
                             'firstName' => 'Floy',
