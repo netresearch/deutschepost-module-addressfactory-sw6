@@ -27,6 +27,7 @@
         </dd>
     </dl>
     <button v-on:click="updateAddress(deliveryAddress)"
+            :disabled="isEditingContext()"
             class="sw-button sw-button--primary">
         {{ $t('postdirekt-addressfactory.suggestBox.buttonAutocorrectLabel') }}
     </button>
