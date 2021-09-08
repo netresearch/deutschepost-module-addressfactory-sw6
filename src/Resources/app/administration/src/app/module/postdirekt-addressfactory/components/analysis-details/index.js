@@ -30,6 +30,11 @@ Shopware.Component.register('postdirekt.addressfactory.analysis-details', {
             type: Object,
             required: true,
         },
+        isEditingContext: {
+            type: Boolean,
+            required: false,
+            default: false,
+        },
     },
     computed: {
         analysisResultRepository() {

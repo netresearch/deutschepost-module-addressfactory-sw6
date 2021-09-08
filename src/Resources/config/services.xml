@@ -76,6 +76,13 @@
             <argument id="post_direkt.addressfactory.deliverability_codes" type="service"/>
             <argument id="Shopware\Core\System\StateMachine\StateMachineRegistry" type="service"/>
         </service>
+        <service id="PostDirekt\Addressfactory\Subscriber\OrderAddressChangeSubscriber">
+            <argument type="service" id="postdirekt_addressfactory_analysis_result.repository"/>
+            <argument type="service" id="order.repository"/>
+            <argument type="service" id="post_direkt.addressfactory.postdirekt_addressfactory_analysis_status_updater"/>
+            <argument type="service" id="PostDirekt\Addressfactory\Util\Logger"/>
+            <tag name="kernel.event_subscriber"/>
+        </service>
         <!-- Auto Processing Cron Job-->
         <service id="PostDirekt\Addressfactory\ScheduledTask\AutoProcess">
             <tag name="shopware.scheduled.task"/>

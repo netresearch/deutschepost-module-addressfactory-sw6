@@ -2,5 +2,6 @@
     {% parent %}
     <postdirekt.addressfactory.analysis-details :order="currentOrder"
                                                 @order-state-change="bubbleOrderChange"
+                                                :isEditingContext="isEditing"
     />
 {% endblock %}

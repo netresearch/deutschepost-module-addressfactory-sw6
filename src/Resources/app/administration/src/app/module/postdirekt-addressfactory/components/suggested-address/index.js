@@ -26,6 +26,9 @@ Shopware.Component.register('postdirekt.addressfactory.suggested-address', {
         };
     },
     methods: {
+        isEditingContext() {
+          return this.$parent.isEditingContext();
+        },
         isCityDifferent() {
             return this.deliveryAddress.city !== this.analysisResult.city;
         },

@@ -24,6 +24,7 @@ class AnalysisStatusUpdater
     public const DELIVERABLE = 'deliverable';
     public const ADDRESS_CORRECTED = 'address_corrected';
     public const ANALYSIS_FAILED = 'analysis_failed';
+    public const MANUALLY_EDITED = 'manually_edited';
 
     private EntityRepositoryInterface $repository;
 
@@ -90,6 +91,14 @@ class AnalysisStatusUpdater
         return $this->updateStatus([
             'orderId' => $orderId,
             'status' => self::ANALYSIS_FAILED,
+        ], $context);
+    }
+
+    public function setStatusManuallyEdited(string $orderId, Context $context): bool
+    {
+        return $this->updateStatus([
+            'orderId' => $orderId,
+            'status' => self::MANUALLY_EDITED,
         ], $context);
     }
 

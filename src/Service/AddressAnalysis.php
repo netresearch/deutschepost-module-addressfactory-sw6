@@ -72,7 +72,7 @@ class AddressAnalysis
         )->getElements();
 
         /** @var InRecordWSType[] $recordRequests */
-        $recordRequests = \array_reduce(
+        $recordRequests = array_reduce(
             $addresses,
             function (array $recordRequests, OrderAddressEntity $orderAddress) use ($analysisResults, $addressIds) {
                 if (!\array_key_exists($orderAddress->getId(), $analysisResults)) {
@@ -104,7 +104,7 @@ class AddressAnalysis
             $newAnalysisResults = $this->responseMapper->mapRecordsResponse($records, $addressIds);
             $dalData = [];
             foreach ($newAnalysisResults as $result) {
-                $dalData[] = \json_decode((string) \json_encode($result), true);
+                $dalData[] = json_decode((string) json_encode($result), true);
             }
             $this->analysisResultRepo->upsert($dalData, $context);
         } catch (AuthenticationException $exception) {
@@ -123,7 +123,7 @@ class AddressAnalysis
     private function buildRequest(OrderAddressEntity $address, array $addressIds): object
     {
         /* The record id is used in mapRecordsResponse to match webservice results to individual addresses */
-        $this->requestBuilder->setMetadata(\array_flip($addressIds)[$address->getId()]);
+        $this->requestBuilder->setMetadata(array_flip($addressIds)[$address->getId()]);
         /** @var CountryEntity $countryEntity */
         $countryEntity = $address->getCountry();
         $this->requestBuilder->setAddress(

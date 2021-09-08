@@ -55,7 +55,7 @@ class AddressUpdater
             [
                 [
                     'id' => $analysisResult->getOrderAddressId(),
-                    'street' => \implode(' ', [$analysisResult->getStreet(), $analysisResult->getStreetNumber()]),
+                    'street' => implode(' ', [$analysisResult->getStreet(), $analysisResult->getStreetNumber()]),
                     'firstName' => $analysisResult->getFirstName(),
                     'lastName' => $analysisResult->getLastName(),
                     'zipcode' => $analysisResult->getPostalCode(),
@@ -75,8 +75,8 @@ class AddressUpdater
         AnalysisResultInterface $analysisResult,
         OrderAddressEntity $orderAddress
     ): bool {
-        $street = \trim(\implode(' ', [$analysisResult->getStreet(), $analysisResult->getStreetNumber()]));
-        $orderStreet = \trim($orderAddress->getStreet());
+        $street = trim(implode(' ', [$analysisResult->getStreet(), $analysisResult->getStreetNumber()]));
+        $orderStreet = trim($orderAddress->getStreet());
 
         return $orderAddress->getFirstName() !== $analysisResult->getFirstName()
             || $orderAddress->getLastName() !== $analysisResult->getLastName()

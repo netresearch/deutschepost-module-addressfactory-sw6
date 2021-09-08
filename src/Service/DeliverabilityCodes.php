@@ -37,7 +37,7 @@ class DeliverabilityCodes
 
         if (!$wasAlreadyUpdated) {
             foreach ($codes as $code) {
-                $statusCode = \mb_substr($code, -3, 3);
+                $statusCode = mb_substr($code, -3, 3);
                 if (\in_array($statusCode, self::STATUS_CODES_SIGNIFICANTLY_CORRECTED, true)) {
                     return self::CORRECTION_REQUIRED;
                 }
@@ -212,9 +212,9 @@ class DeliverabilityCodes
                 continue;
             }
 
-            $moduleCode = \mb_substr($code, 0, 3);
-            $fieldCode = \mb_substr($code, -6, 3);
-            $statusCode = \mb_substr($code, -3, 3);
+            $moduleCode = mb_substr($code, 0, 3);
+            $fieldCode = mb_substr($code, -6, 3);
+            $statusCode = mb_substr($code, -3, 3);
 
             if (
             isset(
@@ -224,8 +224,8 @@ class DeliverabilityCodes
             )
             ) {
                 $iconCode = $this->mapToIcon($fieldCode);
-                $label = \ucfirst(
-                    \trim(
+                $label = ucfirst(
+                    trim(
                         $mappedModuleCodes[$moduleCode] . ' '
                         . $mappedFieldCodes[$fieldCode] . ' '
                         . $mappedStatusCodes[$statusCode]
@@ -256,16 +256,16 @@ class DeliverabilityCodes
          */
         $removals = ['BAC201110', 'BAC010103', 'BAC010104', 'FNC201103'];
 
-        $codes = \array_diff($codes, $removals);
+        $codes = array_diff($codes, $removals);
 
         if (\in_array(self::NOT_CORRECTABLE, $codes, true)) {
             /**
              * If self::NOT_CORRECTABLE is in codes, all other codes from BAC module become irrelevant
              */
-            $codes = \array_filter(
+            $codes = array_filter(
                 $codes,
                 static function ($entry) {
-                    return \mb_strpos($entry, 'BAC') !== false;
+                    return mb_strpos($entry, 'BAC') !== false;
                 }
             );
         }

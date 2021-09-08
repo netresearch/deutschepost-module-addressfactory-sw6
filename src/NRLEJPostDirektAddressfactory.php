@@ -13,7 +13,7 @@ use Doctrine\DBAL\Exception;
 use Shopware\Core\Framework\Plugin;
 use Shopware\Core\Framework\Plugin\Context\UninstallContext;
 
-if (\file_exists(__DIR__ . '/../vendor/scoper-autoload.php')) {
+if (file_exists(__DIR__ . '/../vendor/scoper-autoload.php')) {
     require_once __DIR__ . '/../vendor/scoper-autoload.php';
 }
 
