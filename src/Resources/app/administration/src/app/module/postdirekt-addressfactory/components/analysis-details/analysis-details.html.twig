@@ -34,6 +34,7 @@
     <div v-else>
         <dd>
             <button v-on:click="performAnalysis(order)"
+                    :disabled="isEditingContext"
                     class="sw-button sw-button--primary">
                 {{ $t('postdirekt-addressfactory.infoBox.performButtonLabel') }}
             </button>

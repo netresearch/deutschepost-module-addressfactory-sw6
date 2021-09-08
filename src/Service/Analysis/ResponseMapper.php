@@ -51,8 +51,8 @@ class ResponseMapper
             $result->setCity($address->getCity());
             $result->setStreet($address->getStreetName());
             $result->setStreetNumber(
-                \trim(
-                    \implode(
+                trim(
+                    implode(
                         ' ',
                         [
                             $address->getStreetNumber(),
