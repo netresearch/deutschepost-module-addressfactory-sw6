@@ -9,6 +9,12 @@
             "PostDirekt\\Addressfactory\\": "src/"
         }
     },
+    "config": {
+        "platform": {
+            "php": "7.4",
+            "ext-soap": "1"
+        }
+    },
     "autoload-dev": {
         "psr-4": {
             "PostDirekt\\Addressfactory\\Test\\": "test/"
