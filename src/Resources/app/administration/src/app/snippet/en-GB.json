@@ -96,6 +96,9 @@
             "error": "Delivery address  update failed",
             "success": "Delivery address successfully updated",
             "idMismatch": "Could not update delivery address: Address ID mismatch"
+        },
+        "addressHint": {
+            "enableHint": "Please save the order before you can validate the address or automatically correct it again."
         }
     }
 }

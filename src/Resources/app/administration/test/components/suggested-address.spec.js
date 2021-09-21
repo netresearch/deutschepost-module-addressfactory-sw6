@@ -24,7 +24,7 @@ describe('postdirekt.addressfactory.suggested-address with identical addresses',
         },
         mocks: {
             $t: key => key,
-            isEditingContext: () => false,
+            isInEditingContext: () => false,
         }
     });
     it('does not display a box, address, or update button', () => {

@@ -96,6 +96,9 @@
             "error": "Adressen-Update gescheitert",
             "success": "Adresse erfolgreich aktualisiert",
             "idMismatch": "Versandadresse konnte nicht aktualisiert werden: Adress-ID passt nicht"
+        },
+        "addressHint": {
+          "enableHint": "Bitte speichern Sie die Bestellung, bevor Sie die Adresse erneut validieren oder automatisch korrigieren können."
         }
     }
 }
