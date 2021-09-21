@@ -35,3 +35,13 @@
         background-color: white;
     }
 }
+
+.postdirekt-addressfactory-addresshint {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+
+    .hint-message{
+        padding: 1em;
+    }
+}
