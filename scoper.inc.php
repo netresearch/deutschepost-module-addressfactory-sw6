@@ -42,6 +42,7 @@ return [
     // Paths are relative to the configuration file unless if they are already absolute
     'files-whitelist' => [
         'src/NRLEJPostDirektAddressfactory.php',
+        'vendor/composer/*',
     ],
 
     // When scoping PHP files, there will be scenarios where some of the code being scoped indirectly references the
@@ -77,6 +78,7 @@ return [
         'Symfony\Component\EventDispatcher\*',
         'Symfony\Bundle\FrameworkBundle\*',
         'Psr\Log\LoggerInterface',
+        'NULL',
     ],
 
     // If `true` then the user defined constants belonging to the global namespace will not be prefixed.
