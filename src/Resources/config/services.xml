@@ -14,7 +14,10 @@
         </service>
         <!-- Propagated Factory from the Addressfactory SDK -->
         <service id="PostDirekt\Sdk\AddressfactoryDirect\Service\ServiceFactory"/>
-        <service id="PostDirekt\Addressfactory\Service\Analysis\ResponseMapper" />
+        <service id="PostDirekt\Addressfactory\Service\Analysis\AddressTypeCodeFilter"/>
+        <service id="PostDirekt\Addressfactory\Service\Analysis\ResponseMapper">
+            <argument type="service" id="PostDirekt\Addressfactory\Service\Analysis\AddressTypeCodeFilter"/>
+        </service>
         <service id="PostDirekt\Sdk\AddressfactoryDirect\RequestBuilder\RequestBuilder"/>
         <service id="PostDirekt\Addressfactory\Subscriber\NewOrderSubscriber" public="true">
             <argument type="service" id="PostDirekt\Addressfactory\Service\ModuleConfig"/>
