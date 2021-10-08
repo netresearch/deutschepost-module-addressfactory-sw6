@@ -77,7 +77,7 @@ return [
         'Symfony\Component\Routing\*',
         'Symfony\Component\EventDispatcher\*',
         'Symfony\Bundle\FrameworkBundle\*',
-        'Psr\Log\LoggerInterface',
+        'Psr\*',
         'NULL',
     ],
 

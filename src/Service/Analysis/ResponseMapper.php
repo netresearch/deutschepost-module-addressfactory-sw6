@@ -17,7 +17,13 @@ class ResponseMapper
     public const PARCELSTATION = 'Packstation';
     public const POSTSTATION = 'Postfiliale';
     public const POSTFACH = 'Postfach';
-    public const BULKRECEIVER = 'Großempfänger';
+
+    private AddressTypeCodeFilter $addressTypeCodeFilter;
+
+    public function __construct(AddressTypeCodeFilter $addressTypeCodeFilter)
+    {
+        $this->addressTypeCodeFilter = $addressTypeCodeFilter;
+    }
 
     /**
      * @param RecordInterface[] $records
@@ -35,8 +41,8 @@ class ResponseMapper
                 $result->setLastName($person->getLastName());
             }
             $result->setOrderAddressId($addressIds[$record->getRecordId()]);
-            $result->setStatusCodes($record->getStatusCodes());
-
+            $statusCodes = $this->addressTypeCodeFilter->filterCodes($record);
+            $result->setStatusCodes($statusCodes);
             $newAnalysisResults[$result->getOrderAddressId()] = $result;
         }
 
