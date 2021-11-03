@@ -1,3 +1,10 @@
+# 2.1.0
+
+- Added: Support for PostOffice, ParcelStation and Bulkreceiver addresses.
+- Added: Ability to re-check the shipping address after manually editing it.
+- Added: PHP8 Support.
+- Fixed: Class Autoloading.
+
 # 2.0.0
 
 Shopware 6.4 compatibility release
