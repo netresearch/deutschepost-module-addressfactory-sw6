@@ -3,6 +3,7 @@ src/Resources/app/storefront/package-lock.json
 src/Resources/app/storefront/coverage
 src/Resources/app/administration/dist
 src/Resources/app/administration/coverage
+src/Resources/app/administration/package-lock.json
 **/node_modules
 src/Resources/public
 vendor
