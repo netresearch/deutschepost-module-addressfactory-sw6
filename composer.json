@@ -4,15 +4,19 @@
     "type": "shopware-platform-plugin",
     "version": "2.1.0",
     "license": "MIT",
-    "autoload": {
-        "psr-4": {
-            "PostDirekt\\Addressfactory\\": "src/"
-        }
-    },
     "config": {
         "platform": {
             "php": "7.4",
             "ext-soap": "1"
+        },
+        "allow-plugins": {
+            "composer/package-versions-deprecated": true,
+            "bamarni/composer-bin-plugin": true
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "PostDirekt\\Addressfactory\\": "src/"
         }
     },
     "autoload-dev": {
@@ -28,6 +32,9 @@
         "deutschepost/sdk-api-addressfactory": "^2.0",
         "php-http/curl-client": "^2.2.0",
         "nyholm/psr7": "^1.2.1"
+    },
+    "require-dev": {
+        "bamarni/composer-bin-plugin": "^1.4"
     },
     "authors": [
         {
