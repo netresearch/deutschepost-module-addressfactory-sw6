@@ -1,0 +1,108 @@
+<?xml version="1.0"?>
+<psalm
+    autoloader="../../../vendor/autoload.php"
+    findUnusedVariablesAndParams="true"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="https://getpsalm.org/schema/config"
+    xsi:schemaLocation="https://getpsalm.org/schema/config ../../../dev-ops/analyze/vendor-bin/psalm/vendor/vimeo/psalm/config.xsd"
+>
+    <projectFiles>
+        <directory name="src"/>
+        <directory name="test"/>
+        <ignoreFiles>
+            <directory name="../../../platform"/> <!-- would otherwise inspect Shopware -->
+            <directory name="../../../vendor/shopware/platform"/> <!-- would otherwise inspect Shopware -->
+        </ignoreFiles>
+    </projectFiles>
+    <issueHandlers>
+        <!-- NRLEJPostDirektAddressfactory does not have property in constructor, however it is referenced due to
+        \Symfony\Component\HttpKernel\Bundle\Bundle -->
+        <PropertyNotSetInConstructor>
+            <errorLevel type="info">
+                <referencedProperty name="Symfony\Component\DependencyInjection\ContainerAwareTrait::$container"/>
+                <!-- PHPUnit test case property will not be explicitly set by our test classes (no constructor overwrite) -->
+                <referencedProperty name="PHPUnit\Framework\TestCase::$backupGlobals"/>
+                <referencedProperty name="PostDirekt\Addressfactory\ScheduledTask\AutoProcess::$taskId"/>
+                <!-- Property set in setup method -->
+                <directory name="test"/>
+                <!-- Controllers have di-container through ContainerAwareTrait in AbstractController -->
+                <directory name="src/Controller"/>
+                <directory name="src/Resources/OrderAddress"/>
+                <file name="src/ScheduledTask/AutoProcess.php"/>
+            </errorLevel>
+        </PropertyNotSetInConstructor>
+        <MoreSpecificImplementedParamType>
+            <errorLevel type="info">
+                <!-- Entity definitions specify types by design -->
+                <directory name="src/Resources/OrderAddress"/>
+            </errorLevel>
+        </MoreSpecificImplementedParamType>
+        <InternalMethod>
+            <errorLevel type="info">
+                <!-- For some reason psalm thinks some PHPUnit mock manipulation methods are internal -->
+                <directory name="test"/>
+            </errorLevel>
+        </InternalMethod>
+        <PossiblyUndefinedMethod>
+            <errorLevel type="info">
+                <!-- Mock object methods are not properly recognized due to compound type -->
+                <directory name="test"/>
+            </errorLevel>
+        </PossiblyUndefinedMethod>
+        <InvalidArgument>
+            <errorLevel type="info">
+                <directory name="test"/>
+            </errorLevel>
+        </InvalidArgument>
+        <PossiblyInvalidArgument>
+            <errorLevel type="info">
+                <!-- Mock objects do not satisfy type requirements of constructors due to compound type -->
+                <directory name="test"/>
+            </errorLevel>
+        </PossiblyInvalidArgument>
+        <MissingConstructor>
+            <errorLevel type="info">
+                <!-- Contains entity definitions for SW DAL, therefore no constructors-->
+                <directory name="src/Resources/OrderAddress"/>
+            </errorLevel>
+        </MissingConstructor>
+        <!-- test/TestBootstrap dynamically includes things, which psalm can not resolve -->
+        <UnresolvableInclude errorLevel="info"/>
+        <ArgumentTypeCoercion>
+            <errorLevel type="info">
+                <directory name="test"/>
+            </errorLevel>
+        </ArgumentTypeCoercion>
+        <PropertyTypeCoercion>
+            <errorLevel type="info">
+                <directory name="test"/>
+            </errorLevel>
+        </PropertyTypeCoercion>
+        <InternalMethod>
+            <errorLevel type="info">
+                <file name="src/ScheduledTask/AutoProcessHandler.php"/>
+                <directory name="test"/>
+            </errorLevel>
+        </InternalMethod>
+        <PossiblyNullReference>
+            <errorLevel type="info">
+                <directory name="test"/>
+            </errorLevel>
+        </PossiblyNullReference>
+        <PossiblyInvalidCast>
+            <errorLevel type="info">
+                <file name="src/Service/ModuleConfig.php"/>
+            </errorLevel>
+        </PossiblyInvalidCast>
+        <UnusedVariable>
+            <errorLevel type="info">
+                <file name="src/NRLEJPostDirektAddressfactory.php"/>
+            </errorLevel>
+        </UnusedVariable>
+        <MissingFile>
+            <errorLevel type="info">
+                <file name="src/NRLEJPostDirektAddressfactory.php"/>
+            </errorLevel>
+        </MissingFile>
+    </issueHandlers>
+</psalm>
