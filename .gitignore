@@ -6,7 +6,7 @@ src/Resources/app/administration/coverage
 src/Resources/app/administration/package-lock.json
 **/node_modules
 src/Resources/public
-vendor
+**/vendor
 .phpunit.result.cache
 phpstan.neon
 composer.lock

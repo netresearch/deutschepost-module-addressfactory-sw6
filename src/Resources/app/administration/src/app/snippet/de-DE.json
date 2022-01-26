@@ -44,7 +44,7 @@
             "fieldCodes": {
                 "country": "Land",
                 "houseAddress": "Hausanschrift",
-                "bulkRecipientAddress": "Großempfänder-Adresse",
+                "bulkRecipientAddress": "Großempfänger-Adresse",
                 "street": "Straße",
                 "building": "Gebäude",
                 "household": "Haushalt",
