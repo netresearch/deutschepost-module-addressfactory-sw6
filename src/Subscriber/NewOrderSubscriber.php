@@ -77,6 +77,10 @@ class NewOrderSubscriber implements EventSubscriberInterface
             return;
         }
 
+        if ($this->config->isManualAnalysis($channelId)) {
+            $this->analysisStatus->setStatusNotAnalyzed($orderId, $event->getContext());
+        }
+
         if ($this->config->isCronAnalysis($channelId)) {
             // Pending status means the cron will pick up the order
             $this->analysisStatus->setStatusPending($orderId, $event->getContext());

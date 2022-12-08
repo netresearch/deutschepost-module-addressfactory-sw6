@@ -10,7 +10,7 @@ namespace PostDirekt\Addressfactory\Service;
 
 use Psr\Log\LoggerInterface;
 use Shopware\Core\Framework\Context;
-use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
+use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 
@@ -26,12 +26,12 @@ class AnalysisStatusUpdater
     public const ANALYSIS_FAILED = 'analysis_failed';
     public const MANUALLY_EDITED = 'manually_edited';
 
-    private EntityRepositoryInterface $repository;
+    private EntityRepository $repository;
 
     private LoggerInterface $logger;
 
     public function __construct(
-        EntityRepositoryInterface $repository,
+        EntityRepository $repository,
         LoggerInterface $logger
     ) {
         $this->repository = $repository;
@@ -59,6 +59,14 @@ class AnalysisStatusUpdater
         return $this->updateStatus([
             'orderId' => $orderId,
             'status' => self::CORRECTION_REQUIRED,
+        ], $context);
+    }
+
+    public function setStatusNotAnalyzed(string $orderId, Context $context): bool
+    {
+        return $this->updateStatus([
+            'orderId' => $orderId,
+            'status' => self::NOT_ANALYSED
         ], $context);
     }
 

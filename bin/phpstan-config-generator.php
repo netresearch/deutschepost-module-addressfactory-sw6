@@ -2,14 +2,16 @@
 
 use Composer\InstalledVersions;
 use PostDirekt\Addressfactory\NRLEJPostDirektAddressfactory;
+use Shopware\Core\DevOps\StaticAnalyze\StaticAnalyzeKernel;
 use Shopware\Core\Framework\Plugin\KernelPluginLoader\StaticKernelPluginLoader;
-use Shopware\Development\Kernel;
 use Symfony\Component\Dotenv\Dotenv;
 
-$classLoader = require __DIR__ . '/../../../../vendor/autoload.php';
-(new Dotenv(true))->load(__DIR__ . '/../../../../.env');
+$sw6Path = getenv('PROJECT_ROOT') . '/' ?: __DIR__ . '/../../../../';
 
-$shopwareVersion = InstalledVersions::getVersion('shopware/platform');
+$classLoader = require $sw6Path . 'vendor/autoload.php';
+(new Dotenv(true))->load($sw6Path . '.env');
+
+$shopwareVersion = InstalledVersions::getVersion('shopware/core');
 
 $pluginRootPath = \dirname(__DIR__);
 $composerJson = json_decode((string) file_get_contents($pluginRootPath . '/composer.json'), true);
@@ -25,14 +27,14 @@ $nrlejAddressfactory = [
 ];
 $pluginLoader = new StaticKernelPluginLoader($classLoader, null, [$nrlejAddressfactory]);
 
-$kernel = new Kernel('dev', true, $pluginLoader, $shopwareVersion);
+$kernel = new StaticAnalyzeKernel('dev', true, $pluginLoader, $shopwareVersion);
 $kernel->boot();
 $projectDir = $kernel->getProjectDir();
 $cacheDir = $kernel->getCacheDir();
 
 $relativeCacheDir = str_replace($projectDir, '', $cacheDir);
 
-$phpStanConfigDist = file_get_contents(__DIR__ . '/../phpstan.neon.dist');
+$phpStanConfigDist = file_get_contents($pluginRootPath . '/phpstan.neon.dist');
 if ($phpStanConfigDist === false) {
     throw new RuntimeException('phpstan.neon.dist file not found');
 }
@@ -50,4 +52,4 @@ $phpStanConfig = str_replace(
     $phpStanConfigDist
 );
 
-file_put_contents(__DIR__ . '/../phpstan.neon', $phpStanConfig);
+file_put_contents($pluginRootPath . '/phpstan.neon', $phpStanConfig);

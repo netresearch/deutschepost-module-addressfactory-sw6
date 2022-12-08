@@ -17,9 +17,10 @@ use Shopware\Core\Checkout\Order\Aggregate\OrderDelivery\OrderDeliveryStates;
 use Shopware\Core\Checkout\Order\OrderStates;
 use Shopware\Core\Defaults;
 use Shopware\Core\Framework\Context;
-use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
+use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\Test\TestCaseBase\BasicTestDataBehaviour;
 use Shopware\Core\Framework\Uuid\Uuid;
+use Shopware\Core\System\StateMachine\Loader\InitialStateIdLoader;
 use Shopware\Core\System\StateMachine\StateMachineRegistry;
 use Shopware\Core\Test\TestDefaults;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -30,21 +31,21 @@ class Order
 
     private Context $context;
 
-    private EntityRepositoryInterface $orderRepository;
+    private EntityRepository $orderRepository;
 
-    private StateMachineRegistry $stateMachineRegistry;
+    private InitialStateIdLoader $initialStateIdLoader;
 
     private ContainerInterface $container;
 
     public function __construct(
         Context $context,
-        EntityRepositoryInterface $orderRepository,
-        StateMachineRegistry $stateMachineRegistry,
+        EntityRepository $orderRepository,
+        InitialStateIdLoader $initialStateIdLoader,
         ContainerInterface $container
     ) {
         $this->context = $context;
         $this->orderRepository = $orderRepository;
-        $this->stateMachineRegistry = $stateMachineRegistry;
+        $this->initialStateIdLoader = $initialStateIdLoader;
         $this->container = $container;
     }
 
@@ -82,18 +83,14 @@ class Order
                     CartPrice::TAX_STATE_NET
                 ),
                 'shippingCosts' => new CalculatedPrice(10, 10, new CalculatedTaxCollection(), new TaxRuleCollection()),
-                'stateId' => $this->stateMachineRegistry->getInitialState(OrderStates::STATE_MACHINE, $this->context)
-                    ->getId(),
+                'stateId' => $this->initialStateIdLoader->get(OrderStates::STATE_MACHINE),
                 'paymentMethodId' => $this->getValidPaymentMethodId(),
                 'currencyId' => Defaults::CURRENCY,
                 'currencyFactor' => 1,
                 'salesChannelId' => TestDefaults::SALES_CHANNEL,
                 'deliveries' => [
                     [
-                        'stateId' => $this->stateMachineRegistry->getInitialState(
-                            OrderDeliveryStates::STATE_MACHINE,
-                            $this->context
-                        )->getId(),
+                        'stateId' => $this->initialStateIdLoader->get(OrderDeliveryStates::STATE_MACHINE),
                         'shippingMethodId' => $this->getValidShippingMethodId(),
                         'shippingCosts' => new CalculatedPrice(
                             10,
@@ -101,8 +98,8 @@ class Order
                             new CalculatedTaxCollection(),
                             new TaxRuleCollection()
                         ),
-                        'shippingDateEarliest' => date(\DATE_ISO8601),
-                        'shippingDateLatest' => date(\DATE_ISO8601),
+                        'shippingDateEarliest' => date(\DATE_ATOM),
+                        'shippingDateLatest' => date(\DATE_ATOM),
                         'shippingOrderAddress' => [
                             'salutationId' => $salutation,
                             'firstName' => 'Floy',

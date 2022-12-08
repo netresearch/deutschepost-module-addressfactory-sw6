@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @RouteScope(scopes={"api"})
+ * @Route(defaults={"_routeScope"={"api"}}
  */
 class TestApiAccess
 {
@@ -34,10 +34,10 @@ class TestApiAccess
     public function execute(Request $request): Response
     {
         try {
-            $username = $request->get('username');
-            $password = $request->get('password');
-            $configurationName = $request->get('configurationName');
-            $clientId = $request->get('clientId');
+            $username = (string) $request->request->get('username');
+            $password = (string) $request->request->get('password');
+            $configurationName = (string) $request->request->get('configurationName');
+            $clientId = (string) $request->request->get('clientId');
 
             $service = $this->serviceFactory->createAddressVerificationService(
                 $username,
