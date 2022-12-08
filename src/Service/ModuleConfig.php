@@ -55,6 +55,11 @@ class ModuleConfig
         return $this->systemConfig->getString(self::PREFIX . 'clientId', $salesChannelId);
     }
 
+    public function isManualAnalysis(?string $salesChannelId = null): bool
+    {
+        return $this->systemConfig->get(self::PREFIX . 'automaticAnalysis', $salesChannelId) === 'none';
+    }
+
     public function isCronAnalysis(?string $salesChannelId = null): bool
     {
         return $this->systemConfig->get(self::PREFIX . 'automaticAnalysis', $salesChannelId) === 'cron';

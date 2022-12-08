@@ -18,16 +18,16 @@ use PostDirekt\Sdk\AddressfactoryDirect\Service\ServiceFactory;
 use Psr\Log\LoggerInterface;
 use Shopware\Core\Checkout\Order\Aggregate\OrderAddress\OrderAddressEntity;
 use Shopware\Core\Framework\Context;
-use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
+use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsAnyFilter;
 use Shopware\Core\System\Country\CountryEntity;
 
 class AddressAnalysis
 {
-    private ResponseMapper  $responseMapper;
+    private ResponseMapper $responseMapper;
 
-    private EntityRepositoryInterface $analysisResultRepo;
+    private EntityRepository $analysisResultRepo;
 
     private ModuleConfig $moduleConfig;
 
@@ -39,7 +39,7 @@ class AddressAnalysis
 
     public function __construct(
         ResponseMapper $responseMapper,
-        EntityRepositoryInterface $analysisResultRepo,
+        EntityRepository $analysisResultRepo,
         ModuleConfig $moduleConfig,
         ServiceFactory $serviceFactory,
         RequestBuilder $requestBuilder,
@@ -57,7 +57,6 @@ class AddressAnalysis
      * @param OrderAddressEntity[] $addresses
      *
      * @throws \RuntimeException
-     *
      * @return array<string, AnalysisResultInterface>
      */
     public function analyse(array $addresses, Context $context): array
@@ -66,6 +65,7 @@ class AddressAnalysis
         foreach ($addresses as $address) {
             $addressIds[] = $address->getId();
         }
+        /** @var array<string, AnalysisResultInterface> $analysisResults */
         $analysisResults = $this->analysisResultRepo->search(
             (new Criteria())->addFilter(new EqualsAnyFilter('orderAddressId', $addressIds)),
             $context
