@@ -13,11 +13,12 @@ use Shopware\Core\Framework\DataAbstractionLayer\EntityCollection;
 /**
  * @method void                add(AnalysisResult $entity)
  * @method void                set(string $key, AnalysisResult $entity)
- * @method \Generator          getIterator()
+ * @method \Generator<mixed, AnalysisResult, mixed, mixed>          getIterator()
  * @method AnalysisResult[]    getElements()
  * @method AnalysisResult|null get(string $key)
  * @method AnalysisResult|null first()
  * @method AnalysisResult|null last()
+ * @extends EntityCollection<AnalysisResult>
  */
 class AnalysisResultCollection extends EntityCollection
 {
