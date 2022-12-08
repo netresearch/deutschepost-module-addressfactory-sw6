@@ -1,14 +1,18 @@
 {
-  "require": {
-    "psalm/phar": "^4.18",
-    "phpstan/phpstan": "^1.4"
-  },
-  "config": {
-    "allow-plugins": {
-      "composer/package-versions-deprecated": true
+    "require": {
+        "psalm/phar": "^4.18",
+        "phpstan/phpstan": "^1.4",
+        "phpstan/phpstan-symfony": "*",
+        "phpstan/phpstan-phpunit": "*",
+        "phpstan/extension-installer": "*"
     },
-    "platform": {
-      "php": "7.4"
+    "config": {
+        "allow-plugins": {
+            "composer/package-versions-deprecated": true,
+            "phpstan/extension-installer": true
+        },
+        "platform": {
+            "php": "7.4"
+        }
     }
-  }
 }
