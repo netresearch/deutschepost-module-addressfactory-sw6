@@ -7,31 +7,30 @@ namespace PostDirekt\Addressfactory\Controller;
 use PostDirekt\Addressfactory\Service\OrderAnalysis;
 use Shopware\Core\Checkout\Order\OrderEntity;
 use Shopware\Core\Framework\Context;
-use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
+use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
-use Shopware\Core\Framework\Routing\Annotation\RouteScope;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @RouteScope(scopes={"api"})
+ * @Route(defaults={"_routeScope"={"api"}}
  */
 class UpdateAddress
 {
-    private EntityRepositoryInterface $analysisResultRepo;
+    private EntityRepository $analysisResultRepo;
 
-    private EntityRepositoryInterface $orderAddressRepo;
+    private EntityRepository $orderAddressRepo;
 
-    private EntityRepositoryInterface $orderRepository;
+    private EntityRepository $orderRepository;
 
     private OrderAnalysis $orderAnalysis;
 
     public function __construct(
-        EntityRepositoryInterface $analysisResultRepo,
-        EntityRepositoryInterface $orderAddressRepo,
-        EntityRepositoryInterface $orderRepository,
+        EntityRepository $analysisResultRepo,
+        EntityRepository $orderAddressRepo,
+        EntityRepository $orderRepository,
         OrderAnalysis $orderAnalysis
     ) {
         $this->analysisResultRepo = $analysisResultRepo;
@@ -47,7 +46,7 @@ class UpdateAddress
      */
     public function execute(Request $request, Context $context): JsonResponse
     {
-        $orderId = $request->get('order_id');
+        $orderId = (string) $request->request->get('order_id');
 
         try {
             $shippingAddressId = $this->getShippingAddressId($orderId, $context);

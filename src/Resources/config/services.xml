@@ -91,7 +91,6 @@
             <tag name="shopware.scheduled.task"/>
         </service>
         <service id="PostDirekt\Addressfactory\ScheduledTask\AutoProcessHandler">
-            <argument type="service" id="scheduled_task.repository"/>
             <argument type="service" id="PostDirekt\Addressfactory\Service\ModuleConfig"/>
             <argument type="service" id="post_direkt.addressfactory.order_analysis"/>
             <argument type="service" id="postdirekt_addressfactory_analysis_status.repository"/>

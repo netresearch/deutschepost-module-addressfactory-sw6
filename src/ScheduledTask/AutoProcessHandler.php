@@ -18,28 +18,27 @@ use PostDirekt\Addressfactory\Service\OrderUpdater;
 use Psr\Log\LoggerInterface;
 use Shopware\Core\Checkout\Order\OrderEntity;
 use Shopware\Core\Framework\Context;
-use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
+use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
-use Shopware\Core\Framework\MessageQueue\ScheduledTask\ScheduledTaskHandler;
+use Symfony\Component\Messenger\Handler\MessageSubscriberInterface;
 
-class AutoProcessHandler extends ScheduledTaskHandler
+class AutoProcessHandler implements MessageSubscriberInterface
 {
     private ModuleConfig $config;
 
     private OrderAnalysis $orderAnalysisService;
 
-    private EntityRepositoryInterface $analysisStatusRepo;
+    private EntityRepository $analysisStatusRepo;
 
     private OrderUpdater $orderUpdater;
 
     private LoggerInterface $logger;
 
     public function __construct(
-        EntityRepositoryInterface $scheduledTaskRepo,
         ModuleConfig $config,
         OrderAnalysis $orderAnalysisService,
-        EntityRepositoryInterface $analysisStatusRepo,
+        EntityRepository $analysisStatusRepo,
         OrderUpdater $orderUpdater,
         LoggerInterface $logger
     ) {
@@ -48,8 +47,6 @@ class AutoProcessHandler extends ScheduledTaskHandler
         $this->analysisStatusRepo = $analysisStatusRepo;
         $this->orderUpdater = $orderUpdater;
         $this->logger = $logger;
-
-        parent::__construct($scheduledTaskRepo);
     }
 
     public static function getHandledMessages(): iterable
@@ -60,7 +57,7 @@ class AutoProcessHandler extends ScheduledTaskHandler
     /**
      * Analyse and process all new Orders that have been put into analysis status "pending"
      */
-    public function run(): void
+    public function __invoke(): void
     {
         $context = Context::createDefaultContext();
 

@@ -11,14 +11,14 @@ namespace PostDirekt\Addressfactory\Service;
 use PostDirekt\Addressfactory\Resources\OrderAddress\AnalysisResultInterface;
 use Shopware\Core\Checkout\Order\Aggregate\OrderAddress\OrderAddressEntity;
 use Shopware\Core\Framework\Context;
-use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
+use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 
 class AddressUpdater
 {
-    private EntityRepositoryInterface $orderAddressRepository;
+    private EntityRepository $orderAddressRepository;
 
-    public function __construct(EntityRepositoryInterface $orderAddressRepository)
+    public function __construct(EntityRepository $orderAddressRepository)
     {
         $this->orderAddressRepository = $orderAddressRepository;
     }

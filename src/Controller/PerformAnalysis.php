@@ -10,19 +10,18 @@ use PostDirekt\Addressfactory\Service\OrderAnalysis;
 use PostDirekt\Addressfactory\Service\OrderUpdater;
 use Shopware\Core\Checkout\Order\OrderEntity;
 use Shopware\Core\Framework\Context;
-use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
+use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
-use Shopware\Core\Framework\Routing\Annotation\RouteScope;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @RouteScope(scopes={"api"})
+ * @Route(defaults={"_routeScope"={"api"}}
  */
 class PerformAnalysis
 {
-    private EntityRepositoryInterface $orderRepository;
+    private EntityRepository $orderRepository;
 
     private OrderAnalysis $orderAnalysis;
 
@@ -33,7 +32,7 @@ class PerformAnalysis
     private ModuleConfig $config;
 
     public function __construct(
-        EntityRepositoryInterface $orderRepository,
+        EntityRepository $orderRepository,
         OrderAnalysis $orderAnalysis,
         OrderUpdater $orderUpdater,
         AnalysisStatusUpdater $analysisStatus,
@@ -53,7 +52,7 @@ class PerformAnalysis
      */
     public function execute(Request $request, Context $context): JsonResponse
     {
-        $orderId = $request->get('order_id');
+        $orderId = (string) $request->request->get('order_id');
         $order = $this->loadOrder($orderId, $context);
 
         if ($order === null) {
