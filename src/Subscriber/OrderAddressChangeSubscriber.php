@@ -13,7 +13,7 @@ use Psr\Log\LoggerInterface;
 use Shopware\Core\Checkout\Order\OrderEntity;
 use Shopware\Core\Checkout\Order\OrderEvents;
 use Shopware\Core\Framework\Context;
-use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
+use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Event\EntityWrittenEvent;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
@@ -21,17 +21,17 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class OrderAddressChangeSubscriber implements EventSubscriberInterface
 {
-    private EntityRepositoryInterface $analysisResultRepo;
+    private EntityRepository $analysisResultRepo;
 
-    private EntityRepositoryInterface $orderRepo;
+    private EntityRepository $orderRepo;
 
     private AnalysisStatusUpdater $analysisStatusUpdater;
 
     private LoggerInterface $logger;
 
     public function __construct(
-        EntityRepositoryInterface $analysisResultRepo,
-        EntityRepositoryInterface $orderRepo,
+        EntityRepository $analysisResultRepo,
+        EntityRepository $orderRepo,
         AnalysisStatusUpdater $analysisStatusUpdater,
         LoggerInterface $logger
     ) {
