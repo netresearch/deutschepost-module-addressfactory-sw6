@@ -10,7 +10,7 @@
     "devDependencies": {
         "@babel/plugin-proposal-class-properties": "^7.10.4",
         "@babel/preset-env": "^7.11.0",
-        "@shopware-ag/jest-preset-sw6-admin": "^1.1.2-beta.1",
+        "@shopware-ag/jest-preset-sw6-admin": "^4.0.1",
         "@vue/test-utils": "^1.0.4",
         "babel-polyfill": "^6.26.0",
         "flush-promises": "^1.0.2",
