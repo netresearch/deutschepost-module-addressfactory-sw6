@@ -11,7 +11,7 @@
         "@babel/plugin-proposal-class-properties": "^7.10.4",
         "@babel/preset-env": "^7.22.0",
         "@shopware-ag/jest-preset-sw6-admin": "^1.1.2-beta.1",
-        "@vue/test-utils": "^1.0.4",
+        "@vue/test-utils": "^2.4.1",
         "babel-polyfill": "^6.26.0",
         "flush-promises": "^1.0.2",
         "jest": "^26.4.0",
