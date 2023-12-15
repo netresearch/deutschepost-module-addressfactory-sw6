@@ -14,7 +14,7 @@ class ModuleConfig
 {
     private const PREFIX = 'NRLEJPostDirektAddressfactory.config.';
 
-    private SystemConfigService $systemConfig;
+    private readonly SystemConfigService $systemConfig;
 
     public function __construct(SystemConfigService $systemConfig)
     {

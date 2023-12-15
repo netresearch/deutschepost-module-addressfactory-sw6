@@ -23,7 +23,7 @@ class NRLEJPostDirektTestCredentialsService extends ApiService {
         const headers = this.getBasicHeaders();
 
         return this.httpClient.post(
-            'postdirekt/addressfactory/test-api-access',
+            `_action/${this.getApiBasePath()}/test-api-access`,
             {username, password, configurationName, clientId},
             {headers},
         );

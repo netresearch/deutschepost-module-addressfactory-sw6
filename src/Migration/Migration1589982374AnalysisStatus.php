@@ -12,7 +12,7 @@ class Migration1589982374AnalysisStatus extends MigrationStep
 {
     public function getCreationTimestamp(): int
     {
-        return 1589982374;
+        return 1_589_982_374;
     }
 
     /**

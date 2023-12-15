@@ -12,6 +12,7 @@ use Shopware\Core\Framework\MessageQueue\ScheduledTask\ScheduledTask;
 
 class AutoProcess extends ScheduledTask
 {
+
     public static function getTaskName(): string
     {
         return 'postdirekt_addressfactory.auto_process';

@@ -21,7 +21,7 @@ use Shopware\Core\Framework\DataAbstractionLayer\FieldCollection;
 
 class AnalysisResultDefinition extends EntityDefinition
 {
-    public const ENTITY_NAME = 'postdirekt_addressfactory_analysis_result';
+    final public const ENTITY_NAME = 'postdirekt_addressfactory_analysis_result';
 
     public function getEntityName(): string
     {

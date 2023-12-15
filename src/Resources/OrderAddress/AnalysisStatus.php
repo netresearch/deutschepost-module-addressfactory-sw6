@@ -44,7 +44,7 @@ class AnalysisStatus extends Entity implements AnalysisStatusInterface
     {
         try {
             return $this->get('order');
-        } catch (\InvalidArgumentException $exception) {
+        } catch (\InvalidArgumentException) {
             return null;
         }
     }

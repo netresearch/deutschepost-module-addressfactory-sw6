@@ -29,7 +29,7 @@ class AnalysisResult extends Entity implements AnalysisResultInterface
 
     protected string $street;
 
-    protected ?string $streetNumber;
+    protected ?string $streetNumber = null;
 
     public function getOrderAddressId(): string
     {

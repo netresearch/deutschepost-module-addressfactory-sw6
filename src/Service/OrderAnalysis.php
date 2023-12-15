@@ -15,24 +15,8 @@ use Shopware\Core\Framework\Context;
 
 class OrderAnalysis
 {
-    private AddressAnalysis $addressAnalysis;
-
-    private DeliverabilityCodes $deliverabilityScore;
-
-    private AnalysisStatusUpdater $deliverabilityStatus;
-
-    private AddressUpdater $addressUpdater;
-
-    public function __construct(
-        AddressAnalysis $addressAnalysis,
-        DeliverabilityCodes $deliverabilityScore,
-        AnalysisStatusUpdater $deliverabilityStatus,
-        AddressUpdater $addressUpdater
-    ) {
-        $this->addressAnalysis = $addressAnalysis;
-        $this->deliverabilityScore = $deliverabilityScore;
-        $this->deliverabilityStatus = $deliverabilityStatus;
-        $this->addressUpdater = $addressUpdater;
+    public function __construct(private readonly AddressAnalysis $addressAnalysis, private readonly DeliverabilityCodes $deliverabilityScore, private readonly AnalysisStatusUpdater $deliverabilityStatus, private readonly AddressUpdater $addressUpdater)
+    {
     }
 
     /**
@@ -57,7 +41,7 @@ class OrderAnalysis
 
         try {
             $analysisResults = $this->addressAnalysis->analyse($addresses, $context);
-        } catch (\RuntimeException $exception) {
+        } catch (\RuntimeException) {
             $analysisResults = [];
         }
         $result = [];

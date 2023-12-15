@@ -8,34 +8,35 @@ declare(strict_types=1);
 
 namespace PostDirekt\Addressfactory\Service;
 
+use PostDirekt\Addressfactory\Resources\OrderAddress\AnalysisStatus;
+use PostDirekt\Addressfactory\Resources\OrderAddress\AnalysisStatusCollection;
 use Psr\Log\LoggerInterface;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
+use Shopware\Core\Framework\DataAbstractionLayer\Search\EntitySearchResult;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 
 class AnalysisStatusUpdater
 {
-    public const NOT_ANALYSED = 'not_analysed';
-    public const PENDING = 'pending';
-    public const UNDELIVERABLE = 'undeliverable';
-    public const CORRECTION_REQUIRED = 'correction_required';
-    public const POSSIBLY_DELIVERABLE = 'possibly_deliverable';
-    public const DELIVERABLE = 'deliverable';
-    public const ADDRESS_CORRECTED = 'address_corrected';
-    public const ANALYSIS_FAILED = 'analysis_failed';
-    public const MANUALLY_EDITED = 'manually_edited';
+    final public const NOT_ANALYSED = 'not_analysed';
+    final public const PENDING = 'pending';
+    final public const UNDELIVERABLE = 'undeliverable';
+    final public const CORRECTION_REQUIRED = 'correction_required';
+    final public const POSSIBLY_DELIVERABLE = 'possibly_deliverable';
+    final public const DELIVERABLE = 'deliverable';
+    final public const ADDRESS_CORRECTED = 'address_corrected';
+    final public const ANALYSIS_FAILED = 'analysis_failed';
+    final public const MANUALLY_EDITED = 'manually_edited';
 
-    private EntityRepository $repository;
 
-    private LoggerInterface $logger;
-
+    /**
+     * @param EntityRepository<AnalysisStatusCollection> $statusRepository
+     */
     public function __construct(
-        EntityRepository $repository,
-        LoggerInterface $logger
+        private readonly EntityRepository $statusRepository,
+        private readonly LoggerInterface $logger
     ) {
-        $this->repository = $repository;
-        $this->logger = $logger;
     }
 
     public function setStatusPending(string $orderId, Context $context): bool
@@ -112,11 +113,11 @@ class AnalysisStatusUpdater
 
     public function getStatus(string $orderId, Context $context): string
     {
-        $deliverabilityStatus = $this->repository->search(
+        $deliverabilityStatus = $this->statusRepository->search(
             (new Criteria())->addFilter(new EqualsFilter('orderId', $orderId)),
             $context
         )->first();
-        if (!$deliverabilityStatus) {
+        if (!$deliverabilityStatus instanceof AnalysisStatus) {
             return self::NOT_ANALYSED;
         }
 
@@ -128,17 +129,21 @@ class AnalysisStatusUpdater
      */
     private function updateStatus(array $data, Context $context): bool
     {
-        $statusesCollection = $this->repository->search(
+        /** @var EntitySearchResult<AnalysisStatusCollection> $statusCollection */
+        $statusCollection = $this->statusRepository->search(
             (new Criteria())->addFilter(new EqualsFilter('orderId', $data['orderId'])),
             $context
         );
 
-        if ($statusesCollection->getTotal()) {
-            // add ID if a status for the order does already exists
-            $data['id'] = $statusesCollection->first()->getId();
+        if ($statusCollection->getTotal() > 0) {
+            // add ID if a status for the order does already exist
+            $firstStatus = $statusCollection->first();
+            if ($firstStatus instanceof AnalysisStatus) {
+                $data['id'] = $firstStatus->getId();
+            }
         }
 
-        $event = $this->repository->upsert([$data], $context);
+        $event = $this->statusRepository->upsert([$data], $context);
         if ($event->getErrors()) {
             foreach ($event->getErrors() as $error) {
                 $this->logger->error($error);
