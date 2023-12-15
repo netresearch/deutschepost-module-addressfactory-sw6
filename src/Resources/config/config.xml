@@ -3,7 +3,7 @@
         xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/shopware/platform/master/src/Core/System/SystemConfig/Schema/config.xsd">
     <card>
         <title>Deutsche Post Direkt</title>
-        <component name="postdirekt.addressfactory.infobox">
+        <component name="postdirekt-addressfactory-infobox">
             <name>infobox</name>
             <logo>nrlejpostdirektaddressfactory/static/assets/images/deutsche-post-logo.svg</logo>
             <version>2.1.0</version>
@@ -38,7 +38,7 @@
             <label>ADDRESSFACTORY DIRECT Client ID</label>
             <label lang="de-DE">ADDRESSFACTORY DIRECT Mandanten-Name</label>
         </input-field>
-        <component name="postdirekt.addressfactory.api-test-button">
+        <component name="postdirekt-addressfactory-api-test-button">
             <name>postdirektAddressfactoryApiTestButton</name>
         </component>
     </card>

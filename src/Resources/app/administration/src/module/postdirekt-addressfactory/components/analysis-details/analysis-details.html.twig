@@ -1,0 +1,51 @@
+<div v-if="isEnabled()" class="sw-field sw-block-field sw-field--default">
+    <img width="150px" alt="ADDRESSFACTORY Logo" class="logo" :src="getLogoPath() | asset"/>
+    <div class="sw-field__label">
+        <label>{{ $t('postdirekt-addressfactory.infoBox.analysisLabel') }}</label>
+    </div>
+    <div class="sw-block-field" v-if="analysisResult && (!orderChanged || addressUpdated)">
+        <div class="deliverability-score" :title="score">
+            <sw-icon name="regular-truck" decorative :color="scoreColor"/>
+            <span class="score">{{ humanReadableScore }}</span>
+        </div>
+        <dl class="sw-description-list detected-issues">
+            <dt>{{ $t('postdirekt-addressfactory.infoBox.addressInformation') }}</dt>
+
+            <dd v-for="item in getDetectedIssues()" :title="item.code" class="issue">
+                <sw-icon :name="item.icon" small decorative color="black"/>
+                <span class="label">{{ item.label }}</span>
+            </dd>
+        </dl>
+        <postdirekt.addressfactory.suggested-address
+                ref="suggestedAddress"
+                :orderChanged="orderChanged"
+                :delivery-address="deliveryAddress"
+                :analysis-result="analysisResult"
+                v-on:update-analysis-status="updateAnalysisStatus($event)"/>
+        <dl class="sw-description-list" v-if="isCancellable">
+            <dt>{{ $t('postdirekt-addressfactory.infoBox.otherActions') }}</dt>
+            <dd v-if="analysisResult">
+                <button @click="cancelOrder()" class="sw-button">
+                    {{ $t('postdirekt-addressfactory.infoBox.cancelButtonLabel') }}
+                </button>
+
+        </dl>
+    </div>
+    <div class="sw-block-field" v-else>
+        <dd>
+            <button v-on:click="performAnalysis(order)"
+                    v-show="isEditingContext"
+                    :disabled="orderChanged"
+                    class="sw-button sw-button--primary">
+                {{ $t('postdirekt-addressfactory.infoBox.performButtonLabel') }}
+            </button>
+        </dd>
+    </div>
+    <div class="sw-block-field" v-show="orderChanged">
+        <div class="sw-field__label post-addressHint">
+            <sw-icon name="regular-info-circle" large color="blue"/>
+            <label class="hint-message">{{ $t('postdirekt-addressfactory.addressHint.enableHint') }}</label>
+        </div>
+    </div>
+    <sw-loader v-if="isLoading"/>
+</div>
