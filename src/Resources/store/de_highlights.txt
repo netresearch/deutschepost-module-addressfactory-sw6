@@ -1,5 +1,0 @@
-Verbessern Sie die Qualität ihrer internen Datenbank durch korrekte Adressen
-Vermeiden Sie Rücksendungen durch ungültige Adressen oder nicht zustellbare Lieferungen
-Erhöhen Sie die Kundenzufriedenheit durch Sicherstellung einer schnellen Lieferung
-Referenzadressdaten basieren auf den original Leitdaten der Deutschen Post
-Kompatibel mit der DHL Leitcodierung

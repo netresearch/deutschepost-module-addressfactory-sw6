@@ -29,13 +29,13 @@ class Order
 {
     use BasicTestDataBehaviour;
 
-    private Context $context;
+    private readonly Context $context;
 
-    private EntityRepository $orderRepository;
+    private readonly EntityRepository $orderRepository;
 
-    private InitialStateIdLoader $initialStateIdLoader;
+    private readonly InitialStateIdLoader $initialStateIdLoader;
 
-    private ContainerInterface $container;
+    private static ContainerInterface $container;
 
     public function __construct(
         Context $context,
@@ -46,7 +46,7 @@ class Order
         $this->context = $context;
         $this->orderRepository = $orderRepository;
         $this->initialStateIdLoader = $initialStateIdLoader;
-        $this->container = $container;
+        self::$container = $container;
     }
 
     public function create(?string $id = null): string
@@ -58,9 +58,9 @@ class Order
         return $orderId;
     }
 
-    protected function getContainer(): ContainerInterface
+    protected static function getContainer(): ContainerInterface
     {
-        return $this->container;
+        return self::$container;
     }
 
     private function getOrderData(string $orderId): array

@@ -4,7 +4,11 @@ declare(strict_types=1);
 
 namespace PostDirekt\Addressfactory\Controller;
 
+use PostDirekt\Addressfactory\Resources\OrderAddress\AnalysisResultCollection;
+use PostDirekt\Addressfactory\Resources\OrderAddress\AnalysisResultInterface;
 use PostDirekt\Addressfactory\Service\OrderAnalysis;
+use Shopware\Core\Checkout\Order\Aggregate\OrderAddress\OrderAddressCollection;
+use Shopware\Core\Checkout\Order\OrderCollection;
 use Shopware\Core\Checkout\Order\OrderEntity;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
@@ -14,36 +18,24 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route(defaults={"_routeScope"={"api"}}
- */
+#[Route(defaults: ['_routeScope' => ['api']])]
 class UpdateAddress
 {
-    private EntityRepository $analysisResultRepo;
-
-    private EntityRepository $orderAddressRepo;
-
-    private EntityRepository $orderRepository;
-
-    private OrderAnalysis $orderAnalysis;
-
+    /**
+     * @param EntityRepository<AnalysisResultCollection> $analysisResultRepo
+     * @param EntityRepository<OrderAddressCollection> $orderAddressRepo
+     * @param EntityRepository<OrderCollection> $orderRepository
+     * @param OrderAnalysis $orderAnalysis
+     */
     public function __construct(
-        EntityRepository $analysisResultRepo,
-        EntityRepository $orderAddressRepo,
-        EntityRepository $orderRepository,
-        OrderAnalysis $orderAnalysis
+        private readonly EntityRepository $analysisResultRepo,
+        private readonly EntityRepository $orderAddressRepo,
+        private readonly EntityRepository $orderRepository,
+        private readonly OrderAnalysis $orderAnalysis
     ) {
-        $this->analysisResultRepo = $analysisResultRepo;
-        $this->orderAddressRepo = $orderAddressRepo;
-        $this->orderRepository = $orderRepository;
-        $this->orderAnalysis = $orderAnalysis;
     }
 
-    /**
-     * @Route("/api/postdirekt/addressfactory/update-address",
-     *     name="api.action.postdirekt.addressfactory.update-address",
-     *     methods={"POST"})
-     */
+    #[Route(path: '/api/postdirekt/addressfactory/update-address', name: 'api.action.postdirekt.addressfactory.update-address', methods: ['POST'])]
     public function execute(Request $request, Context $context): JsonResponse
     {
         $orderId = (string) $request->request->get('order_id');
@@ -55,7 +47,7 @@ class UpdateAddress
                 (new Criteria())->addFilter(new EqualsFilter('orderAddressId', $shippingAddressId)),
                 $context
             )->first();
-            if (!$analysisResult) {
+            if (!$analysisResult instanceof AnalysisResultInterface) {
                 throw new \RuntimeException('postdirekt-addressfactory.updateAddress.notAnalysed');
             }
 

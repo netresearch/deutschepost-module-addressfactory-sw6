@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace PostDirekt\Addressfactory\Service;
 
+use PostDirekt\Addressfactory\NRLEJPostDirektAddressfactory;
 use PostDirekt\Addressfactory\Resources\OrderAddress\AnalysisResultInterface;
 use Shopware\Core\Checkout\Order\Aggregate\OrderAddress\OrderAddressEntity;
 use Shopware\Core\Framework\Context;
@@ -16,7 +17,7 @@ use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 
 class AddressUpdater
 {
-    private EntityRepository $orderAddressRepository;
+    private readonly EntityRepository $orderAddressRepository;
 
     public function __construct(EntityRepository $orderAddressRepository)
     {
@@ -47,7 +48,10 @@ class AddressUpdater
             new Criteria([$analysisResult->getOrderAddressId()]),
             $context
         )->first();
-        if (!$orderAddress || !$this->addressesAreDifferent($analysisResult, $orderAddress)) {
+        if (!$orderAddress instanceof OrderAddressEntity || !$this->addressesAreDifferent(
+                $analysisResult,
+                $orderAddress
+            )) {
             return false;
         }
 
@@ -60,6 +64,9 @@ class AddressUpdater
                     'lastName' => $analysisResult->getLastName(),
                     'zipcode' => $analysisResult->getPostalCode(),
                     'city' => $analysisResult->getCity(),
+                    'customFields' => [
+                        NRLEJPostDirektAddressfactory::CUSTOM_FIELD_STATUS_ON_ADDRESS => AnalysisStatusUpdater::ADDRESS_CORRECTED
+                    ],
                 ],
             ],
             $context
@@ -76,7 +83,7 @@ class AddressUpdater
         OrderAddressEntity $orderAddress
     ): bool {
         $street = trim(implode(' ', [$analysisResult->getStreet(), $analysisResult->getStreetNumber()]));
-        $orderStreet = trim($orderAddress->getStreet());
+        $orderStreet = trim((string)$orderAddress->getStreet());
 
         return $orderAddress->getFirstName() !== $analysisResult->getFirstName()
             || $orderAddress->getLastName() !== $analysisResult->getLastName()

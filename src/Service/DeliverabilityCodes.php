@@ -10,10 +10,10 @@ namespace PostDirekt\Addressfactory\Service;
 
 class DeliverabilityCodes
 {
-    public const DELIVERABLE = 'deliverable';
-    public const UNDELIVERABLE = 'undeliverable';
-    public const POSSIBLY_DELIVERABLE = 'possibly_deliverable';
-    public const CORRECTION_REQUIRED = 'correction_required';
+    final public const DELIVERABLE = 'deliverable';
+    final public const UNDELIVERABLE = 'undeliverable';
+    final public const POSSIBLY_DELIVERABLE = 'possibly_deliverable';
+    final public const CORRECTION_REQUIRED = 'correction_required';
 
     private const PERSON_DELIVERABLE = 'PDC050105';
     private const PERSON_NOT_DELIVERABLE = 'PDC050106';
@@ -264,9 +264,7 @@ class DeliverabilityCodes
              */
             $codes = array_filter(
                 $codes,
-                static function ($entry) {
-                    return mb_strpos($entry, 'BAC') !== false;
-                }
+                static fn($entry) => mb_strpos((string) $entry, 'BAC') !== false
             );
         }
 

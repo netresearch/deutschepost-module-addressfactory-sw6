@@ -17,13 +17,10 @@ use Shopware\Core\System\StateMachine\Transition;
 
 class OrderUpdater
 {
-    private DeliverabilityCodes $deliverabilityCodes;
+    private readonly StateMachineRegistry $stateMachineRegistry;
 
-    private StateMachineRegistry $stateMachineRegistry;
-
-    public function __construct(DeliverabilityCodes $deliverabilityCodes, StateMachineRegistry $stateMachineRegistry)
+    public function __construct(private readonly DeliverabilityCodes $deliverabilityCodes, StateMachineRegistry $stateMachineRegistry)
     {
-        $this->deliverabilityCodes = $deliverabilityCodes;
         $this->stateMachineRegistry = $stateMachineRegistry;
     }
 
@@ -51,7 +48,7 @@ class OrderUpdater
                 ),
                 $context
             );
-        } catch (ShopwareHttpException $exception) {
+        } catch (ShopwareHttpException) {
             return false;
         }
 

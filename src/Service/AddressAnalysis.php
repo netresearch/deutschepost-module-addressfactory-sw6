@@ -25,29 +25,23 @@ use Shopware\Core\System\Country\CountryEntity;
 
 class AddressAnalysis
 {
-    private ResponseMapper $responseMapper;
+    private readonly EntityRepository $analysisResultRepo;
 
-    private EntityRepository $analysisResultRepo;
+    private readonly ServiceFactory $serviceFactory;
 
-    private ModuleConfig $moduleConfig;
+    private readonly RequestBuilder $requestBuilder;
 
-    private ServiceFactory $serviceFactory;
-
-    private RequestBuilder $requestBuilder;
-
-    private LoggerInterface $logger;
+    private readonly LoggerInterface $logger;
 
     public function __construct(
-        ResponseMapper $responseMapper,
+        private readonly ResponseMapper $responseMapper,
         EntityRepository $analysisResultRepo,
-        ModuleConfig $moduleConfig,
+        private readonly ModuleConfig $moduleConfig,
         ServiceFactory $serviceFactory,
         RequestBuilder $requestBuilder,
         LoggerInterface $logger
     ) {
-        $this->responseMapper = $responseMapper;
         $this->analysisResultRepo = $analysisResultRepo;
-        $this->moduleConfig = $moduleConfig;
         $this->serviceFactory = $serviceFactory;
         $this->requestBuilder = $requestBuilder;
         $this->logger = $logger;
@@ -104,7 +98,7 @@ class AddressAnalysis
             $newAnalysisResults = $this->responseMapper->mapRecordsResponse($records, $addressIds);
             $dalData = [];
             foreach ($newAnalysisResults as $result) {
-                $dalData[] = json_decode((string) json_encode($result), true);
+                $dalData[] = json_decode((string) json_encode($result, JSON_THROW_ON_ERROR), true, 512, JSON_THROW_ON_ERROR);
             }
             $this->analysisResultRepo->upsert($dalData, $context);
         } catch (AuthenticationException $exception) {

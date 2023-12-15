@@ -1,5 +1,5 @@
 import template from './sw-order-list.html.twig';
-import analysisStatus from '../../app/module/postdirekt-addressfactory/analysis-status';
+import analysisStatus from '../../module/postdirekt-addressfactory/analysis-status';
 
 const {Mixin} = Shopware;
 
