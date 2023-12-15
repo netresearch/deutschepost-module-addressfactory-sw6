@@ -19,6 +19,7 @@ if (file_exists(__DIR__ . '/../vendor/scoper-autoload.php')) {
 
 class NRLEJPostDirektAddressfactory extends Plugin
 {
+    final public const CUSTOM_FIELD_STATUS_ON_ADDRESS = 'postdirektAddressfactory';
     /**
      * @throws Exception
      */

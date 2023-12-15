@@ -26,7 +26,6 @@ class ModuleConfigTest extends TestCase
                          ->willReturnArgument(0);
         /* @var SystemConfigService $systemConfigMock */
         $this->subject = new ModuleConfig($systemConfigMock);
-        parent::setUp();
     }
 
     public function testGetApiUser(): void

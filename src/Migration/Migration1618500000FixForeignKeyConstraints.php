@@ -23,7 +23,7 @@ class Migration1618500000FixForeignKeyConstraints extends MigrationStep
 {
     public function getCreationTimestamp(): int
     {
-        return 1618500000;
+        return 1_618_500_000;
     }
 
     /**

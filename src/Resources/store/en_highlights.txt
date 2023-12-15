@@ -1,5 +1,0 @@
-Improve the quality of your internal database by having correct addresses
-Avoid returns caused by invalid addresses or non-deliverable shipments
-Increase customer satisfaction by ensuring quick delivery
-Reference address data is based on the original postal routing data of Deutsche Post
-Compatible with DHL routing codes
