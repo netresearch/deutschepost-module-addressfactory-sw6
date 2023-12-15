@@ -1,0 +1,34 @@
+<div class="suggested-address-box" v-if="shouldShowAddress()">
+    <dl class="sw-description-list">
+        <dt>{{ $t('postdirekt-addressfactory.suggestBox.suggestedShippingAddressLabel') }}</dt>
+        <dd class="address-parts">
+            <span :class="isFirstNameDifferent() ? 'different' : ''">
+                {{ analysisResult.firstName }}
+            </span>
+            <span :class="isLastNameDifferent() ? 'different' : ''">
+                {{ analysisResult.lastName }}
+            </span>
+        </dd>
+        <dd class="address-parts">
+            <span :class="isStreetDifferent() ? 'different' : ''">
+                {{ analysisResult.street }}
+                {{ analysisResult.streetNumber }}
+            </span>
+        </dd>
+        <dd class="address-parts">
+            <span :class="isZipcodeDifferent() ? 'different' : ''">
+                {{ analysisResult.postalCode }}
+            </span>
+            <span :class="isCityDifferent() ? 'different' : ''">
+                {{ analysisResult.city }}
+            </span>
+        </dd>
+    </dl>
+    <button v-on:click="updateAddress(deliveryAddress)"
+            @update-analysis-status="addressUpdated = true"
+            :disabled="orderChanged"
+            class="sw-button sw-button--primary">
+        {{ $t('postdirekt-addressfactory.suggestBox.buttonAutocorrectLabel') }}
+    </button>
+    <sw-loader v-if="isLoading"/>
+</div>

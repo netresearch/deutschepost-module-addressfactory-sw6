@@ -13,6 +13,7 @@ use PHPUnit\Framework\TestCase;
 use PostDirekt\Addressfactory\Resources\OrderAddress\AnalysisResult;
 use PostDirekt\Addressfactory\Resources\OrderAddress\AnalysisStatus;
 use PostDirekt\Addressfactory\Resources\OrderAddress\AnalysisStatusDefinition;
+use PostDirekt\Addressfactory\ScheduledTask\AutoProcess;
 use PostDirekt\Addressfactory\ScheduledTask\AutoProcessHandler;
 use PostDirekt\Addressfactory\Service\AnalysisStatusUpdater;
 use PostDirekt\Addressfactory\Service\ModuleConfig;
@@ -88,8 +89,6 @@ class AutoProcessHandlerTest extends TestCase
             );
         $this->orderUpdater = $this->getMockBuilder(OrderUpdater::class)->disableOriginalConstructor()->getMock();
         $this->logger = $this->getMockBuilder(LoggerInterface::class)->getMock();
-
-        parent::setUp();
     }
 
     public function testRunAndCancel(): void
@@ -106,6 +105,8 @@ class AutoProcessHandlerTest extends TestCase
             ->method('cancelIfUndeliverable');
         $this->logger->expects(static::never())->method('error');
         $subject = new AutoProcessHandler(
+            $this->getMockBuilder(EntityRepository::class)->disableOriginalConstructor(
+            )->getMock(),
             $this->config,
             $this->orderAnalysis,
             $this->analysisStatusRepo,
@@ -113,7 +114,7 @@ class AutoProcessHandlerTest extends TestCase
             $this->logger
         );
 
-        $subject();
+        $subject(new AutoProcess());
     }
 
     public function testRunAndUpdate(): void
@@ -130,6 +131,8 @@ class AutoProcessHandlerTest extends TestCase
             ->method('updateShippingAddress');
         $this->logger->expects(static::never())->method('error');
         $subject = new AutoProcessHandler(
+            $this->getMockBuilder(EntityRepository::class)->disableOriginalConstructor(
+            )->getMock(),
             $this->config,
             $this->orderAnalysis,
             $this->analysisStatusRepo,
@@ -137,7 +140,7 @@ class AutoProcessHandlerTest extends TestCase
             $this->logger
         );
 
-        $subject();
+        $subject(new AutoProcess());
     }
 
     public function testRunAndDoNothing(): void
@@ -151,6 +154,8 @@ class AutoProcessHandlerTest extends TestCase
             ->method('updateShippingAddress');
         $this->logger->expects(static::never())->method('error');
         $subject = new AutoProcessHandler(
+            $this->getMockBuilder(EntityRepository::class)->disableOriginalConstructor(
+            )->getMock(),
             $this->config,
             $this->orderAnalysis,
             $this->analysisStatusRepo,
@@ -158,6 +163,6 @@ class AutoProcessHandlerTest extends TestCase
             $this->logger
         );
 
-        $subject();
+        $subject(new AutoProcess());
     }
 }

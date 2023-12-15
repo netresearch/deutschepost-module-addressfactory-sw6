@@ -1,0 +1,24 @@
+.sw-order-detail-details__analysis-details {
+  .logo{
+    margin-bottom: 1em;
+  }
+  .sw-field__label {
+    font-weight: 800;
+  }
+  .deliverability-score{
+    font-weight: 700;
+    margin-bottom: 0.5em;
+  }
+  .detected-issues {
+    .issue {
+      line-height: 1em;
+      padding: 0.5em 15px 0.5em 15px;
+    }
+  }
+  .post-addressHint {
+    margin-top: 7px;
+    .sw-icon {
+      margin-right: 1em;
+    }
+  }
+}
