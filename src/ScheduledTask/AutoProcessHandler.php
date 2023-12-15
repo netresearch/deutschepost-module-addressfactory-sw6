@@ -21,43 +21,34 @@ use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
-use Symfony\Component\Messenger\Handler\MessageSubscriberInterface;
+use Shopware\Core\Framework\MessageQueue\ScheduledTask\ScheduledTaskCollection;
+use Shopware\Core\Framework\MessageQueue\ScheduledTask\ScheduledTaskHandler;
+use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
-class AutoProcessHandler implements MessageSubscriberInterface
+#[AsMessageHandler(handles: AutoProcess::class)]
+class AutoProcessHandler extends ScheduledTaskHandler
 {
-    private ModuleConfig $config;
-
-    private OrderAnalysis $orderAnalysisService;
-
-    private EntityRepository $analysisStatusRepo;
-
-    private OrderUpdater $orderUpdater;
-
-    private LoggerInterface $logger;
-
+    /**
+     * @param EntityRepository<AnalysisStatusCollection> $analysisStatusRepo
+     * @param EntityRepository<ScheduledTaskCollection> $scheduledTaskRepository
+     */
     public function __construct(
-        ModuleConfig $config,
-        OrderAnalysis $orderAnalysisService,
-        EntityRepository $analysisStatusRepo,
-        OrderUpdater $orderUpdater,
-        LoggerInterface $logger
+        EntityRepository $scheduledTaskRepository,
+        private readonly ModuleConfig $config,
+        private readonly OrderAnalysis $orderAnalysisService,
+        private readonly EntityRepository $analysisStatusRepo,
+        private readonly OrderUpdater $orderUpdater,
+        private readonly LoggerInterface $logger
     ) {
-        $this->config = $config;
-        $this->orderAnalysisService = $orderAnalysisService;
-        $this->analysisStatusRepo = $analysisStatusRepo;
-        $this->orderUpdater = $orderUpdater;
-        $this->logger = $logger;
-    }
-
-    public static function getHandledMessages(): iterable
-    {
-        return [AutoProcess::class];
+        parent::__construct(
+            $scheduledTaskRepository,
+        );
     }
 
     /**
      * Analyse and process all new Orders that have been put into analysis status "pending"
      */
-    public function __invoke(): void
+    public function run(): void
     {
         $context = Context::createDefaultContext();
 
@@ -131,9 +122,7 @@ class AutoProcessHandler implements MessageSubscriberInterface
         $statuses = $this->analysisStatusRepo->search($criteria, $context)->getEntities();
 
         return $statuses->fmap(
-            static function (AnalysisStatus $item): ?OrderEntity {
-                return $item->getOrder();
-            }
+            static fn(AnalysisStatus $item): ?OrderEntity => $item->getOrder()
         );
     }
 }

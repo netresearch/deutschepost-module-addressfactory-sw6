@@ -8,48 +8,32 @@ use PostDirekt\Addressfactory\Service\AnalysisStatusUpdater;
 use PostDirekt\Addressfactory\Service\ModuleConfig;
 use PostDirekt\Addressfactory\Service\OrderAnalysis;
 use PostDirekt\Addressfactory\Service\OrderUpdater;
+use Shopware\Core\Checkout\Order\OrderCollection;
 use Shopware\Core\Checkout\Order\OrderEntity;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
+use Shopware\Core\Framework\DataAbstractionLayer\Search\EntitySearchResult;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route(defaults={"_routeScope"={"api"}}
- */
+#[Route(defaults: ['_routeScope' => ['api']])]
 class PerformAnalysis
 {
-    private EntityRepository $orderRepository;
-
-    private OrderAnalysis $orderAnalysis;
-
-    private OrderUpdater $orderUpdater;
-
-    private AnalysisStatusUpdater $analysisStatus;
-
-    private ModuleConfig $config;
-
+    /**
+     * @param EntityRepository<OrderCollection> $orderRepository
+     */
     public function __construct(
-        EntityRepository $orderRepository,
-        OrderAnalysis $orderAnalysis,
-        OrderUpdater $orderUpdater,
-        AnalysisStatusUpdater $analysisStatus,
-        ModuleConfig $config
+        private readonly EntityRepository $orderRepository,
+        private readonly OrderAnalysis $orderAnalysis,
+        private readonly OrderUpdater $orderUpdater,
+        private readonly AnalysisStatusUpdater $analysisStatus,
+        private readonly ModuleConfig $config
     ) {
-        $this->orderRepository = $orderRepository;
-        $this->orderAnalysis = $orderAnalysis;
-        $this->orderUpdater = $orderUpdater;
-        $this->analysisStatus = $analysisStatus;
-        $this->config = $config;
     }
 
-    /**
-     * @Route("/api/postdirekt/addressfactory/perform-analysis",
-     *     name="api.action.postdirekt.addressfactory.perform-analysis",
-     *     methods={"POST"})
-     */
+    #[Route(path: '/api/postdirekt/addressfactory/perform-analysis', name: 'api.action.postdirekt.addressfactory.perform-analysis', methods: ['POST'])]
     public function execute(Request $request, Context $context): JsonResponse
     {
         $orderId = (string) $request->request->get('order_id');
@@ -129,10 +113,13 @@ class PerformAnalysis
 
     private function loadOrder(string $orderId, Context $context): ?OrderEntity
     {
-        return $this->orderRepository->search(
+        /** @var ?OrderEntity $result */
+        $result = $this->orderRepository->search(
             (new Criteria([$orderId]))->addAssociations(['deliveries', 'deliveries.shippingOrderAddress.country']),
             $context
         )->first();
+
+        return $result;
     }
 
     private function getCountryIso(OrderEntity $order): ?string
