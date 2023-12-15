@@ -1,3 +1,8 @@
+# 2.2.0
+
+- Added: Support for Shopware 6.5.x
+- Removed: Support for Shopware 6.4 and lower
+
 # 2.1.0
 
 - Added: Support for PostOffice, ParcelStation and Bulkreceiver addresses.
