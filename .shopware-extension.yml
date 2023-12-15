@@ -91,7 +91,7 @@ store:
         de: []
         en: []
     images:
-        - file: src/Resources/store/01-preview.png
+        - file: src/Resources/store/01-preview.jpg
           activate:
             de: true
             en: true
