@@ -115,7 +115,8 @@ class PerformAnalysis
     {
         /** @var ?OrderEntity $result */
         $result = $this->orderRepository->search(
-            (new Criteria([$orderId]))->addAssociations(['deliveries', 'deliveries.shippingOrderAddress.country']),
+            (new Criteria([$orderId]))
+                ->addAssociations(['deliveries', 'deliveries.shippingOrderAddress.country', 'stateMachineState']),
             $context
         )->first();
 
