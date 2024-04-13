@@ -84,7 +84,7 @@ class UpdateAddress
     {
         /** @var OrderEntity $order */
         $order = $this->orderRepository->search(
-            (new Criteria([$orderId]))->addAssociation('deliveries'),
+            (new Criteria([$orderId]))->addAssociation('deliveries.shippingOrderAddress'),
             $context
         )->first();
 
