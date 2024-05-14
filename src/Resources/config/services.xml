@@ -4,12 +4,11 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
         <!-- Logger configuration -->
+        <!-- TODO: Check if monolog magic actually works, so we can remove this for good
         <service id="PostDirekt\Addressfactory\Util\Logger" class="Monolog\Logger">
-            <!-- TODO: Add a monolog-based custom factory akin to custom/plugins/SwagPayPal/src/Pos/Run/LoggerFactory.php -->
-            <!-- https://developer.shopware.com/release-notes/6.5/6.5.7.0.html#deprecated-loggerfactory -->
-            <!-- <factory service="Shopware\Core\Framework\Log\LoggerFactory" method="createRotating"/> -->
             <argument type="string">postdirekt_addressfactory</argument>
         </service>
+        -->
         <!-- Service for retrieving Configurations -->
         <service id="PostDirekt\Addressfactory\Service\ModuleConfig" public="true">
             <argument id="Shopware\Core\System\SystemConfig\SystemConfigService" type="service"/>
@@ -26,7 +25,7 @@
             <argument type="service" id="post_direkt.addressfactory.postdirekt_addressfactory_analysis_status_updater"/>
             <argument type="service" id="post_direkt.addressfactory.order_analysis"/>
             <argument type="service" id="post_direkt.addressfactory.order_updater"/>
-            <argument type="service" id="PostDirekt\Addressfactory\Util\Logger"/>
+            <argument type="service" id="monolog.logger.postdirekt_addressfactory"/>
             <tag name="kernel.event_subscriber"/>
         </service>
         <service id="PostDirekt\Addressfactory\Resources\OrderAddress\AnalysisResultDefinition">
@@ -52,7 +51,7 @@
         </service>
         <service id="PostDirekt\Addressfactory\Controller\TestApiAccess">
             <argument id="PostDirekt\Sdk\AddressfactoryDirect\Service\ServiceFactory" type="service"/>
-            <argument id="PostDirekt\Addressfactory\Util\Logger" type="service"/>
+            <argument id="monolog.logger.postdirekt_addressfactory" type="service"/>
             <tag name="controller.service_arguments"/>
         </service>
         <service class="PostDirekt\Addressfactory\Service\AddressAnalysis"
@@ -62,7 +61,7 @@
             <argument id="PostDirekt\Addressfactory\Service\ModuleConfig" type="service"/>
             <argument id="PostDirekt\Sdk\AddressfactoryDirect\Service\ServiceFactory" type="service"/>
             <argument id="PostDirekt\Sdk\AddressfactoryDirect\RequestBuilder\RequestBuilder" type="service"/>
-            <argument id="PostDirekt\Addressfactory\Util\Logger" type="service"/>
+            <argument id="monolog.logger.postdirekt_addressfactory" type="service"/>
         </service>
         <service class="PostDirekt\Addressfactory\Service\AddressUpdater"
                  id="post_direkt.addressfactory.address_updater">
@@ -71,7 +70,7 @@
         <service class="PostDirekt\Addressfactory\Service\AnalysisStatusUpdater"
                  id="post_direkt.addressfactory.postdirekt_addressfactory_analysis_status_updater">
             <argument id="postdirekt_addressfactory_analysis_status.repository" type="service"/>
-            <argument id="PostDirekt\Addressfactory\Util\Logger" type="service"/>
+            <argument id="monolog.logger.postdirekt_addressfactory" type="service"/>
         </service>
         <service class="PostDirekt\Addressfactory\Service\DeliverabilityCodes"
                  id="post_direkt.addressfactory.deliverability_codes"/>
@@ -89,7 +88,7 @@
             <argument type="service" id="postdirekt_addressfactory_analysis_result.repository"/>
             <argument type="service" id="order.repository"/>
             <argument type="service" id="post_direkt.addressfactory.postdirekt_addressfactory_analysis_status_updater"/>
-            <argument type="service" id="PostDirekt\Addressfactory\Util\Logger"/>
+            <argument type="service" id="monolog.logger.postdirekt_addressfactory"/>
             <tag name="kernel.event_subscriber"/>
         </service>
         <!-- Auto Processing Cron Job-->
@@ -102,7 +101,7 @@
             <argument type="service" id="post_direkt.addressfactory.order_analysis"/>
             <argument type="service" id="postdirekt_addressfactory_analysis_status.repository"/>
             <argument type="service" id="post_direkt.addressfactory.order_updater"/>
-            <argument type="service" id="PostDirekt\Addressfactory\Util\Logger"/>
+            <argument type="service" id="monolog.logger.postdirekt_addressfactory"/>
             <tag name="messenger.message_handler"/>
         </service>
     </services>
