@@ -12,5 +12,9 @@ module.exports = {
     globals: {
 // required, e.g. /www/sw6/platform/src/Administration/Resources/app/administration
         adminPath: ADMIN_PATH,
-    }
+    },
+    testMatch: [
+        join(__dirname, 'test', '**', '*.spec.js'),
+        join(__dirname, 'test', '**', '*.spec.ts')
+    ]
 };
