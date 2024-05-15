@@ -45,7 +45,7 @@ composer dump
 bin/console plugin:refresh
 bin/console plugin:install --activate --clearCache NRLEJPostDirektAddressfactory
 bin/console bundle:dump
-npm --prefix vendor/shopware/platform/src/Administration/Resources/app/administration/ run build
+npm --prefix vendor/shopware/administration/Resources/app/administration/ run build
 bin/console assets:install
 ```
 
@@ -79,7 +79,7 @@ with the absolute path to your Shopware installation and `[Plugin Directory]` wi
 ```bash
 cd [Plugin Directory]/src/Resources/app/administration/
 npm install
-ADMIN_PATH='[Shopware Project]vendor/shopware/platform/src/Administration/Resources/app/administration' npm test
+ADMIN_PATH='[Shopware Project]vendor/shopware/administration/Resources/app/administration' npm test
 ```
 
 ## Author
