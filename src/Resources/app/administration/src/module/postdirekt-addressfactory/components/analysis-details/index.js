@@ -3,15 +3,14 @@ import './analysis-details.scss';
 import deliverabilityCodes from './../../deliverability-codes';
 import analysisStatus from './../../analysis-status';
 
-const {Context, Mixin, Utils} = Shopware;
+const {Context, Mixin} = Shopware;
 const {Criteria} = Shopware.Data;
 
 Shopware.Component.register('postdirekt.addressfactory.analysis-details', {
     template,
     inject: [
         'repositoryFactory',
-        'orderStateMachineService',
-        'assetService'
+        'orderStateMachineService'
     ],
     mixins: [
         Mixin.getByName('postdirekt.addressfactory.perform-analysis')
