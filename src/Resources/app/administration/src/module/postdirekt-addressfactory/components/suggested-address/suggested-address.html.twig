@@ -24,7 +24,7 @@
             </span>
         </dd>
     </dl>
-    <button v-on:click="updateAddress(deliveryAddress)"
+    <button @click="updateAddress(deliveryAddress)"
             @update-analysis-status="addressUpdated = true"
             :disabled="orderChanged"
             class="sw-button sw-button--primary">

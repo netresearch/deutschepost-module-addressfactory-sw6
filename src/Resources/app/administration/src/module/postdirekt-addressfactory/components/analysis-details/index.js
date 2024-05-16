@@ -3,14 +3,15 @@ import './analysis-details.scss';
 import deliverabilityCodes from './../../deliverability-codes';
 import analysisStatus from './../../analysis-status';
 
-const {Context, Mixin} = Shopware;
+const {Context, Mixin, Utils} = Shopware;
 const {Criteria} = Shopware.Data;
 
 Shopware.Component.register('postdirekt.addressfactory.analysis-details', {
     template,
     inject: [
         'repositoryFactory',
-        'orderStateMachineService'
+        'orderStateMachineService',
+        'assetService'
     ],
     mixins: [
         Mixin.getByName('postdirekt.addressfactory.perform-analysis')
@@ -105,7 +106,7 @@ Shopware.Component.register('postdirekt.addressfactory.analysis-details', {
             return !!this.deliveryAddress && this.deliveryAddress.country.iso === 'DE';
         },
         getLogoPath() {
-            return "nrlejpostdirektaddressfactory/static/assets/images/addressfactory-logo.png"
+            return "bundles/nrlejpostdirektaddressfactory/static/assets/images/addressfactory-logo.png";
         },
         getExistingAnalysis() {
             // I have no clue why this is needed, but without it doesn't work
