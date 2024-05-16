@@ -1,7 +1,7 @@
 {% block sw_order_list_grid_columns %}
     {% parent %}
     <template slot="column-analysisStatus" slot-scope="{ item }">
-        <postdirekt.addressfactory.analysis-status v-bind:status="getAnalysisStatus(item)"/>
+        <postdirekt.addressfactory.analysis-status :status="getAnalysisStatus(item)"/>
     </template>
     <sw-loader v-if="isLoading"/>
 {% endblock %}
