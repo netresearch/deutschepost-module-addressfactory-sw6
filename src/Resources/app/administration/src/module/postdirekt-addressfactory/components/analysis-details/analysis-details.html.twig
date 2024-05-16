@@ -1,5 +1,5 @@
 <div v-if="isEnabled()" class="sw-field sw-block-field sw-field--default">
-    <img width="150px" alt="ADDRESSFACTORY Logo" class="logo" :src="getLogoPath() | asset"/>
+    <img alt="ADDRESSFACTORY Logo" class="logo" :src="getLogoPath()"/>
     <div class="sw-field__label">
         <label>{{ $t('postdirekt-addressfactory.infoBox.analysisLabel') }}</label>
     </div>
@@ -21,19 +21,19 @@
                 :orderChanged="orderChanged"
                 :delivery-address="deliveryAddress"
                 :analysis-result="analysisResult"
-                v-on:update-analysis-status="updateAnalysisStatus($event)"/>
+                @update-analysis-status="updateAnalysisStatus($event)"/>
         <dl class="sw-description-list" v-if="isCancellable">
             <dt>{{ $t('postdirekt-addressfactory.infoBox.otherActions') }}</dt>
             <dd v-if="analysisResult">
                 <button @click="cancelOrder()" class="sw-button">
                     {{ $t('postdirekt-addressfactory.infoBox.cancelButtonLabel') }}
                 </button>
-
+            </dd>
         </dl>
     </div>
     <div class="sw-block-field" v-else>
         <dd>
-            <button v-on:click="performAnalysis(order)"
+            <button @click="performAnalysis(order)"
                     v-show="isEditingContext"
                     :disabled="orderChanged"
                     class="sw-button sw-button--primary">
