@@ -7,7 +7,6 @@ Shopware.Component.override('sw-order-list', {
     template,
 
     mixins: [
-        Mixin.getByName('postdirekt.addressfactory.analysis-status-loader'),
         Mixin.getByName('postdirekt.addressfactory.perform-analysis'),
         Mixin.getByName('postdirekt.addressfactory.update-address'),
     ],
@@ -26,9 +25,20 @@ Shopware.Component.override('sw-order-list', {
             });
             return columns;
         },
+        orderCriteria() {
+            let criteria = this.$super('orderCriteria');
+            criteria.addAssociation('analysisStatus');
+            return criteria;
+        },
     },
-
     methods: {
+        getAnalysisStatus(order) {
+            if (order?.extensions?.analysisStatus?.status) {
+                return order.extensions.analysisStatus.status;
+            }
+
+            return analysisStatus.NOT_ANALYSED;
+        },
         getDeliveryAddress(order) {
             if (!order.deliveries[0]) {
                 return null;
@@ -78,4 +88,3 @@ Shopware.Component.override('sw-order-list', {
         }
     }
 });
-

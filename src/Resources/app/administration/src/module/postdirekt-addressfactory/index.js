@@ -1,4 +1,3 @@
-import './mixin/analysis-status-loader.mixin';
 import './mixin/perform-analysis.mixin';
 import './mixin/update-address.mixin';
 import './components/analysis-details';
