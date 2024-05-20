@@ -8,7 +8,7 @@
             <sw-icon name="regular-truck" decorative :color="scoreColor"/>
             <span class="score">{{ humanReadableScore }}</span>
         </div>
-        <dl class="sw-description-list detected-issues">
+        <dl class="sw-description-list detected-issues" v-if="getDetectedIssues().length > 0">
             <dt>{{ $t('postdirekt-addressfactory.infoBox.addressInformation') }}</dt>
 
             <dd v-for="item in getDetectedIssues()" :title="item.code" class="issue">
