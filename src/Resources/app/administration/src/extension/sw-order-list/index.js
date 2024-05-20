@@ -2,6 +2,7 @@ import template from './sw-order-list.html.twig';
 import analysisStatus from '../../module/postdirekt-addressfactory/analysis-status';
 
 const {Mixin} = Shopware;
+const {Criteria} = Shopware.Data;
 
 Shopware.Component.override('sw-order-list', {
     template,
@@ -73,6 +74,29 @@ Shopware.Component.override('sw-order-list', {
                 .then(() => {
                     this.reloadAnalysisStatusData([order])
                 });
+        },
+
+        async reloadAnalysisStatusData(orders) {
+            this.isLoading = true;
+
+            let criteria = await Shopware.Service('filterService')
+                .mergeWithStoredFilters(this.storeKey, this.orderCriteria);
+
+            criteria = await this.addQueryScores(this.term, criteria);
+            criteria.addFilter(Criteria.equalsAny('id', orders.map(order => order.id)));
+
+            try {
+                const response = await this.orderRepository.search(criteria);
+                this.orders.forEach((order, index) => {
+                    const updatedOrder = response.get(order.id);
+
+                    if (updatedOrder) {
+                        this.$set(this.orders, index, updatedOrder);
+                    }
+                });
+            } finally {
+                this.isLoading = false;
+            }
         },
         updateAddressAction(order) {
             const deliveryAddress = this.getDeliveryAddress(order);
