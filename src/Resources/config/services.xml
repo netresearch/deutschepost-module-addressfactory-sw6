@@ -104,5 +104,11 @@
             <argument type="service" id="monolog.logger.postdirekt_addressfactory"/>
             <tag name="messenger.message_handler"/>
         </service>
+        <service id="PostDirekt\Addressfactory\Extension\OrderExtension">
+            <tag name="shopware.entity.extension"/>
+        </service>
+        <service id="PostDirekt\Addressfactory\Extension\OrderAddressExtension">
+            <tag name="shopware.entity.extension"/>
+        </service>
     </services>
 </container>
