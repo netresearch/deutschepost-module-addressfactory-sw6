@@ -2,7 +2,7 @@
     "name": "netresearch/postdirekt-addressfactory",
     "description": "Deutsche Post Direkt Addressfactory Integration for Shopware6",
     "type": "shopware-platform-plugin",
-    "version": "2.2.0",
+    "version": "3.0.0",
     "license": "MIT",
     "config": {
         "platform": {
