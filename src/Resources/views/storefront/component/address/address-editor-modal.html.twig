@@ -1,0 +1,40 @@
+{% sw_extends "@Storefront/storefront/component/address/address-editor-modal.html.twig" %}
+
+{% block component_address_editor_modal_accordion_edit_include %}
+    {% sw_include '@Storefront/storefront/component/address/address-editor-modal-create-address.html.twig' with {
+        address: address,
+        addresses: page.addresses,
+        typePrefix: typePrefix ~ 'edit',
+        postedData: postedData,
+    } %}
+{% endblock %}
+
+{% block component_address_address_editor_modal_accordion_edit_include %}
+    {% sw_include '@Storefront/storefront/component/address/address-editor-modal-create-address.html.twig' with {
+        address: address,
+        addresses: page.addresses,
+        typePrefix: typePrefix ~ 'edit',
+        postedData: postedData,
+    } %}
+{% endblock %}
+
+{% block component_address_address_editor_modal_accordion_action_edit %}
+    <div class="col-12 col-md-4">
+        <div class="btn btn-outline-primary btn-block address-editor-edit create collapsed"
+             data-bs-toggle="collapse"
+             data-bs-target="#{{ typePrefix ~ 'edit' }}address-create-edit">
+            {{ 'account.addressEditBtn'|trans|sw_sanitize }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block component_address_editor_modal_accordion_action_edit %}
+    <a class="address-editor-edit btn btn-link p-0"
+       data-bs-toggle="collapse"
+       data-bs-target="#{{ typePrefix ~'edit' }}address-create-edit"
+    >
+        {% sw_icon 'paper-pencil' style {size: 'xs'} %}
+
+        {{ 'account.addressEditBtn'|trans|sw_sanitize }}
+    </a>
+{% endblock %}
