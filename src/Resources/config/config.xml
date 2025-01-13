@@ -6,7 +6,7 @@
         <component name="postdirekt-addressfactory-infobox">
             <name>infobox</name>
             <logo>nrlejpostdirektaddressfactory/static/assets/images/deutsche-post-logo.svg</logo>
-            <version>2.3.0</version>
+            <version>2.4.0</version>
             <headerColor>#FFD633</headerColor>
             <bodyColor>#FEFCEE</bodyColor>
         </component>
