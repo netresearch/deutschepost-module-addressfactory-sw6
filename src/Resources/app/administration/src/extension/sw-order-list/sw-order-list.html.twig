@@ -14,13 +14,13 @@
         v-if="showAnalyse(item)"
         @click="performAnalysisAction(item)"
     >
-        {{ $tc('postdirekt-addressfactory.orderList.actionCheck') }}
+        {{ $t('postdirekt-addressfactory.orderList.actionCheck') }}
     </sw-context-menu-item>
 
     <sw-context-menu-item
         v-if="showUpdateAddress(item)"
         @click="updateAddressAction(item)"
     >
-        {{ $tc('postdirekt-addressfactory.orderList.actionApply') }}
+        {{ $t('postdirekt-addressfactory.orderList.actionApply') }}
     </sw-context-menu-item>
 {% endblock %}

@@ -19,7 +19,7 @@ Shopware.Component.override('sw-order-list', {
             /* Add analysis status column. */
             columns.push({
                 property: 'analysisStatus',
-                label: this.$tc('postdirekt-addressfactory.orderList.columnAnalysisStatus'),
+                label: this.$t('postdirekt-addressfactory.orderList.columnAnalysisStatus'),
                 allowResize: true,
                 sortable: false,
                 align: 'left'
