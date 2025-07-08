@@ -5,23 +5,23 @@
     </div>
     <div class="sw-block-field" v-if="analysisResult && (!orderChanged || addressUpdated)">
         <div class="deliverability-score" :title="score">
-            <sw-icon name="regular-truck" decorative :color="scoreColor"/>
+            <mt-icon name="regular-truck" decorative :color="scoreColor" size="24px"/>
             <span class="score">{{ humanReadableScore }}</span>
         </div>
         <dl class="sw-description-list detected-issues" v-if="getDetectedIssues().length > 0">
             <dt>{{ $t('postdirekt-addressfactory.infoBox.addressInformation') }}</dt>
-
             <dd v-for="item in getDetectedIssues()" :title="item.code" class="issue">
-                <sw-icon :name="item.icon" small decorative color="black"/>
+                <mt-icon :name="item.icon" size="16px" decorative color="black"/>
                 <span class="label">{{ item.label }}</span>
             </dd>
         </dl>
         <postdirekt.addressfactory.suggested-address
-                ref="suggestedAddress"
-                :orderChanged="orderChanged"
-                :delivery-address="deliveryAddress"
-                :analysis-result="analysisResult"
-                @update-analysis-status="updateAnalysisStatus($event)"/>
+            ref="suggestedAddress"
+            :orderChanged="orderChanged"
+            :delivery-address="deliveryAddress"
+            :analysis-result="analysisResult"
+            @update-analysis-status="updateAnalysisStatus($event)"
+        />
         <dl class="sw-description-list" v-if="isCancellable">
             <dt>{{ $t('postdirekt-addressfactory.infoBox.otherActions') }}</dt>
             <dd v-if="analysisResult">
@@ -33,19 +33,21 @@
     </div>
     <div class="sw-block-field" v-else>
         <dd>
-            <button @click="performAnalysis(order)"
-                    v-show="isEditingContext"
-                    :disabled="orderChanged"
-                    class="sw-button sw-button--primary">
+            <button
+                @click="performAnalysis(order)"
+                v-show="isEditingContext"
+                :disabled="orderChanged"
+                class="sw-button sw-button--primary"
+            >
                 {{ $t('postdirekt-addressfactory.infoBox.performButtonLabel') }}
             </button>
         </dd>
     </div>
     <div class="sw-block-field" v-show="orderChanged">
         <div class="sw-field__label post-addressHint">
-            <sw-icon name="regular-info-circle" large color="blue"/>
+            <mt-icon name="regular-info-circle" size="32px" color="blue"/>
             <label class="hint-message">{{ $t('postdirekt-addressfactory.addressHint.enableHint') }}</label>
         </div>
     </div>
-    <sw-loader v-if="isLoading"/>
+    <mt-loader v-if="isLoading"/>
 </div>
