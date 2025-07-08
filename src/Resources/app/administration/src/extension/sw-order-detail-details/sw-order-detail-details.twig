@@ -1,10 +1,11 @@
 {% block sw_order_detail_details_shipping_address %}
-    {% parent %}
+    {% parent() %}
+
     <postdirekt.addressfactory.analysis-details
-            ref="postdirektAnalysisDetails"
-            class="sw-order-detail-details__analysis-details"
-            :order="order"
-            :isEditingContext="acl.can('order.editor')"
-            :orderChanged="orderChanges()"
+        ref="postdirektAnalysisDetails"
+        class="sw-order-detail-details__analysis-details"
+        :order="order"
+        :isEditingContext="acl.can('order.editor')"
+        :orderChanged="orderChanges()"
     />
 {% endblock %}

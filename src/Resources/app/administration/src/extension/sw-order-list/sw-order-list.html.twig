@@ -1,19 +1,26 @@
 {% block sw_order_list_grid_columns %}
-    {% parent %}
+    {% parent() %}
+
     <template #column-analysisStatus="{ item }">
         <postdirekt.addressfactory.analysis-status v-bind:status="getAnalysisStatus(item)"/>
     </template>
-    <sw-loader v-if="isLoading"/>
-{% endblock %}
 
+    <mt-loader v-if="isLoading"/>
+{% endblock %}
 {% block sw_order_list_grid_columns_actions_view %}
-    {% parent %}
-    <sw-context-menu-item v-if="showAnalyse(item)"
-                          @click="performAnalysisAction(item)">
+    {% parent() %}
+
+    <sw-context-menu-item
+        v-if="showAnalyse(item)"
+        @click="performAnalysisAction(item)"
+    >
         {{ $tc('postdirekt-addressfactory.orderList.actionCheck') }}
     </sw-context-menu-item>
-    <sw-context-menu-item v-if="showUpdateAddress(item)"
-                          @click="updateAddressAction(item)">
+
+    <sw-context-menu-item
+        v-if="showUpdateAddress(item)"
+        @click="updateAddressAction(item)"
+    >
         {{ $tc('postdirekt-addressfactory.orderList.actionApply') }}
     </sw-context-menu-item>
 {% endblock %}
