@@ -17,11 +17,10 @@ use Shopware\Core\System\StateMachine\Transition;
 
 class OrderUpdater
 {
-    private readonly StateMachineRegistry $stateMachineRegistry;
-
-    public function __construct(private readonly DeliverabilityCodes $deliverabilityCodes, StateMachineRegistry $stateMachineRegistry)
-    {
-        $this->stateMachineRegistry = $stateMachineRegistry;
+    public function __construct(
+        private readonly DeliverabilityCodes $deliverabilityCodes,
+        private readonly StateMachineRegistry $stateMachineRegistry
+    ) {
     }
 
     /**

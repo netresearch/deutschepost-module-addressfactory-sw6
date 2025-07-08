@@ -25,26 +25,14 @@ use Shopware\Core\System\Country\CountryEntity;
 
 class AddressAnalysis
 {
-    private readonly EntityRepository $analysisResultRepo;
-
-    private readonly ServiceFactory $serviceFactory;
-
-    private readonly RequestBuilder $requestBuilder;
-
-    private readonly LoggerInterface $logger;
-
     public function __construct(
         private readonly ResponseMapper $responseMapper,
-        EntityRepository $analysisResultRepo,
+        private readonly EntityRepository $analysisResultRepo,
         private readonly ModuleConfig $moduleConfig,
-        ServiceFactory $serviceFactory,
-        RequestBuilder $requestBuilder,
-        LoggerInterface $logger
+        private readonly ServiceFactory $serviceFactory,
+        private readonly RequestBuilder $requestBuilder,
+        private readonly LoggerInterface $logger
     ) {
-        $this->analysisResultRepo = $analysisResultRepo;
-        $this->serviceFactory = $serviceFactory;
-        $this->requestBuilder = $requestBuilder;
-        $this->logger = $logger;
     }
 
     /**
