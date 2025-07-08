@@ -25,8 +25,8 @@ class OrderAddressExtension extends EntityExtension
         );
     }
 
-    public function getDefinitionClass(): string
+    public function getEntityName(): string
     {
-        return OrderAddressDefinition::class;
+        return OrderAddressDefinition::ENTITY_NAME;
     }
 }
