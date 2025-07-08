@@ -25,21 +25,12 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class OrderAddressChangeSubscriber implements EventSubscriberInterface
 {
-    private readonly EntityRepository $analysisResultRepo;
-
-    private readonly EntityRepository $orderRepo;
-
-    private readonly LoggerInterface $logger;
-
     public function __construct(
-        EntityRepository $analysisResultRepo,
-        EntityRepository $orderRepo,
+        private readonly EntityRepository $analysisResultRepo,
+        private readonly EntityRepository $orderRepo,
         private readonly AnalysisStatusUpdater $analysisStatusUpdater,
-        LoggerInterface $logger
+        private readonly LoggerInterface $logger
     ) {
-        $this->analysisResultRepo = $analysisResultRepo;
-        $this->orderRepo = $orderRepo;
-        $this->logger = $logger;
     }
 
     public static function getSubscribedEvents(): array

@@ -15,8 +15,12 @@ use Shopware\Core\Framework\Context;
 
 class OrderAnalysis
 {
-    public function __construct(private readonly AddressAnalysis $addressAnalysis, private readonly DeliverabilityCodes $deliverabilityScore, private readonly AnalysisStatusUpdater $deliverabilityStatus, private readonly AddressUpdater $addressUpdater)
-    {
+    public function __construct(
+        private readonly AddressAnalysis $addressAnalysis,
+        private readonly DeliverabilityCodes $deliverabilityScore,
+        private readonly AnalysisStatusUpdater $deliverabilityStatus,
+        private readonly AddressUpdater $addressUpdater
+    ) {
     }
 
     /**

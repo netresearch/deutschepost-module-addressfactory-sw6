@@ -18,16 +18,13 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class NewOrderSubscriber implements EventSubscriberInterface
 {
-    private readonly LoggerInterface $logger;
-
     public function __construct(
         private readonly ModuleConfig $config,
         private readonly AnalysisStatusUpdater $analysisStatus,
         private readonly OrderAnalysis $analyseService,
         private readonly OrderUpdater $orderUpdater,
-        LoggerInterface $logger
+        private readonly LoggerInterface $logger
     ) {
-        $this->logger = $logger;
     }
 
     public static function getSubscribedEvents(): array
