@@ -3,7 +3,7 @@ const {State} = Shopware;
 Shopware.Component.override('sw-order-detail', {
     methods: {
         async onSaveEdits() {
-            State.commit('swOrderDetail/setSavedSuccessful', false);
+            Shopware.Store.get('swOrderDetail').savedSuccessful = false;
             await this.$super('onSaveEdits');
         }
     }
