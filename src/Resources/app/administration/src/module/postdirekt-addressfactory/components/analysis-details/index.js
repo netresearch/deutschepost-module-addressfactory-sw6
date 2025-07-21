@@ -145,9 +145,9 @@ Shopware.Component.register('postdirekt.addressfactory.analysis-details', {
                 this.order.id,
                 'cancel',
                 {documentIds: [], sendMail: true},
-            );
-
-            window.location.reload();
+            ).then(() => {
+                window.location.reload();
+            });
         },
     }
 });
