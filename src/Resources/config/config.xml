@@ -5,7 +5,7 @@
         <title>Deutsche Post Direkt</title>
         <component name="postdirekt-addressfactory-infobox">
             <name>infobox</name>
-            <logo>nrlejpostdirektaddressfactory/static/assets/images/deutsche-post-logo.svg</logo>
+            <logo>bundles/nrlejpostdirektaddressfactory/administration/static/assets/images/deutsche-post-logo.svg</logo>
             <version>2.4.0</version>
             <headerColor>#FFD633</headerColor>
             <bodyColor>#FEFCEE</bodyColor>

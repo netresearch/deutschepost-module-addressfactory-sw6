@@ -23,10 +23,5 @@ Shopware.Component.register('postdirekt-addressfactory-infobox', {
             type: String,
             required: true,
         },
-    },
-    methods: {
-        getLogoPath() {
-            return "bundles/nrlejpostdirektaddressfactory/static/assets/images/addressfactory-logo.png";
-        },
     }
 });
