@@ -105,7 +105,7 @@ Shopware.Component.register('postdirekt.addressfactory.analysis-details', {
             return !!this.deliveryAddress && this.deliveryAddress.country.iso === 'DE';
         },
         getLogoPath() {
-            return "bundles/nrlejpostdirektaddressfactory/static/assets/images/addressfactory-logo.png";
+            return "bundles/nrlejpostdirektaddressfactory/administration/static/assets/images/addressfactory-logo.png";
         },
         getExistingAnalysis() {
             // I have no clue why this is needed, but without it doesn't work
