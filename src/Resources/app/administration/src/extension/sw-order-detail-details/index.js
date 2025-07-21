@@ -1,7 +1,5 @@
 import template from './sw-order-detail-details.twig';
 
-const {State} = Shopware;
-
 Shopware.Component.override('sw-order-detail-details', {
     template,
 
@@ -9,9 +7,9 @@ Shopware.Component.override('sw-order-detail-details', {
         createdComponent() {
             this.$super('createdComponent');
 
-            State.watch(
-                (state) => state.swOrderDetail.savedSuccessful,
-                (newValue, oldValue) => {
+            Shopware.Vue.watch(
+                () => Shopware.Store.get('swOrderDetail').savedSuccessful,
+                (newValue) => {
                     if (newValue === true) {
                         this.resetAnalysisResult();
                     }
