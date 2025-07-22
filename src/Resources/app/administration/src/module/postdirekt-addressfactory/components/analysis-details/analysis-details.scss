@@ -8,16 +8,28 @@
   }
   .deliverability-score{
     font-weight: 700;
-    margin-bottom: 0.5em;
+    margin-top: 12px;
   }
-  .detected-issues {
-    .issue {
-      line-height: 1em;
-      padding: 0.5em 15px 0.5em 15px;
+  .sw-description-list {
+    margin-top: 8px;
+    dt, dd {
+      padding: 0;
+    }
+    dt {
+      margin-bottom: 8px;
+    }
+    &.detected-issues {
+      dt {
+        margin-bottom: calc(12px - 0.5em);
+      }
+      dd.issue {
+        line-height: 1em;
+        padding: 0.5em;
+      }
     }
   }
   .post-addressHint {
-    margin-top: 7px;
+    margin-top: 0.5em;
     .sw-icon {
       margin-right: 1em;
     }
