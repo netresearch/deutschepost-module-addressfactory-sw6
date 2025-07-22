@@ -1,11 +1,16 @@
 .suggested-address-box {
-  .address-parts {
-    padding: 0 15px;
-    border-bottom: none;
+  .sw-description-list {
+    dd.address-parts {
+      padding: 0 0.5em;
+      border-bottom: none;
 
-    .different {
-      font-weight: bolder;
-      color: #189eff;
+      .different {
+        font-weight: bolder;
+        color: #189eff;
+      }
     }
+  }
+  button {
+    margin-top: 8px;
   }
 }
