@@ -149,7 +149,7 @@ build:
             npm_strict: true
         pack:
             excludes:
-                paths: []
+                paths: [test, vendor-bin, bin]
             before_hooks: []
 changelog:
     enabled: false
