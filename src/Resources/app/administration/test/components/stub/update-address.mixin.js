@@ -7,7 +7,7 @@ Mixin.register('postdirekt.addressfactory.update-address', {
         };
     },
     methods: {
-        updateAddress(deliveryAddress) {
+        updateAddress() {
             return 'updateAddress called';
         }
     }

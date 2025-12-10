@@ -54,7 +54,7 @@ Mixin.register('postdirekt.addressfactory.perform-analysis', {
                             message: this.$t(data.message, {orderNumber: data.orderNumber}),
                         });
                     }
-                }).catch((error) => {
+                }).catch(() => {
                     this.createNotificationError({
                         title: this.$t('postdirekt-addressfactory.performAnalysis.errorTitle'),
                         message: this.$t('postdirekt-addressfactory.performAnalysis.genericError'),

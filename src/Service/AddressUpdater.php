@@ -10,6 +10,7 @@ namespace PostDirekt\Addressfactory\Service;
 
 use PostDirekt\Addressfactory\NRLEJPostDirektAddressfactory;
 use PostDirekt\Addressfactory\Resources\OrderAddress\AnalysisResultInterface;
+use Shopware\Core\Checkout\Order\Aggregate\OrderAddress\OrderAddressCollection;
 use Shopware\Core\Checkout\Order\Aggregate\OrderAddress\OrderAddressEntity;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
@@ -17,6 +18,9 @@ use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 
 class AddressUpdater
 {
+    /**
+     * @param EntityRepository<OrderAddressCollection> $orderAddressRepository
+     */
     public function __construct(private readonly EntityRepository $orderAddressRepository)
     {
     }

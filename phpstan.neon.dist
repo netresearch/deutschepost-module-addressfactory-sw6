@@ -1,30 +1,13 @@
-#include:
-#    - %ShopwareRoot%/vendor/phpstan/phpstan/conf/bleedingEdge.neon
 parameters:
     level: 7
     tmpDir: var/cache/phpstan
     inferPrivatePropertyTypeFromConstructor: true
-    checkMissingIterableValueType: false
-    checkGenericClassInNonGenericObjectType: false
     reportUnmatchedIgnoredErrors: false
     treatPhpDocTypesAsCertain: false
-
     paths:
         -   src
         -   test
     excludePaths:
         -   test/TestBootstrap.php
-    ignoreErrors:
-        # We already implement the forward compatibility fix for SW 6.6
-        -
-            message: '#.*deprecated class Shopware\\Core\\Framework\\MessageQueue\\ScheduledTask\\ScheduledTaskHandler.*#'
-            path: src/ScheduledTask/AutoProcessHandler.php
-
     symfony:
-        constant_hassers: false
-        # the placeholder "%ShopwareHashedCacheDir%" will be replaced on execution by bin/phpstan-config-generator.php script
-        container_xml_path: '%ShopwareHashedCacheDir%/%ShopwareKernelClass%DevDebugContainer.xml'
-
-    type_coverage:
-        param_type: 80
-        property_type: 80
+        constantHassers: false

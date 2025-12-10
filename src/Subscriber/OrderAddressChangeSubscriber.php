@@ -9,9 +9,11 @@ declare(strict_types=1);
 namespace PostDirekt\Addressfactory\Subscriber;
 
 use PostDirekt\Addressfactory\NRLEJPostDirektAddressfactory;
+use PostDirekt\Addressfactory\Resources\OrderAddress\AnalysisResultCollection;
 use PostDirekt\Addressfactory\Service\AnalysisStatusUpdater;
 use Psr\Log\LoggerInterface;
 use Shopware\Core\Checkout\Order\Aggregate\OrderAddress\OrderAddressDefinition;
+use Shopware\Core\Checkout\Order\OrderCollection;
 use Shopware\Core\Checkout\Order\OrderDefinition;
 use Shopware\Core\Checkout\Order\OrderEntity;
 use Shopware\Core\Defaults;
@@ -25,6 +27,10 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class OrderAddressChangeSubscriber implements EventSubscriberInterface
 {
+    /**
+     * @param EntityRepository<AnalysisResultCollection> $analysisResultRepo
+     * @param EntityRepository<OrderCollection> $orderRepo
+     */
     public function __construct(
         private readonly EntityRepository $analysisResultRepo,
         private readonly EntityRepository $orderRepo,
@@ -57,6 +63,7 @@ class OrderAddressChangeSubscriber implements EventSubscriberInterface
     public function onOrderAddressChange(EntityWrittenEvent $event, string $orderId): void
     {
         $writes = $event->getWriteResults();
+        /** @phpstan-ignore shopware.noEntityRepositoryInLoop */
         foreach ($writes as $write) {
             $payload = $write->getPayload();
             if (!$payload) {
@@ -132,14 +139,18 @@ class OrderAddressChangeSubscriber implements EventSubscriberInterface
         }
     }
 
+    /**
+     * @return list<string>
+     */
     private function getAnalysisResultIdsByAddressId(string $addressId, Context $context): array
     {
         $result = $this->analysisResultRepo->searchIds(
             (new Criteria())->addFilter(new EqualsFilter('orderAddressId', $addressId)),
             $context
         );
-
-        return $result->getIds();
+        /** @var list<string> $ids */
+        $ids = $result->getIds();
+        return $ids;
     }
 
     private function deleteOldResult(string $statusId, Context $context): void
@@ -152,6 +163,10 @@ class OrderAddressChangeSubscriber implements EventSubscriberInterface
         }
     }
 
+    /**
+     * @param array<string, mixed> $correctedVars
+     * @param array<string, mixed> $payload
+     */
     private function isAddressChanged(array $correctedVars, array $payload): bool
     {
         return (isset($payload['firstName']) &&

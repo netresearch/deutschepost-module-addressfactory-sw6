@@ -1,5 +1,3 @@
-const {State} = Shopware;
-
 Shopware.Component.override('sw-order-detail', {
     methods: {
         async onSaveEdits() {
