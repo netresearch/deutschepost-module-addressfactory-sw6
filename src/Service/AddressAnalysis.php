@@ -8,6 +8,8 @@ declare(strict_types=1);
 
 namespace PostDirekt\Addressfactory\Service;
 
+use PostDirekt\Addressfactory\Resources\OrderAddress\AnalysisResult;
+use PostDirekt\Addressfactory\Resources\OrderAddress\AnalysisResultCollection;
 use PostDirekt\Addressfactory\Resources\OrderAddress\AnalysisResultInterface;
 use PostDirekt\Addressfactory\Service\Analysis\ResponseMapper;
 use PostDirekt\Sdk\AddressfactoryDirect\Exception\AuthenticationException;
@@ -25,6 +27,9 @@ use Shopware\Core\System\Country\CountryEntity;
 
 class AddressAnalysis
 {
+    /**
+     * @param EntityRepository<AnalysisResultCollection> $analysisResultRepo
+     */
     public function __construct(
         private readonly ResponseMapper $responseMapper,
         private readonly EntityRepository $analysisResultRepo,
@@ -86,8 +91,9 @@ class AddressAnalysis
             $newAnalysisResults = $this->responseMapper->mapRecordsResponse($records, $addressIds);
             $dalData = [];
             foreach ($newAnalysisResults as $result) {
-                $dalData[] = json_decode((string) json_encode($result, JSON_THROW_ON_ERROR), true, 512, JSON_THROW_ON_ERROR);
+                $dalData[] = array_filter(json_decode((string) json_encode($result, JSON_THROW_ON_ERROR), true, 512, JSON_THROW_ON_ERROR));
             }
+
             $this->analysisResultRepo->upsert($dalData, $context);
         } catch (AuthenticationException $exception) {
             throw new \RuntimeException('Authentication error: ' . $exception->getMessage());

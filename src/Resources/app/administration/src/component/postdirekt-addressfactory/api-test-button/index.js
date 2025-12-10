@@ -15,9 +15,6 @@ Shopware.Component.register('postdirekt-addressfactory-api-test-button', {
             isLoading: false,
         };
     },
-    created() {
-        console.log('postdirekt-addressfactory-api-test-button')
-    },
     methods: {
         onButtonClick() {
             this.isLoading = true;

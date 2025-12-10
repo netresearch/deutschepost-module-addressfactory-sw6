@@ -12,6 +12,9 @@ use PostDirekt\Sdk\AddressfactoryDirect\Api\Data\RecordInterface;
 
 class AddressTypeCodeFilter
 {
+    /**
+     * @return array<string>
+     */
     public function filterCodes(RecordInterface $record): array
     {
         $patterns = [];

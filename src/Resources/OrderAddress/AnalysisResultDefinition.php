@@ -68,7 +68,7 @@ class AnalysisResultDefinition extends EntityDefinition
             (new StringField('postal_code', 'postalCode'))->addFlags(new Required()),
             (new StringField('street', 'street'))->addFlags(new Required()),
             new StringField('street_number', 'streetNumber'),
-            new OneToOneAssociationField('order_address', 'order_address_id', 'id', OrderAddressDefinition::class, false),
+            new OneToOneAssociationField('orderAddress', 'order_address_id', 'id', OrderAddressDefinition::class, false),
         ]);
     }
 }

@@ -9,7 +9,7 @@ Mixin.register('postdirekt.addressfactory.perform-analysis', {
         };
     },
     methods: {
-        performAnalysis(order) {
+        performAnalysis() {
             this.analysisResult = {
                 city: 'city',
                 street: 'street street2',

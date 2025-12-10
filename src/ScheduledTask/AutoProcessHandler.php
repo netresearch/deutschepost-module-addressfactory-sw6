@@ -42,6 +42,7 @@ class AutoProcessHandler extends ScheduledTaskHandler
     ) {
         parent::__construct(
             $scheduledTaskRepository,
+            $this->logger
         );
     }
 
@@ -50,7 +51,7 @@ class AutoProcessHandler extends ScheduledTaskHandler
      */
     public function run(): void
     {
-        $context = Context::createDefaultContext();
+        $context = Context::createCLIContext();
 
         if (!$this->config->isCronAnalysis()) {
             return;
@@ -64,7 +65,7 @@ class AutoProcessHandler extends ScheduledTaskHandler
                 $this->process($order, $analysisResult, $context);
             } else {
                 $this->logger->error(
-                    sprintf('ADDRESSFACTORY DIRECT: Order %s could not be analysed', (string) $order->getOrderNumber())
+                    sprintf('ADDRESSFACTORY DIRECT: Order %s could not be analysed', (string)$order->getOrderNumber())
                 );
             }
         }
@@ -81,7 +82,7 @@ class AutoProcessHandler extends ScheduledTaskHandler
     {
         $isCanceled = false;
         $this->logger->info(
-            sprintf('ADDRESSFACTORY DIRECT: Processing Order %s ...', (string) $order->getOrderNumber())
+            sprintf('ADDRESSFACTORY DIRECT: Processing Order %s ...', (string)$order->getOrderNumber())
         );
 
         if ($this->config->isAutoCancelNonDeliverableOrders($order->getSalesChannelId())) {
@@ -90,7 +91,7 @@ class AutoProcessHandler extends ScheduledTaskHandler
                 $this->logger->info(
                     sprintf(
                         'ADDRESSFACTORY DIRECT: Undeliverable Order "%s" cancelled',
-                        (string) $order->getOrderNumber()
+                        (string)$order->getOrderNumber()
                     )
                 );
             }
@@ -101,7 +102,7 @@ class AutoProcessHandler extends ScheduledTaskHandler
                 $this->logger->info(
                     sprintf(
                         'ADDRESSFACTORY DIRECT: Order "%s" address updated',
-                        (string) $order->getOrderNumber()
+                        (string)$order->getOrderNumber()
                     )
                 );
             }

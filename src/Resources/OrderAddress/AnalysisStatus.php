@@ -16,8 +16,9 @@ class AnalysisStatus extends Entity implements AnalysisStatusInterface
 {
     use EntityIdTrait;
 
+    protected ?OrderEntity $order;
     protected string $orderId;
-
+    protected string $orderVersionId;
     protected string $status;
 
     public function getOrderId(): string
@@ -42,10 +43,22 @@ class AnalysisStatus extends Entity implements AnalysisStatusInterface
 
     public function getOrder(): ?OrderEntity
     {
-        try {
-            return $this->get('order');
-        } catch (\InvalidArgumentException) {
-            return null;
-        }
+        return $this->order;
     }
+
+    public function setOrder(?OrderEntity $order): void
+    {
+        $this->order = $order;
+    }
+
+    public function getOrderVersionId(): string
+    {
+        return $this->orderVersionId;
+    }
+
+    public function setOrderVersionId(string $orderVersionId): void
+    {
+        $this->orderVersionId = $orderVersionId;
+    }
+
 }

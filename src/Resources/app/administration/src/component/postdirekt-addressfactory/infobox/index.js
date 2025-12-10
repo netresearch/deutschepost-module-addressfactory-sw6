@@ -3,9 +3,6 @@ import './infobox.scss';
 
 Shopware.Component.register('postdirekt-addressfactory-infobox', {
     template: template,
-    created() {
-        console.log('postdirekt-addressfactory-infobox')
-    },
     props: {
         logo: {
             type: String,
