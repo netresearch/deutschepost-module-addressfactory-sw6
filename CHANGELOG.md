@@ -1,3 +1,9 @@
+# 2.6.0
+
+Shopware 6.7.3 compatibility release
+
+- Added: Support for Shopware 6.7.3
+
 # 2.5.0
 
 Shopware 6.7 compatibility release
