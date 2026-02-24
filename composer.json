@@ -26,8 +26,8 @@
     },
     "require": {
         "ext-json": "*",
-        "shopware/core": "~6.7.3",
-        "shopware/administration": "~6.7.3",
+        "shopware/core": "~6.7.7",
+        "shopware/administration": "~6.7.7",
         "deutschepost/sdk-api-addressfactory": "^2.1",
         "php-http/curl-client": "^2.2.0",
         "nyholm/psr7": "^1.2.1"
