@@ -79,7 +79,7 @@ describe('postdirekt.addressfactory.analysis-details', () => {
 
     it('can perform an analysis', () => {
         let wrapper = shallowMount(subject, mountOptions);
-        wrapper.find('button.sw-button--primary').trigger('click');
+        wrapper.find('button.mt-button--primary').trigger('click');
         wrapper.vm.$nextTick(() => {
             expect(wrapper.find('.deliverability-score').text()).toContain('deliverabilityCodes.');
             expect(wrapper.find('.detected-issues').exists()).toBe(true);
