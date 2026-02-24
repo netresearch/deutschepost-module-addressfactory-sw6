@@ -25,22 +25,22 @@
         <dl class="sw-description-list" v-if="isCancellable">
             <dt>{{ $t('postdirekt-addressfactory.infoBox.otherActions') }}</dt>
             <dd v-if="analysisResult">
-                <button @click="cancelOrder()" class="sw-button">
+                <mt-button @click="cancelOrder()">
                     {{ $t('postdirekt-addressfactory.infoBox.cancelButtonLabel') }}
-                </button>
+                </mt-button>
             </dd>
         </dl>
     </div>
     <div class="sw-block-field" v-else>
         <dd>
-            <button
+            <mt-button
+                variant="primary"
                 @click="performAnalysis(order)"
                 v-show="isEditingContext"
                 :disabled="orderChanged"
-                class="sw-button sw-button--primary"
             >
                 {{ $t('postdirekt-addressfactory.infoBox.performButtonLabel') }}
-            </button>
+            </mt-button>
         </dd>
     </div>
     <div class="sw-block-field" v-show="orderChanged">

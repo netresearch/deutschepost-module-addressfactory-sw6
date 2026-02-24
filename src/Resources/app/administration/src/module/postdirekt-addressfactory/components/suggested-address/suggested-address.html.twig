@@ -24,13 +24,13 @@
             </span>
         </dd>
     </dl>
-    <button
+    <mt-button
+        variant="primary"
+        :disabled="orderChanged"
         @click="updateAddress(deliveryAddress)"
         @update-analysis-status="addressUpdated = true"
-        :disabled="orderChanged"
-        class="sw-button sw-button--primary"
     >
         {{ $t('postdirekt-addressfactory.suggestBox.buttonAutocorrectLabel') }}
-    </button>
+    </mt-button>
     <mt-loader v-if="isLoading"/>
 </div>
