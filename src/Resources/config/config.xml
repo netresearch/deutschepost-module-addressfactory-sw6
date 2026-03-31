@@ -49,6 +49,8 @@
             <name>automaticAnalysis</name>
             <label>New Orders</label>
             <label lang="de-DE">Neue Bestellungen</label>
+            <helpText>Please configure how to trigger the analysis of addresses for each order.</helpText>
+            <helpText lang="de-DE">Stellen Sie hier den Auslöser für die Adressanalyse für die Bestellungen ein.</helpText>
             <defaultValue>none</defaultValue>
             <options>
                 <option>
@@ -72,11 +74,15 @@
             <name>autoCancelOrder</name>
             <label>Auto-Cancel Undeliverable Orders</label>
             <label lang="de-DE">Unzustellbare Bestellungen automatisch stornieren</label>
+            <helpText>Should an order -after the analysis- be automatically cancelled , if undeliverable?</helpText>
+            <helpText lang="de-DE">Soll eine Bestellung -nach der Analyse- automatisch storniert werden, wenn sie Unzustellbar ist?</helpText>
         </input-field>
         <input-field type="bool">
             <name>autoUpdateOrder</name>
             <label>Automatically Update Shipping Address</label>
             <label lang="de-DE">Versandadresse automatisch aktualisieren</label>
+            <helpText>Should an address -after the analysis- automatically amended, if possible?</helpText>
+            <helpText lang="de-DE">Soll eine Adresse -nach der Analyse- automatisch korrigiert werden, wenn möglich?</helpText>
         </input-field>
     </card>
 </config>
