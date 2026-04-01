@@ -14,17 +14,23 @@ use PostDirekt\Addressfactory\Service\OrderAnalysis;
 use PostDirekt\Addressfactory\Service\OrderUpdater;
 use Psr\Log\LoggerInterface;
 use Shopware\Core\Checkout\Cart\Event\CheckoutOrderPlacedEvent;
+use Shopware\Storefront\Controller\StorefrontController;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class NewOrderSubscriber implements EventSubscriberInterface
 {
     public function __construct(
-        private readonly ModuleConfig $config,
+        private readonly ModuleConfig          $config,
         private readonly AnalysisStatusUpdater $analysisStatus,
-        private readonly OrderAnalysis $analyseService,
-        private readonly OrderUpdater $orderUpdater,
-        private readonly LoggerInterface $logger
-    ) {
+        private readonly OrderAnalysis         $analyseService,
+        private readonly OrderUpdater          $orderUpdater,
+        private readonly LoggerInterface       $logger,
+        private readonly TranslatorInterface   $translator,
+        private readonly RequestStack          $requestStack
+    )
+    {
     }
 
     public static function getSubscribedEvents(): array
@@ -85,8 +91,30 @@ class NewOrderSubscriber implements EventSubscriberInterface
                 $this->orderUpdater->cancelIfUndeliverable($order, $analysisResult, $event->getContext());
             }
             if ($this->config->isAutoUpdateShippingAddress($channelId)) {
-                $this->analyseService->updateShippingAddress($orderId, $analysisResult, $event->getContext());
+                $wasUpdated = $this->analyseService->updateShippingAddress($orderId, $analysisResult, $event->getContext());
+                if ($wasUpdated) {
+                    $this->addAddressUpdatedMessage();
+                }
             }
         }
+    }
+
+    private function addAddressUpdatedMessage(): void
+    {
+        $request = $this->requestStack->getMainRequest();
+
+        if ($request === null || !$request->hasSession()) {
+            return;
+        }
+
+        $session = $request->getSession();
+        if (!method_exists($session, 'getFlashBag')) {
+            return;
+        }
+
+        $session->getFlashBag()->add(
+            StorefrontController::SUCCESS,
+            $this->translator->trans('postdirekt.addressfactory.address_updated')
+        );
     }
 }

@@ -26,6 +26,8 @@
             <argument type="service" id="post_direkt.addressfactory.order_analysis"/>
             <argument type="service" id="post_direkt.addressfactory.order_updater"/>
             <argument type="service" id="monolog.logger.postdirekt_addressfactory"/>
+            <argument type="service" id="translator"/>
+            <argument type="service" id="request_stack"/>
             <tag name="kernel.event_subscriber"/>
         </service>
         <service id="PostDirekt\Addressfactory\Resources\OrderAddress\AnalysisResultDefinition">
