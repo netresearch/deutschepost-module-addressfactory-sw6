@@ -100,7 +100,7 @@ Shopware.Component.override('sw-order-list', {
                     const updatedOrder = response.get(order.id);
 
                     if (updatedOrder) {
-                        this.$set(this.orders, index, updatedOrder);
+                        this.orders[index] = updatedOrder;
                     }
                 });
             } finally {
